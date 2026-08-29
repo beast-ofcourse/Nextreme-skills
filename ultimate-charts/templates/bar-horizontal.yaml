@@ -1,0 +1,13 @@
+# Horizontal Bar Chart Template — Vega-Lite
+title: Feature Usage Ranking
+mark: bar
+data:
+  values:
+    - { feature: Search, users: 84 }
+    - { feature: Export, users: 58 }
+    - { feature: Filters, users: 45 }
+    - { feature: Dashboard, users: 72 }
+    - { feature: Reports, users: 38 }
+encoding:
+  y: { field: feature, type: nominal, title: null, sort: "-x" }
+  x: { field: users, type: quantitative, title: "Users (%)" }

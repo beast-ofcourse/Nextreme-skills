@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charts — Demos</title>
+<style>
+@page { size: A4 portrait; margin: 0.4in; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, "Segoe UI", "Helvetica Neue", Arial, sans-serif; background: #f8f9fc; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; }
+.container { max-width: 900px; width: 100%; }
+h1 { font-size: 28px; font-weight: 800; color: #111; margin-bottom: 6px; letter-spacing: -0.5px; }
+.subtitle { font-size: 15px; color: #666; margin-bottom: 32px; }
+.card { background: #fff; border-radius: 10px; padding: 24px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04); border: 1px solid #eef0f5; display: flex; align-items: center; gap: 20px; transition: transform 0.15s; }
+.card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.card .badge { background: #f3df58; color: #111; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.card .info { flex: 1; }
+.card .info h2 { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+.card .info p { font-size: 13px; color: #666; margin: 0; }
+.card a { text-decoration: none; color: inherit; display: flex; align-items: center; gap: 20px; width: 100%; }
+.arrow { color: #5a78ff; font-size: 20px; font-weight: 700; }
+.footer { margin-top: 32px; font-size: 12px; color: #999; text-align: center; }
+.back-link { display: inline-block; margin-bottom: 24px; font-size: 13px; color: #5a78ff; text-decoration: none; font-weight: 600; }
+.back-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="container">
+<a href="../index.html" class="back-link">← Back to Demos</a>
+<h1>Charts — Demos</h1>
+<p class="subtitle">Bar charts, line charts, pie charts, and multi-panel dashboards powered by Vega-Lite, ECharts, and QuickChart.io</p>
+
+<div class="card">
+<a href="demo-bar-chart.html">
+<span class="badge">Bar Chart</span>
+<div class="info">
+<h2>Quarterly Revenue by Product Line</h2>
+<p>Grouped bar chart showing 4 quarters × 3 product lines using Vega-Lite</p>
+</div>
+<span class="arrow">→</span>
+</a>
+</div>
+
+<div class="card">
+<a href="demo-line-chart.html">
+<span class="badge">Line Chart</span>
+<div class="info">
+<h2>Monthly Active Users Trend</h2>
+<p>12-month MAU with Desktop and Mobile series using Apache ECharts</p>
+</div>
+<span class="arrow">→</span>
+</a>
+</div>
+
+<div class="card">
+<a href="demo-pie-chart.html">
+<span class="badge">Pie Chart</span>
+<div class="info">
+<h2>Cloud Infrastructure Cost</h2>
+<p>Cost breakdown doughnut chart via QuickChart.io API</p>
+</div>
+<span class="arrow">→</span>
+</a>
+</div>
+
+<div class="card">
+<a href="demo-multi-chart.html">
+<span class="badge">Dashboard</span>
+<div class="info">
+<h2>SaaS Dashboard Overview</h2>
+<p>2×2 multi-chart dashboard with revenue, users, plans, and tickets using Vega-Lite</p>
+</div>
+<span class="arrow">→</span>
+</a>
+</div>
+
+<hr>
+<p class="footer">Charts skill — Vega-Lite · Apache ECharts · QuickChart.io · responsive layout</p>
+</div>
+</body>
+</html>

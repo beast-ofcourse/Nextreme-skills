@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo — SaaS Dashboard Key Metrics</title>
+<style>
+@page { size: A4 portrait; margin: 0.4in; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, "Segoe UI", "Helvetica Neue", Arial, sans-serif; background: #f8f9fc; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+.page { max-width: 1000px; width: 100%; background: #fff; border-radius: 12px; padding: 40px; box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04); border: 1px solid #eef0f5; }
+.title { font-size: 28px; font-weight: 800; color: #111; letter-spacing: -0.5px; margin-bottom: 4px; }
+.subtitle { font-size: 14px; color: #555; margin-bottom: 6px; }
+.desc { font-size: 13px; color: #777; margin-bottom: 24px; line-height: 1.5; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.card { background: #fafbfd; border: 1px solid #eef0f5; border-radius: 8px; padding: 16px; }
+.card-title { font-size: 13px; font-weight: 700; color: #333; margin-bottom: 8px; letter-spacing: 0.2px; }
+.card .chart-container { width: 100%; min-height: 220px; }
+.card .chart-container > * { width: 100% !important; }
+.source-note { margin-top: 24px; padding-top: 16px; border-top: 1px solid #eef0f5; font-size: 12px; color: #999; line-height: 1.5; }
+@media (max-width: 700px) { .grid { grid-template-columns: 1fr; } .page { padding: 20px; } }
+@media print { body { background: #fff; padding: 0; } .page { box-shadow: none; border: none; padding: 20px; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="title">SaaS Dashboard — Key Metrics Overview</div>
+  <div class="subtitle">Monthly performance across revenue, users, plans, and support</div>
+  <div class="desc">Executive dashboard combining four chart types into a single-page overview. All charts share a consistent color palette and are rendered with Vega-Lite for declarative, reproducible visualization.</div>
+
+  <div class="grid">
+    <!-- Top-left: Bar chart — Monthly Revenue -->
+    <div class="card">
+      <div class="card-title">📊 Monthly Revenue</div>
+      <div class="chart-container" id="chart-revenue"></div>
+    </div>
+
+    <!-- Top-right: Line chart — Active Users -->
+    <div class="card">
+      <div class="card-title">📈 Active Users</div>
+      <div class="chart-container" id="chart-users"></div>
+    </div>
+
+    <!-- Bottom-left: Pie chart — Plan Distribution -->
+    <div class="card">
+      <div class="card-title">🧩 Plan Distribution</div>
+      <div class="chart-container" id="chart-plans"></div>
+    </div>
+
+    <!-- Bottom-right: Area chart — Support Tickets -->
+    <div class="card">
+      <div class="card-title">🎫 Support Tickets</div>
+      <div class="chart-container" id="chart-tickets"></div>
+    </div>
+  </div>
+
+  <div class="source-note">
+    <strong>Data source:</strong> SaaS internal analytics (FY2025). Revenue in thousands USD; user counts anonymized.<br>
+    <strong>Chart library:</strong> Vega-Lite v5 + Vega-Embed — four independent charts composed into a responsive dashboard grid.
+  </div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "vega": "https://cdn.jsdelivr.net/npm/vega@5/+esm",
+    "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@5/+esm",
+    "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@6/+esm"
+  }
+}
+</script>
+<script type="module">
+import vegaEmbed from "vega-embed";
+
+var sharedFont = "system-ui, sans-serif";
+
+var colors = ["#4d93e5", "#0D7680", "#29BA74", "#F59E0B"];
+
+var months = [
+  "Jan","Feb","Mar","Apr","May","Jun",
+  "Jul","Aug","Sep","Oct","Nov","Dec"
+];
+
+var config = {
+  view: { stroke: null },
+  axis: { domain: false, tickSize: 0, labelColor: "#888", labelFontSize: 10, titleColor: "#666", titleFontSize: 11, titleFontWeight: 600, gridColor: "#eef0f5" },
+  font: sharedFont
+};
+
+// --- Chart 1: Monthly Revenue (Bar) ---
+vegaEmbed("#chart-revenue", {
+  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+  width: "container",
+  height: 200,
+  background: "transparent",
+  padding: { left: 0, right: 5, top: 5, bottom: 0 },
+  data: { values: months.map(function (m, i) { return { month: m, revenue: 40 + Math.round(25 * i + 8 * Math.sin(i * 0.6)), }; }) },
+  mark: { type: "bar", color: "#4d93e5", cornerRadiusTopLeft: 2, cornerRadiusTopRight: 2 },
+  encoding: {
+    x: { field: "month", type: "ordinal", title: null, axis: { labelAngle: -35, labelFontSize: 9 } },
+    y: { field: "revenue", type: "quantitative", title: "$K", axis: { format: "d" } }
+  },
+  config: config
+}, { renderer: "svg", actions: false });
+
+// --- Chart 2: Active Users (Line, 2 series) ---
+var userData = [];
+var desktopData = [82, 86, 91, 95, 98, 102, 105, 110, 115, 118, 122, 126];
+var mobileData =  [145, 156, 168, 175, 184, 192, 205, 218, 225, 236, 248, 260];
+months.forEach(function (m, i) {
+  userData.push({ month: m, platform: "Desktop", users: desktopData[i] });
+  userData.push({ month: m, platform: "Mobile", users: mobileData[i] });
+});
+
+vegaEmbed("#chart-users", {
+  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+  width: "container",
+  height: 200,
+  background: "transparent",
+  padding: { left: 0, right: 5, top: 5, bottom: 0 },
+  data: { values: userData },
+  mark: {
+    type: "line",
+    point: { size: 30, filled: true },
+    strokeWidth: 2,
+    interpolate: "monotone"
+  },
+  encoding: {
+    x: { field: "month", type: "ordinal", title: null, axis: { labelAngle: -35, labelFontSize: 9 } },
+    y: { field: "users", type: "quantitative", title: "Users", axis: { format: "d" } },
+    color: {
+      field: "platform", type: "nominal",
+      title: null,
+      legend: { orient: "top", labelFontSize: 10, symbolSize: 8, symbolType: "circle", offset: 2 },
+      scale: { domain: ["Desktop", "Mobile"], range: ["#4d93e5", "#0D7680"] }
+    }
+  },
+  config: config
+}, { renderer: "svg", actions: false });
+
+// --- Chart 3: Plan Distribution (Pie) ---
+vegaEmbed("#chart-plans", {
+  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+  width: "container",
+  height: 200,
+  background: "transparent",
+  padding: { left: 0, right: 0, top: 5, bottom: 0 },
+  data: { values: [
+    { plan: "Free", share: 55 },
+    { plan: "Pro", share: 30 },
+    { plan: "Enterprise", share: 15 }
+  ]},
+  mark: { type: "arc", innerRadius: 50, cornerRadius: 3 },
+  encoding: {
+    theta: { field: "share", type: "quantitative", stack: true },
+    color: {
+      field: "plan", type: "nominal",
+      title: null,
+      legend: { orient: "top", labelFontSize: 10, symbolSize: 8, symbolType: "circle", offset: 2 },
+      scale: { domain: ["Free", "Pro", "Enterprise"], range: ["#4d93e5", "#0D7680", "#F59E0B"] }
+    },
+    tooltip: [
+      { field: "plan", type: "nominal", title: "Plan" },
+      { field: "share", type: "quantitative", title: "Share (%)" }
+    ]
+  },
+  layer: [
+    { mark: { type: "arc", innerRadius: 50, cornerRadius: 3 } },
+    {
+      mark: { type: "text", fontSize: 10, fontWeight: 600, color: "#fff", radiusOffset: -6 },
+      encoding: {
+        text: { field: "share", type: "quantitative", format: ".0f" }
+      }
+    }
+  ],
+  config: config
+}, { renderer: "svg", actions: false });
+
+// --- Chart 4: Support Tickets (Stacked Area) ---
+var ticketReasons = ["Bugs", "Features", "Questions"];
+var ticketData = [];
+var bugVals =    [42, 38, 45, 50, 48, 55, 52, 60, 58, 54, 50, 48];
+var featureVals = [28, 30, 32, 28, 35, 38, 42, 40, 45, 48, 50, 52];
+var questionVals =[65, 70, 72, 68, 75, 80, 85, 82, 88, 92, 95, 100];
+months.forEach(function (m, i) {
+  ticketData.push({ month: m, category: "Bugs", count: bugVals[i] });
+  ticketData.push({ month: m, category: "Features", count: featureVals[i] });
+  ticketData.push({ month: m, category: "Questions", count: questionVals[i] });
+});
+
+vegaEmbed("#chart-tickets", {
+  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+  width: "container",
+  height: 200,
+  background: "transparent",
+  padding: { left: 0, right: 5, top: 5, bottom: 0 },
+  data: { values: ticketData },
+  mark: {
+    type: "area",
+    interpolate: "monotone",
+    point: false,
+    opacity: 0.85,
+    line: { strokeWidth: 1.5 }
+  },
+  encoding: {
+    x: { field: "month", type: "ordinal", title: null, axis: { labelAngle: -35, labelFontSize: 9 } },
+    y: { field: "count", type: "quantitative", title: "Tickets", axis: { format: "d" }, stack: "zero" },
+    color: {
+      field: "category", type: "nominal",
+      title: null,
+      legend: { orient: "top", labelFontSize: 10, symbolSize: 8, symbolType: "circle", offset: 2 },
+      scale: { domain: ticketReasons, range: ["#4d93e5", "#29BA74", "#F59E0B"] }
+    }
+  },
+  config: config
+}, { renderer: "svg", actions: false });
+</script>
+</body>
+</html>

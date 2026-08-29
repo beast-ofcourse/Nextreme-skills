@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo — Quarterly Revenue by Product Line</title>
+<style>
+@page { size: A4 portrait; margin: 0.4in; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, "Segoe UI", "Helvetica Neue", Arial, sans-serif; background: #f8f9fc; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+.page { max-width: 920px; width: 100%; background: #fff; border-radius: 12px; padding: 40px; box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04); border: 1px solid #eef0f5; }
+.title { font-size: 28px; font-weight: 800; color: #111; letter-spacing: -0.5px; margin-bottom: 4px; }
+.subtitle { font-size: 14px; color: #555; margin-bottom: 6px; }
+.desc { font-size: 13px; color: #777; margin-bottom: 24px; line-height: 1.5; }
+.chart-container { width: 100%; min-height: 420px; }
+.chart-container canvas, .chart-container svg { width: 100% !important; height: auto !important; }
+.source-note { margin-top: 20px; padding-top: 16px; border-top: 1px solid #eef0f5; font-size: 12px; color: #999; line-height: 1.5; }
+@media print { body { background: #fff; padding: 0; } .page { box-shadow: none; border: none; padding: 20px; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="title">Quarterly Revenue by Product Line</div>
+  <div class="subtitle">Fiscal Year 2025 — Grouped bar chart</div>
+  <div class="desc">Revenue distribution across SaaS, Services, and Licenses product lines for each quarter of FY2025. SaaS shows steady growth, while Services and Licenses follow seasonal demand cycles.</div>
+
+  <div class="chart-container" id="chart"></div>
+
+  <div class="source-note">
+    <strong>Data source:</strong> Internal financial reporting (FY2025). All figures in thousands of dollars (USD).<br>
+    <strong>Chart library:</strong> Vega-Lite v5 + Vega-Embed — declarative grammar for interactive graphics.
+  </div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "vega": "https://cdn.jsdelivr.net/npm/vega@5/+esm",
+    "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@5/+esm",
+    "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@6/+esm"
+  }
+}
+</script>
+<script type="module">
+import vegaEmbed from "vega-embed";
+
+const spec = {
+  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+  width: "container",
+  height: 400,
+  background: "transparent",
+  padding: { left: 5, right: 20, top: 10, bottom: 5 },
+
+  data: {
+    values: [
+      { quarter: "Q1", product: "SaaS", revenue: 420 },
+      { quarter: "Q1", product: "Services", revenue: 180 },
+      { quarter: "Q1", product: "Licenses", revenue: 95 },
+      { quarter: "Q2", product: "SaaS", revenue: 480 },
+      { quarter: "Q2", product: "Services", revenue: 210 },
+      { quarter: "Q2", product: "Licenses", revenue: 88 },
+      { quarter: "Q3", product: "SaaS", revenue: 530 },
+      { quarter: "Q3", product: "Services", revenue: 195 },
+      { quarter: "Q3", product: "Licenses", revenue: 110 },
+      { quarter: "Q4", product: "SaaS", revenue: 610 },
+      { quarter: "Q4", product: "Services", revenue: 250 },
+      { quarter: "Q4", product: "Licenses", revenue: 130 }
+    ]
+  },
+
+  mark: {
+    type: "bar",
+    cornerRadiusTopLeft: 3,
+    cornerRadiusTopRight: 3,
+    stroke: null,
+    strokeWidth: 0
+  },
+
+  encoding: {
+    x: {
+      field: "quarter",
+      type: "ordinal",
+      title: null,
+      axis: { labelFontSize: 12, labelFontWeight: 600, tickSize: 0, labelColor: "#555" }
+    },
+    y: {
+      field: "revenue",
+      type: "quantitative",
+      title: "Revenue ($K)",
+      axis: {
+        labelFontSize: 11,
+        titleFontSize: 12,
+        titleFontWeight: 600,
+        titleColor: "#555",
+        labelColor: "#888",
+        gridColor: "#eef0f5",
+        tickSize: 0
+      }
+    },
+    xOffset: { field: "product" },
+    color: {
+      field: "product",
+      type: "nominal",
+      title: "Product Line",
+      legend: {
+        orient: "top",
+        labelFontSize: 12,
+        symbolSize: 12,
+        symbolType: "circle",
+        offset: 6
+      },
+      scale: {
+        domain: ["SaaS", "Services", "Licenses"],
+        range: ["#4d93e5", "#0D7680", "#29BA74"]
+      }
+    }
+  },
+
+  layer: [
+    {
+      mark: {
+        type: "bar",
+        cornerRadiusTopLeft: 3,
+        cornerRadiusTopRight: 3
+      }
+    },
+    {
+      mark: {
+        type: "text",
+        dy: -6,
+        fontSize: 11,
+        fontWeight: 600,
+        color: "#444"
+      },
+      encoding: {
+        text: {
+          field: "revenue",
+          type: "quantitative",
+          format: ".0f"
+        }
+      }
+    }
+  ],
+
+  config: {
+    axis: { domain: false },
+    view: { stroke: null },
+    font: "system-ui, sans-serif"
+  }
+};
+
+vegaEmbed("#chart", spec, {
+  renderer: "svg",
+  actions: false,
+  tooltip: true
+}).catch(console.error);
+</script>
+</body>
+</html>

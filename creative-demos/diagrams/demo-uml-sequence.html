@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OAuth 2.0 Authorization Code Flow — UML Sequence</title>
+<style>
+@page { size: A4 landscape; margin: 0.4in; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: system-ui, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  background: #eff1f5;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+.page { width: 1300px; background: #eff1f5; padding: 20px 0; }
+.title { text-align: center; font-size: 28px; font-weight: 800; color: #4c4f69; margin-bottom: 4px; }
+.subtitle { text-align: center; font-size: 14px; color: #6c6f85; margin-bottom: 16px; }
+svg.diagram { width: 100%; height: auto; display: block; }
+
+@media print { body { padding: 0; } .page { width: 100%; padding: 0; } }
+
+@media (prefers-color-scheme: dark) {
+  body { background: #1e1e2e; }
+  .page { background: #1e1e2e; }
+  .title { color: #cdd6f4; }
+  .subtitle { color: #a6adc8; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="title">OAuth 2.0 Authorization Code Flow — UML Sequence</div>
+<div class="subtitle">RFC 6749 — Step-by-step authentication sequence with token exchange</div>
+<svg class="diagram" viewBox="0 0 1600 1300" xmlns="http://www.w3.org/2000/svg">
+<style>
+  .diagram-bg { fill: var(--page-bg, #eff1f5); }
+  .node-bg { fill: var(--node-bg, #e6e9ef); }
+  .participant-box { fill: var(--node-bg, #e6e9ef); stroke: var(--accent, #1e66f5); }
+  .participant-text { fill: var(--text, #4c4f69); font-family: system-ui,sans-serif; font-size: 13px; font-weight: 600; }
+  .lifeline { stroke: var(--border, #ccd0da); stroke-dasharray: 6,4; fill: none; }
+  .activation-bar { fill: var(--accent, #1e66f5); opacity: 0.2; }
+  .activation-border { stroke: var(--accent, #1e66f5); stroke-width: 1; fill: none; }
+  .arrow-solid { stroke: var(--accent, #1e66f5); fill: none; }
+  .arrow-dashed { stroke: var(--accent, #1e66f5); fill: none; stroke-dasharray: 7,5; }
+  .arrow-return { stroke: var(--accent, #1e66f5); fill: none; stroke-dasharray: 4,4; }
+  .text-main { fill: var(--text, #4c4f69); }
+  .text-secondary { fill: var(--text-sec, #6c6f85); }
+  .text-accent { fill: var(--accent, #1e66f5); }
+  .step-circle { fill: var(--accent, #1e66f5); }
+  .step-text { fill: #eff1f5; font-family: system-ui,sans-serif; font-size: 10px; font-weight: 700; }
+  .legend-bg { fill: var(--node-bg, #e6e9ef); stroke: var(--border, #ccd0da); }
+  .legend-text { fill: var(--text, #4c4f69); }
+  .msg-label { fill: var(--text, #4c4f69); font-family: system-ui,sans-serif; font-size: 11px; font-weight: 500; }
+  .msg-detail { fill: var(--text-sec, #6c6f85); font-family: system-ui,sans-serif; font-size: 9.5px; }
+  .lane-rule { stroke: var(--surface0, #ccd0da); fill: none; }
+  .section-title { font-family: system-ui,sans-serif; font-size: 12px; font-weight: 700; fill: var(--text, #4c4f69); }
+  .legend-label { font-family: system-ui,sans-serif; font-size: 11px; fill: var(--text, #4c4f69); }
+  #arrow path, #arrow-dashed path, #arrow-return path { stroke: var(--accent, #1e66f5); fill: none; }
+  @media (prefers-color-scheme: dark) {
+    .diagram-bg { fill: #1e1e2e; }
+    .node-bg { fill: #313244; }
+    .participant-box { fill: #313244; stroke: #89b4fa; }
+    .participant-text { fill: #cdd6f4; }
+    .lifeline { stroke: #45475a; }
+    .activation-bar { fill: #89b4fa; opacity: 0.15; }
+    .activation-border { stroke: #89b4fa; }
+    .arrow-solid { stroke: #89b4fa; }
+    .arrow-dashed { stroke: #89b4fa; }
+    .arrow-return { stroke: #89b4fa; }
+    .text-main { fill: #cdd6f4; }
+    .text-secondary { fill: #a6adc8; }
+    .text-accent { fill: #89b4fa; }
+    .step-circle { fill: #89b4fa; }
+    .step-text { fill: #1e1e2e; }
+    .legend-bg { fill: #313244; stroke: #45475a; }
+    .legend-text { fill: #cdd6f4; }
+    .msg-label { fill: #cdd6f4; }
+    .msg-detail { fill: #a6adc8; }
+    .lane-rule { stroke: #45475a; }
+    .section-title { fill: #cdd6f4; }
+    .legend-label { fill: #cdd6f4; }
+  }
+</style>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto">
+    <path d="M 0 0 L 10 5 L 0 10" fill="none" stroke="#1e66f5" stroke-width="1.5"/>
+  </marker>
+  <marker id="arrow-dashed" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto">
+    <path d="M 0 0 L 10 5 L 0 10" fill="none" stroke="#1e66f5" stroke-width="1.5"/>
+  </marker>
+  <marker id="arrow-return" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto">
+    <path d="M 0 0 L 10 5 L 0 10" fill="none" stroke="#1e66f5" stroke-width="1.2"/>
+  </marker>
+  <filter id="shadow" x="-8%" y="-8%" width="116%" height="116%">
+    <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000016"/>
+  </filter>
+</defs>
+
+<!-- Background -->
+<rect width="1600" height="1300" class="diagram-bg"/>
+
+<!-- Decorative top line -->
+<line x1="80" y1="55" x2="1520" y2="55" stroke="#1e66f5" stroke-width="2" opacity="0.2"/>
+
+<!-- ===== PARTICIPANTS (top boxes) ===== -->
+<!-- P1: User -->
+<rect x="90" y="75" width="160" height="44" rx="8" class="participant-box" stroke-width="2" filter="url(#shadow)"/>
+<text x="170" y="102" text-anchor="middle" class="participant-text">User</text>
+
+<!-- P2: Browser -->
+<rect x="340" y="75" width="160" height="44" rx="8" class="participant-box" stroke-width="2" filter="url(#shadow)"/>
+<text x="420" y="102" text-anchor="middle" class="participant-text">Browser</text>
+
+<!-- P3: Frontend App -->
+<rect x="590" y="75" width="160" height="44" rx="8" class="participant-box" stroke-width="2" filter="url(#shadow)"/>
+<text x="670" y="102" text-anchor="middle" class="participant-text">Frontend App</text>
+
+<!-- P4: Auth Server -->
+<rect x="840" y="75" width="160" height="44" rx="8" class="participant-box" stroke-width="2" filter="url(#shadow)"/>
+<text x="920" y="102" text-anchor="middle" class="participant-text">Auth Server</text>
+
+<!-- P5: Resource Server -->
+<rect x="1090" y="75" width="160" height="44" rx="8" class="participant-box" stroke-width="2" filter="url(#shadow)"/>
+<text x="1170" y="102" text-anchor="middle" class="participant-text">Resource Server</text>
+
+<!-- ===== LIFELINES (dashed vertical) ===== -->
+<line x1="170" y1="125" x2="170" y2="1180" class="lifeline" stroke-width="1.5"/>
+<line x1="420" y1="125" x2="420" y2="1180" class="lifeline" stroke-width="1.5"/>
+<line x1="670" y1="125" x2="670" y2="1180" class="lifeline" stroke-width="1.5"/>
+<line x1="920" y1="125" x2="920" y2="1180" class="lifeline" stroke-width="1.5"/>
+<line x1="1170" y1="125" x2="1170" y2="1180" class="lifeline" stroke-width="1.5"/>
+
+<!-- ===== ACTIVATION BARS ===== -->
+<!-- Browser activation spans */
+<rect x="410" y="150" width="20" height="780" rx="3" class="activation-bar" stroke="#1e66f5" stroke-width="0.8"/>
+<!-- Frontend activation spans */
+<rect x="660" y="230" width="20" height="900" rx="3" class="activation-bar" stroke="#1e66f5" stroke-width="0.8"/>
+<!-- Auth Server activation */
+<rect x="910" y="310" width="20" height="780" rx="3" class="activation-bar" stroke="#1e66f5" stroke-width="0.8"/>
+<!-- Resource Server activation */
+<rect x="1160" y="1070" width="20" height="80" rx="3" class="activation-bar" stroke="#1e66f5" stroke-width="0.8"/>
+
+<!-- ===== HORIZONTAL GUIDELINES (subtle) ===== -->
+<line x1="80" y1="155" x2="1520" y2="155" class="lane-rule" stroke-width="0.5" opacity="0.4"/>
+<line x1="80" y1="245" x2="1520" y2="245" class="lane-rule" stroke-width="0.5" opacity="0.4"/>
+<line x1="80" y1="335" x2="1520" y2="335" class="lane-rule" stroke-width="0.5" opacity="0.4"/>
+<line x1="80" y1="425" x2="1520" y2="425" class="lane-rule" stroke-width="0.5" opacity="0.4"/>
+<line x1="80" y1="515" x2="1520" y2="515" class="lane-rule" stroke-width="0.5" opacity="0.4"/>
+<line x1="80" y1="605" x2="1520" y2="605" class="lane-rule" stroke-width="0.5" opacity="0.4"/>
+<line x1="80" y1="695" x2="1520" y2="695" class="lane-rule" stroke-width="0.5" opacity="0.4"/>
+<line x1="80" y1="785" x2="1520" y2="785" class="lane-rule" stroke-width="0.5" opacity="0.4"/>
+<line x1="80" y1="875" x2="1520" y2="875" class="lane-rule" stroke-width="0.5" opacity="0.4"/>
+<line x1="80" y1="965" x2="1520" y2="965" class="lane-rule" stroke-width="0.5" opacity="0.4"/>
+<line x1="80" y1="1055" x2="1520" y2="1055" class="lane-rule" stroke-width="0.5" opacity="0.4"/>
+<line x1="80" y1="1145" x2="1520" y2="1145" class="lane-rule" stroke-width="0.5" opacity="0.4"/>
+
+<!-- ===== STEP 1: User → Browser ===== -->
+<circle cx="95" cy="180" r="9" class="step-circle"/>
+<text x="95" y="184" text-anchor="middle" class="step-text">1</text>
+<line x1="170" y1="180" x2="400" y2="180" class="arrow-solid" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="275" y="173" text-anchor="middle" class="msg-label">Clicks "Login with Google"</text>
+
+<!-- ===== STEP 2: Browser → Frontend ===== -->
+<circle cx="95" cy="270" r="9" class="step-circle"/>
+<text x="95" y="274" text-anchor="middle" class="step-text">2</text>
+<line x1="420" y1="270" x2="650" y2="270" class="arrow-solid" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="525" y="263" text-anchor="middle" class="msg-label">GET /auth/google</text>
+<text x="525" y="278" text-anchor="middle" class="msg-detail">Initiates OAuth handshake</text>
+
+<!-- ===== STEP 3: Frontend → Auth Server ===== -->
+<circle cx="95" cy="360" r="9" class="step-circle"/>
+<text x="95" y="364" text-anchor="middle" class="step-text">3</text>
+<line x1="670" y1="360" x2="900" y2="360" class="arrow-dashed" stroke-width="1.8" marker-end="url(#arrow-dashed)"/>
+<text x="775" y="353" text-anchor="middle" class="msg-label">302 Redirect → /authorize</text>
+<text x="775" y="368" text-anchor="middle" class="msg-detail">?client_id=…&amp;redirect_uri=…&amp;response_type=code</text>
+
+<!-- ===== STEP 4: Auth Server → Browser ===== -->
+<circle cx="95" cy="450" r="9" class="step-circle"/>
+<text x="95" y="454" text-anchor="middle" class="step-text">4</text>
+<line x1="920" y1="450" x2="440" y2="450" class="arrow-dashed" stroke-width="1.8" marker-end="url(#arrow-dashed)"/>
+<text x="675" y="443" text-anchor="middle" class="msg-label">200 Login page HTML</text>
+<text x="675" y="458" text-anchor="middle" class="msg-detail">Renders consent / login form</text>
+
+<!-- ===== STEP 5: Browser → User ===== -->
+<circle cx="95" cy="540" r="9" class="step-circle"/>
+<text x="95" y="544" text-anchor="middle" class="step-text">5</text>
+<line x1="420" y1="540" x2="190" y2="540" class="arrow-solid" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="295" y="533" text-anchor="middle" class="msg-label">Render login page</text>
+<text x="295" y="548" text-anchor="middle" class="msg-detail">Displays form in browser</text>
+
+<!-- ===== STEP 6: User → Browser ===== -->
+<circle cx="95" cy="630" r="9" class="step-circle"/>
+<text x="95" y="634" text-anchor="middle" class="step-text">6</text>
+<line x1="170" y1="630" x2="400" y2="630" class="arrow-solid" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="275" y="623" text-anchor="middle" class="msg-label">Fills credentials</text>
+<text x="275" y="638" text-anchor="middle" class="msg-detail">Username + password + consent</text>
+
+<!-- ===== STEP 7: Browser → Auth Server ===== -->
+<circle cx="95" cy="720" r="9" class="step-circle"/>
+<text x="95" y="724" text-anchor="middle" class="step-text">7</text>
+<line x1="420" y1="720" x2="900" y2="720" class="arrow-solid" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="650" y="713" text-anchor="middle" class="msg-label">POST /login</text>
+<text x="650" y="728" text-anchor="middle" class="msg-detail">Authenticates user + grants consent</text>
+
+<!-- ===== STEP 8: Auth Server → Frontend ===== -->
+<circle cx="95" cy="810" r="9" class="step-circle"/>
+<text x="95" y="814" text-anchor="middle" class="step-text">8</text>
+<line x1="920" y1="810" x2="690" y2="810" class="arrow-dashed" stroke-width="1.8" marker-end="url(#arrow-dashed)"/>
+<text x="790" y="803" text-anchor="middle" class="msg-label">302 Redirect → ?code=xxx</text>
+<text x="790" y="818" text-anchor="middle" class="msg-detail">Authorization code (short-lived)</text>
+
+<!-- ===== STEP 9: Frontend → Auth Server ===== -->
+<circle cx="95" cy="900" r="9" class="step-circle"/>
+<text x="95" y="904" text-anchor="middle" class="step-text">9</text>
+<line x1="670" y1="900" x2="900" y2="900" class="arrow-solid" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="775" y="893" text-anchor="middle" class="msg-label">POST /token</text>
+<text x="775" y="908" text-anchor="middle" class="msg-detail">code + client_secret + redirect_uri</text>
+
+<!-- ===== STEP 10: Auth Server → Frontend ===== -->
+<circle cx="95" cy="990" r="9" class="step-circle"/>
+<text x="95" y="994" text-anchor="middle" class="step-text">10</text>
+<line x1="920" y1="990" x2="690" y2="990" class="arrow-solid" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="795" y="983" text-anchor="middle" class="msg-label">200 {access_token, refresh_token}</text>
+<text x="795" y="998" text-anchor="middle" class="msg-detail">Bearer token for API access</text>
+
+<!-- ===== STEP 11: Frontend → Resource Server ===== -->
+<circle cx="95" cy="1080" r="9" class="step-circle"/>
+<text x="95" y="1084" text-anchor="middle" class="step-text">11</text>
+<line x1="670" y1="1080" x2="1150" y2="1080" class="arrow-solid" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="905" y="1073" text-anchor="middle" class="msg-label">GET /api/user</text>
+<text x="905" y="1088" text-anchor="middle" class="msg-detail">Authorization: Bearer {access_token}</text>
+
+<!-- ===== STEP 12: Resource Server → Frontend ===== -->
+<circle cx="95" cy="1170" r="9" class="step-circle"/>
+<text x="95" y="1174" text-anchor="middle" class="step-text">12</text>
+<line x1="1170" y1="1170" x2="690" y2="1170" class="arrow-solid" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="925" y="1163" text-anchor="middle" class="msg-label">200 User profile + data</text>
+<text x="925" y="1178" text-anchor="middle" class="msg-detail">Protected resource returned</text>
+
+<!-- ===== LIFELINE ENDS ===== -->
+<rect x="162" y="1180" width="16" height="16" rx="2" class="lifeline" stroke="#ccd0da" stroke-width="1.2" fill="#e6e9ef"/>
+<rect x="412" y="1180" width="16" height="16" rx="2" class="lifeline" stroke="#ccd0da" stroke-width="1.2" fill="#e6e9ef"/>
+<rect x="662" y="1180" width="16" height="16" rx="2" class="lifeline" stroke="#ccd0da" stroke-width="1.2" fill="#e6e9ef"/>
+<rect x="912" y="1180" width="16" height="16" rx="2" class="lifeline" stroke="#ccd0da" stroke-width="1.2" fill="#e6e9ef"/>
+<rect x="1162" y="1180" width="16" height="16" rx="2" class="lifeline" stroke="#ccd0da" stroke-width="1.2" fill="#e6e9ef"/>
+
+<!-- ===== LEGEND ===== -->
+<g transform="translate(80,1220)">
+  <rect x="0" y="0" width="1440" height="58" rx="8" class="legend-bg" stroke="#ccd0da" stroke-width="1" filter="url(#shadow)"/>
+
+  <line x1="20" y1="29" x2="60" y2="29" class="arrow-solid" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="68" y="33" class="legend-label">Request / message (solid)</text>
+
+  <line x1="240" y1="29" x2="280" y2="29" class="arrow-dashed" stroke-width="2" marker-end="url(#arrow-dashed)"/>
+  <text x="288" y="33" class="legend-label">Redirect / response (dashed)</text>
+
+  <line x1="490" y1="29" x2="530" y2="29" class="lifeline" stroke-width="1.5"/>
+  <text x="538" y="33" class="legend-label">Lifeline (participant)</text>
+
+  <rect x="700" y="21" width="20" height="16" rx="3" class="activation-bar" stroke="#1e66f5" stroke-width="0.8"/>
+  <text x="728" y="33" class="legend-label">Activation / processing</text>
+
+  <circle cx="960" cy="29" r="7" class="step-circle"/>
+  <text x="975" y="33" class="legend-label">Step number</text>
+
+  <line x1="1100" y1="29" x2="1140" y2="29" class="lane-rule" stroke-width="1" opacity="0.5"/>
+  <text x="1148" y="33" class="legend-label">Time boundary</text>
+</g>
+</svg>
+</div>
+</body>
+</html>

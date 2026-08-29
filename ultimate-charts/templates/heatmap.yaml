@@ -1,0 +1,29 @@
+# Heatmap Template — Vega-Lite
+title: Support Tickets by Hour and Day
+mark: rect
+data:
+  values:
+    - { day: Mon, hour: 9, value: 12 }
+    - { day: Mon, hour: 10, value: 25 }
+    - { day: Mon, hour: 11, value: 30 }
+    - { day: Mon, hour: 12, value: 18 }
+    - { day: Tue, hour: 9, value: 15 }
+    - { day: Tue, hour: 10, value: 22 }
+    - { day: Tue, hour: 11, value: 28 }
+    - { day: Tue, hour: 12, value: 20 }
+    - { day: Wed, hour: 9, value: 10 }
+    - { day: Wed, hour: 10, value: 18 }
+    - { day: Wed, hour: 11, value: 35 }
+    - { day: Wed, hour: 12, value: 22 }
+    - { day: Thu, hour: 9, value: 8 }
+    - { day: Thu, hour: 10, value: 20 }
+    - { day: Thu, hour: 11, value: 32 }
+    - { day: Thu, hour: 12, value: 15 }
+    - { day: Fri, hour: 9, value: 5 }
+    - { day: Fri, hour: 10, value: 12 }
+    - { day: Fri, hour: 11, value: 20 }
+    - { day: Fri, hour: 12, value: 10 }
+encoding:
+  x: { field: hour, type: ordinal, title: "Hour" }
+  y: { field: day, type: nominal, title: null }
+  color: { field: value, type: quantitative, title: Tickets }

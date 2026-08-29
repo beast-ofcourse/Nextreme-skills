@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technical Diagrams — Demos</title>
+<style>
+@page { size: A4 portrait; margin: 0.4in; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, "Segoe UI", "Helvetica Neue", Arial, sans-serif; background: #f8f9fc; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; }
+.container { max-width: 900px; width: 100%; }
+h1 { font-size: 28px; font-weight: 800; color: #111; margin-bottom: 6px; letter-spacing: -0.5px; }
+.subtitle { font-size: 15px; color: #666; margin-bottom: 32px; }
+.card { background: #fff; border-radius: 10px; padding: 24px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04); border: 1px solid #eef0f5; display: flex; align-items: center; gap: 20px; transition: transform 0.15s; }
+.card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.card .badge { background: #f3df58; color: #111; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.card .info { flex: 1; }
+.card .info h2 { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+.card .info p { font-size: 13px; color: #666; margin: 0; }
+.card a { text-decoration: none; color: inherit; display: flex; align-items: center; gap: 20px; width: 100%; }
+.arrow { color: #5a78ff; font-size: 20px; font-weight: 700; }
+.footer { margin-top: 32px; font-size: 12px; color: #999; text-align: center; }
+.back-link { display: inline-block; margin-bottom: 24px; font-size: 13px; color: #5a78ff; text-decoration: none; font-weight: 600; }
+.back-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="container">
+<a href="../index.html" class="back-link">← Back to Demos</a>
+<h1>Technical Diagrams — Demos</h1>
+<p class="subtitle">System architecture, AI agents, UML sequence, and event-driven architecture rendered as interactive HTML diagrams</p>
+
+<div class="card">
+<a href="demo-system-architecture.html">
+<span class="badge">Architecture</span>
+<div class="info">
+<h2>System Architecture</h2>
+<p>E-Commerce Platform microservices with VPC, load balancer, app server, cache, DB, message queue, and workers</p>
+</div>
+<span class="arrow">→</span>
+</a>
+</div>
+
+<div class="card">
+<a href="demo-ai-agent-workflow.html">
+<span class="badge">AI/Agent</span>
+<div class="info">
+<h2>AI Agent Workflow</h2>
+<p>RAG-Powered Research Assistant with LLM, vector store, web search, and ReAct feedback loop</p>
+</div>
+<span class="arrow">→</span>
+</a>
+</div>
+
+<div class="card">
+<a href="demo-uml-sequence.html">
+<span class="badge">UML</span>
+<div class="info">
+<h2>UML Sequence Diagram</h2>
+<p>OAuth 2.0 Authorization Code Flow across 5 participants with activation bars and 12 steps</p>
+</div>
+<span class="arrow">→</span>
+</a>
+</div>
+
+<div class="card">
+<a href="demo-event-driven.html">
+<span class="badge">Event-Driven</span>
+<div class="info">
+<h2>Event-Driven Architecture</h2>
+<p>Real-Time Order Processing with producers, topic pills, event bus, and consumer groups</p>
+</div>
+<span class="arrow">→</span>
+</a>
+</div>
+
+<hr>
+<p class="footer">Diagrams skill — HTML/CSS/JS · SVG · drop shadows · custom layouts</p>
+</div>
+</body>
+</html>

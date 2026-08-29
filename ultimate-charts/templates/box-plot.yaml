@@ -1,0 +1,23 @@
+# Box Plot Template — Vega-Lite v5
+title: Score Distribution by Team
+mark: boxplot
+data:
+  values:
+    - { team: Alpha, score: 85 }
+    - { team: Alpha, score: 92 }
+    - { team: Alpha, score: 78 }
+    - { team: Alpha, score: 88 }
+    - { team: Alpha, score: 95 }
+    - { team: Beta, score: 75 }
+    - { team: Beta, score: 82 }
+    - { team: Beta, score: 70 }
+    - { team: Beta, score: 90 }
+    - { team: Beta, score: 68 }
+    - { team: Gamma, score: 92 }
+    - { team: Gamma, score: 88 }
+    - { team: Gamma, score: 95 }
+    - { team: Gamma, score: 85 }
+    - { team: Gamma, score: 90 }
+encoding:
+  x: { field: team, type: nominal, title: Team }
+  y: { field: score, type: quantitative, title: Score }

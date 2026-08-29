@@ -1,0 +1,14 @@
+# Bar Chart Template — Vega-Lite
+# Copy this file, replace `values` with your data, run:
+#   node render.mjs --spec bar.yaml --output chart.svg --theme mckinsey
+title: Revenue by Quarter
+mark: bar
+data:
+  values:
+    - { quarter: Q1, revenue: 120000 }
+    - { quarter: Q2, revenue: 185000 }
+    - { quarter: Q3, revenue: 210000 }
+    - { quarter: Q4, revenue: 245000 }
+encoding:
+  x: { field: quarter, type: nominal, title: null, sort: null }
+  y: { field: revenue, type: quantitative, title: "Revenue ($)" }

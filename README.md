@@ -19,6 +19,10 @@ A focused, **agent-agnostic** collection of reusable AI-agent skills. Each skill
 | [`nextreme-skill-creator`](nextreme-skill-creator/) | Designs, writes, and improves skills with rigorous craft (predictability, triggering, hierarchy, pruning). | "create a skill", "improve this skill", "why doesn't my skill trigger" |
 | [`tdd-coach`](tdd-coach/) | Coaches test-driven development: failing test first, smallest pass, then refactor. | "TDD this", "red-green-refactor", "write the test before the code" |
 | [`git-guardrails`](git-guardrails/) | Stops destructive, irreversible git operations before they run and suggests the safe path. | "guard my git", "block force push", "don't let me reset --hard" |
+| [`high-quality-flowcharts`](high-quality-flowcharts/) | Produces publication-grade flowcharts, roadmaps, process diagrams, decision trees, and taxonomy maps as print-ready PDF (HTML+SVG). | "flowchart", "roadmap", "decision tree", "process diagram" |
+| [`ultimate-charts`](ultimate-charts/) | Generates publication-grade SVG charts from data (Vega-Lite/Vega, QuickChart, ECharts) for every chart type. | "chart", "bar chart", "line chart", "visualize this data" |
+| [`ultimate-diagrams`](ultimate-diagrams/) | Generates system architecture, UML, AI/agent workflows, C4, and event-driven technical diagrams (SVG/PDF). | "system diagram", "architecture diagram", "UML", "sequence diagram" |
+| [`readme-architect`](readme-architect/) | Writes a repo-grounded, professional `README.md` after investigating the actual codebase. | "write a README", "make my repo look professional", "add docs" |
 
 ## How the "next thing" skills differ
 

@@ -1,0 +1,180 @@
+<svg width="900" height="650" viewBox="0 0 900 650" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#475569"/>
+    </marker>
+    <marker id="arrow-dashed" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8"/>
+    </marker>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#f1f5f9"/>
+    </linearGradient>
+    <linearGradient id="lb-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="app-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="db-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="cache-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#dc2626"/>
+    </linearGradient>
+    <linearGradient id="queue-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="450" y="40" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="#1e293b" text-anchor="middle" letter-spacing="0.5">System Architecture: E-Commerce Platform</text>
+
+  <!-- VPC Boundary -->
+  <rect x="200" y="80" width="660" height="500" rx="16" fill="rgba(59,130,246,0.04)" stroke="#93c5fd" stroke-width="2" stroke-dasharray="8,4"/>
+  <rect x="200" y="80" width="180" height="30" rx="16" fill="#dbeafe"/>
+  <text x="290" y="100" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#1d4ed8" text-anchor="middle">AWS VPC: us-east-1</text>
+
+  <!-- AZ A Boundary -->
+  <rect x="220" y="125" width="300" height="300" rx="10" fill="rgba(16,185,129,0.04)" stroke="#a7f3d0" stroke-width="1.5"/>
+  <rect x="220" y="125" width="100" height="24" rx="10" fill="#d1fae5"/>
+  <text x="270" y="141" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" fill="#065f46" text-anchor="middle">AZ A</text>
+
+  <!-- AZ B Boundary -->
+  <rect x="540" y="125" width="300" height="300" rx="10" fill="rgba(16,185,129,0.04)" stroke="#a7f3d0" stroke-width="1.5"/>
+  <rect x="540" y="125" width="100" height="24" rx="10" fill="#d1fae5"/>
+  <text x="590" y="141" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" fill="#065f46" text-anchor="middle">AZ B</text>
+
+  <!-- ============================================ -->
+  <!-- LOAD BALANCER (Top center, spans both AZs) -->
+  <!-- ============================================ -->
+  <rect x="350" y="80" width="200" height="56" rx="12" fill="url(#lb-grad)" stroke="#1d4ed8" stroke-width="2.5"/>
+  <text x="450" y="106" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="white" text-anchor="middle">Load Balancer</text>
+  <text x="450" y="122" font-family="system-ui, sans-serif" font-size="9" fill="rgba(255,255,255,0.7)" text-anchor="middle">ALB / HTTPS</text>
+
+  <!-- LB -> App (AZ A) -->
+  <line x1="400" y1="136" x2="340" y2="200" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- LB -> App (AZ B) -->
+  <line x1="500" y1="136" x2="620" y2="200" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ============================================ -->
+  <!-- APP SERVER (AZ A) -->
+  <!-- ============================================ -->
+  <rect x="255" y="200" width="170" height="80" rx="12" fill="url(#app-grad)" stroke="#047857" stroke-width="2"/>
+  <text x="340" y="235" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="white" text-anchor="middle">App Server</text>
+  <text x="340" y="255" font-family="system-ui, sans-serif" font-size="10" fill="rgba(255,255,255,0.7)" text-anchor="middle">Node.js / Express</text>
+  <rect x="275" y="262" width="130" height="12" rx="6" fill="rgba(255,255,255,0.15)"/>
+  <text x="340" y="271" font-family="system-ui, sans-serif" font-size="8" fill="rgba(255,255,255,0.6)" text-anchor="middle">2x vCPU · 4GB RAM</text>
+
+  <!-- ============================================ -->
+  <!-- APP SERVER (AZ B) -->
+  <!-- ============================================ -->
+  <rect x="575" y="200" width="170" height="80" rx="12" fill="url(#app-grad)" stroke="#047857" stroke-width="2"/>
+  <text x="660" y="235" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="white" text-anchor="middle">App Server</text>
+  <text x="660" y="255" font-family="system-ui, sans-serif" font-size="10" fill="rgba(255,255,255,0.7)" text-anchor="middle">Node.js / Express</text>
+  <rect x="595" y="262" width="130" height="12" rx="6" fill="rgba(255,255,255,0.15)"/>
+  <text x="660" y="271" font-family="system-ui, sans-serif" font-size="8" fill="rgba(255,255,255,0.6)" text-anchor="middle">2x vCPU · 4GB RAM</text>
+
+  <!-- ============================================ -->
+  <!-- CACHE (AZ A) -->
+  <!-- ============================================ -->
+  <rect x="235" y="320" width="130" height="70" rx="12" fill="url(#cache-grad)" stroke="#b91c1c" stroke-width="2"/>
+  <text x="300" y="350" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" fill="white" text-anchor="middle">Redis Cache</text>
+  <text x="300" y="368" font-family="system-ui, sans-serif" font-size="9" fill="rgba(255,255,255,0.7)" text-anchor="middle">Session Store</text>
+
+  <!-- App A -> Cache A -->
+  <line x1="300" y1="280" x2="300" y2="318" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ============================================ -->
+  <!-- DATABASE (AZ A) -->
+  <!-- ============================================ -->
+  <!-- Cylinder for DB (AZ A) -->
+  <ellipse cx="430" cy="352" rx="60" ry="16" fill="url(#db-grad)" stroke="#b45309" stroke-width="2"/>
+  <rect x="370" y="352" width="120" height="70" fill="url(#db-grad)" stroke="#b45309" stroke-width="2"/>
+  <ellipse cx="430" cy="422" rx="60" ry="16" fill="url(#db-grad)" stroke="#b45309" stroke-width="2"/>
+  <text x="430" y="385" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" fill="white" text-anchor="middle">PostgreSQL</text>
+  <text x="430" y="405" font-family="system-ui, sans-serif" font-size="9" fill="rgba(255,255,255,0.7)" text-anchor="middle">Primary</text>
+
+  <!-- App A -> DB -->
+  <line x1="380" y1="280" x2="400" y2="350" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <!-- App B -> DB -->
+  <line x1="620" y1="280" x2="480" y2="360" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ============================================ -->
+  <!-- QUEUE (AZ B) -->
+  <!-- ============================================ -->
+  <rect x="615" y="320" width="170" height="70" rx="12" fill="url(#queue-grad)" stroke="#6d28d9" stroke-width="2"/>
+  <text x="700" y="350" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" fill="white" text-anchor="middle">SQS Queue</text>
+  <text x="700" y="368" font-family="system-ui, sans-serif" font-size="9" fill="rgba(255,255,255,0.7)" text-anchor="middle">Order Processing</text>
+
+  <!-- App B -> Queue -->
+  <line x1="660" y1="280" x2="660" y2="318" stroke="#94a3b8" stroke-width="2" stroke-dasharray="8,5" marker-end="url(#arrow-dashed)"/>
+
+  <!-- ============================================ -->
+  <!-- DB REPLICA (AZ B) -->
+  <!-- ============================================ -->
+  <ellipse cx="700" cy="430" rx="55" ry="14" fill="url(#db-grad)" stroke="#b45309" stroke-width="1.5"/>
+  <rect x="645" y="430" width="110" height="60" fill="url(#db-grad)" stroke="#b45309" stroke-width="1.5"/>
+  <ellipse cx="700" cy="490" rx="55" ry="14" fill="url(#db-grad)" stroke="#b45309" stroke-width="1.5"/>
+  <text x="700" y="460" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" fill="white" text-anchor="middle">PostgreSQL</text>
+  <text x="700" y="478" font-family="system-ui, sans-serif" font-size="9" fill="rgba(255,255,255,0.7)" text-anchor="middle">Read Replica</text>
+
+  <!-- DB Primary -> DB Replica (stream) -->
+  <line x1="490" y1="400" x2="645" y2="450" stroke="#059669" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="530" y="410" width="75" height="16" rx="4" fill="rgba(255,255,255,0.9)" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="567" y="422" font-family="system-ui, sans-serif" font-size="8" fill="#059669" text-anchor="middle">Streaming Replica</text>
+
+  <!-- ============================================ -->
+  <!-- LEGEND -->
+  <!-- ============================================ -->
+  <rect x="40" y="545" width="820" height="85" rx="8" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+
+  <text x="60" y="570" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#475569">Legend:</text>
+
+  <!-- Sync -->
+  <line x1="60" y1="590" x2="120" y2="590" stroke="#475569" stroke-width="2"/>
+  <polygon points="120,590 110,586 110,594" fill="#475569"/>
+  <text x="130" y="594" font-family="system-ui, sans-serif" font-size="10" fill="#475569">Sync</text>
+
+  <!-- Async -->
+  <line x1="190" y1="590" x2="240" y2="590" stroke="#94a3b8" stroke-width="2" stroke-dasharray="8,5"/>
+  <polygon points="240,590 230,586 230,594" fill="#94a3b8"/>
+  <text x="250" y="594" font-family="system-ui, sans-serif" font-size="10" fill="#475569">Async</text>
+
+  <!-- Stream -->
+  <line x1="320" y1="590" x2="375" y2="590" stroke="#059669" stroke-width="3"/>
+  <polygon points="375,590 365,586 365,594" fill="#059669"/>
+  <text x="385" y="594" font-family="system-ui, sans-serif" font-size="10" fill="#475569">Stream</text>
+
+  <!-- VPC -->
+  <rect x="480" y="582" width="16" height="14" rx="3" fill="none" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="502" y="594" font-family="system-ui, sans-serif" font-size="10" fill="#475569">VPC / Boundary</text>
+
+  <!-- AZ -->
+  <rect x="620" y="582" width="16" height="14" rx="3" fill="none" stroke="#a7f3d0" stroke-width="1.5"/>
+  <text x="642" y="594" font-family="system-ui, sans-serif" font-size="10" fill="#475569">Availability Zone</text>
+
+  <!-- Cylinder = DB -->
+  <ellipse cx="760" cy="585" rx="8" ry="4" fill="none" stroke="#b45309" stroke-width="1.5"/>
+  <rect x="752" y="585" width="16" height="12" fill="none" stroke="#b45309" stroke-width="1.5"/>
+  <ellipse cx="760" cy="597" rx="8" ry="4" fill="none" stroke="#b45309" stroke-width="1.5"/>
+  <text x="775" y="594" font-family="system-ui, sans-serif" font-size="10" fill="#475569">Database</text>
+
+  <metadata>
+    <graph-role>system-architecture</graph-role>
+    <semantic-role>cloud_infrastructure</semantic-role>
+    <style>system-architecture</style>
+    <generated-by>ultimate-diagrams</generated-by>
+    <nodes>lb,app-a,app-b,redis,db-primary,db-replica,sqs</nodes>
+    <edges>lb:app-a:sync, lb:app-b:sync, app-a:redis:sync, app-a:db-primary:sync, app-b:db-primary:sync, app-b:sqs:async, db-primary:db-replica:stream</edges>
+  </metadata>
+</svg>

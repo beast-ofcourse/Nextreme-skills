@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo — Learning Roadmap</title>
+<style>
+@page { size: A4 landscape; margin: 0.4in; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, "Segoe UI", "Helvetica Neue", Arial, sans-serif; background: #fff; display: flex; justify-content: center; padding: 20px; }
+.page { width: 1100px; background: #fff; padding: 20px 0; }
+.title { text-align: center; font-size: 32px; font-weight: 800; color: #111; letter-spacing: -0.5px; margin-bottom: 4px; }
+.subtitle { text-align: center; font-size: 15px; font-weight: 400; color: #555; margin-bottom: 10px; }
+svg.diagram { width: 100%; height: auto; display: block; }
+@media print { body { padding: 0; } .page { width: 100%; padding: 0; } }
+</style>
+</head>
+<body>
+<div class="page">
+<div class="title">Frontend Developer Roadmap</div>
+<div class="subtitle">Learning path — HTML to production-ready SPA development</div>
+<svg class="diagram" viewBox="0 0 1400 700" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arrowDown" markerWidth="10" markerHeight="10" refX="5" refY="10" orient="auto">
+<path d="M 0 0 L 5 10 L 10 0" fill="none" stroke="#5a78ff" stroke-width="1.5"/>
+</marker>
+<marker id="arrowRight" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10" fill="none" stroke="#5a78ff" stroke-width="1.5"/>
+</marker>
+<filter id="shadow" x="-5%" y="-5%" width="115%" height="115%">
+<feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000020"/>
+</filter>
+</defs>
+<rect width="1400" height="700" fill="#fff"/>
+<!-- Spine -->
+<line x1="700" y1="145" x2="700" y2="540" stroke="#5a78ff" stroke-width="2.5" stroke-dasharray="6,4"/>
+<line x1="700" y1="540" x2="700" y2="560" stroke="#5a78ff" stroke-width="2.5" marker-end="url(#arrowDown)"/>
+
+<!-- Phase 1 -->
+<rect x="580" y="100" width="240" height="50" rx="6" fill="#f3df58" stroke="#b29a10" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="580" cy="125" r="4" fill="#5a78ff"/>
+<text x="700" y="131" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#111">Phase 1: Foundations</text>
+<rect x="150" y="94" width="200" height="34" rx="6" fill="#f8e39c" stroke="#9a7b24" stroke-width="1" filter="url(#shadow)"/>
+<text x="250" y="115" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#111">HTML &amp; Semantic Markup</text>
+<rect x="1050" y="94" width="200" height="34" rx="6" fill="#f8e39c" stroke="#9a7b24" stroke-width="1" filter="url(#shadow)"/>
+<text x="1150" y="115" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#111">CSS Fundamentals</text>
+<path d="M 580 125 L 430 125 L 430 111 L 350 111" fill="none" stroke="#5a78ff" stroke-width="1.5"/>
+<path d="M 820 125 L 970 125 L 970 111 L 1050 111" fill="none" stroke="#5a78ff" stroke-width="1.5"/>
+
+<!-- Phase 2 -->
+<rect x="580" y="190" width="240" height="50" rx="6" fill="#f3df58" stroke="#b29a10" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="580" cy="215" r="4" fill="#5a78ff"/>
+<text x="700" y="221" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#111">Phase 2: JavaScript</text>
+<rect x="150" y="184" width="200" height="34" rx="6" fill="#f8e39c" stroke="#9a7b24" stroke-width="1" filter="url(#shadow)"/>
+<text x="250" y="205" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#111">ES6+ Syntax &amp; Concepts</text>
+<rect x="1050" y="184" width="200" height="34" rx="6" fill="#f8e39c" stroke="#9a7b24" stroke-width="1" filter="url(#shadow)"/>
+<text x="1150" y="205" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#111">DOM Manipulation</text>
+<path d="M 580 215 L 430 215 L 430 201 L 350 201" fill="none" stroke="#5a78ff" stroke-width="1.5"/>
+<path d="M 820 215 L 970 215 L 970 201 L 1050 201" fill="none" stroke="#5a78ff" stroke-width="1.5"/>
+
+<!-- Phase 3 -->
+<rect x="580" y="280" width="240" height="50" rx="6" fill="#f3df58" stroke="#b29a10" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="580" cy="305" r="4" fill="#5a78ff"/>
+<text x="700" y="311" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#111">Phase 3: Frameworks</text>
+<rect x="150" y="274" width="200" height="34" rx="6" fill="#f8e39c" stroke="#9a7b24" stroke-width="1" filter="url(#shadow)"/>
+<text x="250" y="295" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#111">React / Vue / Svelte</text>
+<rect x="1050" y="274" width="200" height="34" rx="6" fill="#f8e39c" stroke="#9a7b24" stroke-width="1" filter="url(#shadow)"/>
+<text x="1150" y="295" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#111">Component Architecture</text>
+<path d="M 580 305 L 430 305 L 430 291 L 350 291" fill="none" stroke="#5a78ff" stroke-width="1.5"/>
+<path d="M 820 305 L 970 305 L 970 291 L 1050 291" fill="none" stroke="#5a78ff" stroke-width="1.5"/>
+
+<!-- Phase 4 -->
+<rect x="580" y="370" width="240" height="50" rx="6" fill="#f3df58" stroke="#b29a10" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="580" cy="395" r="4" fill="#5a78ff"/>
+<text x="700" y="401" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#111">Phase 4: Tooling</text>
+<rect x="150" y="364" width="200" height="34" rx="6" fill="#f8e39c" stroke="#9a7b24" stroke-width="1" filter="url(#shadow)"/>
+<text x="250" y="385" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#111">Vite / Webpack</text>
+<rect x="1050" y="364" width="200" height="34" rx="6" fill="#f8e39c" stroke="#9a7b24" stroke-width="1" filter="url(#shadow)"/>
+<text x="1150" y="385" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#111">Testing (Vitest)</text>
+<path d="M 580 395 L 430 395 L 430 381 L 350 381" fill="none" stroke="#5a78ff" stroke-width="1.5"/>
+<path d="M 820 395 L 970 395 L 970 381 L 1050 381" fill="none" stroke="#5a78ff" stroke-width="1.5"/>
+
+<!-- Phase 5 -->
+<rect x="580" y="460" width="240" height="50" rx="6" fill="#f3df58" stroke="#b29a10" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="580" cy="485" r="4" fill="#5a78ff"/>
+<text x="700" y="491" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#111">Phase 5: Production</text>
+<rect x="150" y="454" width="200" height="34" rx="6" fill="#f8e39c" stroke="#9a7b24" stroke-width="1" filter="url(#shadow)"/>
+<text x="250" y="475" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#111">Performance Optimization</text>
+<rect x="1050" y="454" width="200" height="34" rx="6" fill="#f8e39c" stroke="#9a7b24" stroke-width="1" filter="url(#shadow)"/>
+<text x="1150" y="475" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#111">CI/CD &amp; Deploy</text>
+<path d="M 580 485 L 430 485 L 430 471 L 350 471" fill="none" stroke="#5a78ff" stroke-width="1.5"/>
+<path d="M 820 485 L 970 485 L 970 471 L 1050 471" fill="none" stroke="#5a78ff" stroke-width="1.5"/>
+
+</svg>
+</div>
+</body>
+</html>

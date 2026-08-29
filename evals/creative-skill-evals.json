@@ -1,0 +1,57 @@
+{
+  "skill_name": "high-quality-flowcharts",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to create a learning roadmap for becoming a full-stack developer. Start with the fundamentals (HTML, CSS, JavaScript), then frontend frameworks (React), backend (Node.js, databases), devops basics, and finally advanced topics. Can you make it into a clean printable PDF? Something that looks like those roadmap.sh diagrams.",
+      "expected_output": "A PDF roadmap with a central vertical spine showing the learning path stages, with subtopics branching left and right. Clean typography, proper margins, print-ready.",
+      "files": [],
+      "expectations": [
+        "Produces a PDF file",
+        "Uses the roadmap (vertical spine) layout pattern",
+        "Has a visible central spine with branch nodes on both sides",
+        "PDF is printable with correct margins and @page rules",
+        "Includes title and at least 4 milestone sections"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Create a process flow diagram showing how a user authenticates through our login system — from entering credentials, validation, MFA check, session creation, to dashboard redirect. I need this as a professional PDF. Include decision points for 'valid credentials?' and 'MFA required?' with yes/no branches.",
+      "expected_output": "A PDF process flow diagram with left-to-right linear progression, decision diamonds, and labeled yes/no branches. Professional print-quality layout.",
+      "files": [],
+      "expectations": [
+        "Produces a PDF file",
+        "Uses the process flow (horizontal/linear) layout pattern",
+        "Includes at least 2 decision diamond nodes with yes/no labels",
+        "Has clear left-to-right directional arrows between steps",
+        "PDF is print-ready with proper page setup"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I need a troubleshooting decision tree PDF for our IT support team. Start from 'User reports an issue', then branch: hardware vs software. Hardware branches: power, display, peripherals. Software branches: OS crash, app crash, network. Each branch should end with a recommended action like 'Replace power supply' or 'Reinstall driver'. Clean, printable format please.",
+      "expected_output": "A PDF decision tree with diamond decision nodes, rectangular action nodes, and labeled yes/no branches. Professional layout with proper typography.",
+      "files": [],
+      "expectations": [
+        "Produces a PDF file",
+        "Uses the decision tree (top-down branching) layout pattern",
+        "Includes diamond decision nodes and rectangular action/terminal nodes",
+        "Has labeled branches (at minimum distinguishing hardware vs software paths)",
+        "PDF is print-ready with correct margins and orientation"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "I need a taxonomy map PDF that shows the main types of database systems. Central node is 'Database Systems'. First level branches: Relational (SQL), NoSQL, NewSQL, In-Memory. Under NoSQL branch further: Document stores (MongoDB), Key-Value (Redis), Column-Family (Cassandra), Graph (Neo4j). Should look like a proper classification chart, print-quality.",
+      "expected_output": "A PDF taxonomy/classification diagram with a central hub and radiating clusters. Multiple hierarchy levels with grouped sub-categories.",
+      "files": [],
+      "expectations": [
+        "Produces a PDF file",
+        "Uses the taxonomy map (clusters) layout pattern",
+        "Has a central hub node with at least 4 first-level branches",
+        "Includes second-level sub-categories under at least one branch",
+        "PDF is print-ready with proper sizing and typography"
+      ]
+    }
+  ]
+}

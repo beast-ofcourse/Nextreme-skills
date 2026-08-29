@@ -1,0 +1,174 @@
+<svg width="900" height="700" viewBox="0 0 900 700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+    </marker>
+    <linearGradient id="user-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+    <linearGradient id="spa-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="api-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="worker-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="db-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#dc2626"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#f8fafc"/>
+
+  <!-- Title -->
+  <text x="450" y="40" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="#1e293b" text-anchor="middle" letter-spacing="0.5">C4 Model: Container Diagram (Level 2)</text>
+
+  <!-- C4 Level indicator -->
+  <rect x="30" y="20" width="80" height="24" rx="4" fill="#e0e7ff" stroke="#a5b4fc" stroke-width="1"/>
+  <text x="70" y="36" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#4338ca" text-anchor="middle">L2: Container</text>
+
+  <!-- ============================================ -->
+  <!-- USER (External Actor) -->
+  <!-- ============================================ -->
+  <circle cx="120" cy="200" r="50" fill="url(#user-grad)" stroke="#4338ca" stroke-width="2.5"/>
+  <text x="120" y="195" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="white" text-anchor="middle">Customer</text>
+  <text x="120" y="212" font-family="system-ui, sans-serif" font-size="9" fill="rgba(255,255,255,0.8)" text-anchor="middle">[Person]</text>
+  <text x="120" y="270" font-family="system-ui, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">External User</text>
+
+  <!-- ============================================ -->
+  <!-- SYSTEM BOUNDARY -->
+  <!-- ============================================ -->
+  <rect x="230" y="110" width="630" height="420" rx="16" fill="rgba(16,185,129,0.04)" stroke="#6ee7b7" stroke-width="2.5"/>
+  <rect x="230" y="110" width="170" height="28" rx="14" fill="#d1fae5"/>
+  <text x="315" y="129" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700" fill="#065f46" text-anchor="middle">E-Commerce Platform</text>
+  <text x="730" y="129" font-family="system-ui, sans-serif" font-size="9" fill="#64748b" text-anchor="end">[Software System]</text>
+
+  <!-- ============================================ -->
+  <!-- SINGLE PAGE APP -->
+  <!-- ============================================ -->
+  <rect x="280" y="160" width="200" height="100" rx="12" fill="url(#spa-grad)" stroke="#1d4ed8" stroke-width="2.5"/>
+  <text x="380" y="195" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="white" text-anchor="middle">Single Page App</text>
+  <text x="380" y="212" font-family="system-ui, sans-serif" font-size="10" fill="rgba(255,255,255,0.8)" text-anchor="middle">[Container: React]</text>
+  <text x="380" y="235" font-family="system-ui, sans-serif" font-size="9" fill="rgba(255,255,255,0.6)" text-anchor="middle">Provides user interface</text>
+  <rect x="310" y="245" width="140" height="10" rx="5" fill="rgba(255,255,255,0.12)"/>
+  <text x="380" y="253" font-family="system-ui, sans-serif" font-size="8" fill="rgba(255,255,255,0.5)" text-anchor="middle">responsibility: ui</text>
+
+  <!-- ============================================ -->
+  <!-- API GATEWAY -->
+  <!-- ============================================ -->
+  <rect x="530" y="160" width="200" height="100" rx="12" fill="url(#api-grad)" stroke="#047857" stroke-width="2.5"/>
+  <text x="630" y="195" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="white" text-anchor="middle">API Gateway</text>
+  <text x="630" y="212" font-family="system-ui, sans-serif" font-size="10" fill="rgba(255,255,255,0.8)" text-anchor="middle">[Container: FastAPI]</text>
+  <text x="630" y="235" font-family="system-ui, sans-serif" font-size="9" fill="rgba(255,255,255,0.6)" text-anchor="middle">Request routing / auth</text>
+  <rect x="560" y="245" width="140" height="10" rx="5" fill="rgba(255,255,255,0.12)"/>
+  <text x="630" y="253" font-family="system-ui, sans-serif" font-size="8" fill="rgba(255,255,255,0.5)" text-anchor="middle">responsibility: routing</text>
+
+  <!-- ============================================ -->
+  <!-- BACKGROUND WORKERS -->
+  <!-- ============================================ -->
+  <rect x="280" y="300" width="200" height="100" rx="12" fill="url(#worker-grad)" stroke="#b45309" stroke-width="2.5"/>
+  <text x="380" y="335" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="white" text-anchor="middle">Background Workers</text>
+  <text x="380" y="352" font-family="system-ui, sans-serif" font-size="10" fill="rgba(255,255,255,0.8)" text-anchor="middle">[Container: Celery]</text>
+  <text x="380" y="375" font-family="system-ui, sans-serif" font-size="9" fill="rgba(255,255,255,0.6)" text-anchor="middle">Async job processing</text>
+  <rect x="310" y="385" width="140" height="10" rx="5" fill="rgba(255,255,255,0.12)"/>
+  <text x="380" y="393" font-family="system-ui, sans-serif" font-size="8" fill="rgba(255,255,255,0.5)" text-anchor="middle">responsibility: async</text>
+
+  <!-- ============================================ -->
+  <!-- DATABASE -->
+  <!-- ============================================ -->
+  <ellipse cx="660" cy="355" rx="70" ry="18" fill="url(#db-grad)" stroke="#b91c1c" stroke-width="2.5"/>
+  <rect x="590" y="355" width="140" height="85" fill="url(#db-grad)" stroke="#b91c1c" stroke-width="2.5"/>
+  <ellipse cx="660" cy="440" rx="70" ry="18" fill="url(#db-grad)" stroke="#b91c1c" stroke-width="2.5"/>
+  <text x="660" y="390" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="white" text-anchor="middle">Database</text>
+  <text x="660" y="408" font-family="system-ui, sans-serif" font-size="10" fill="rgba(255,255,255,0.8)" text-anchor="middle">[Container: PostgreSQL]</text>
+  <text x="660" y="425" font-family="system-ui, sans-serif" font-size="9" fill="rgba(255,255,255,0.6)" text-anchor="middle">Data persistence</text>
+
+  <!-- ============================================ -->
+  <!-- RELATIONSHIPS -->
+  <!-- ============================================ -->
+
+  <!-- Customer -> SPA -->
+  <line x1="170" y1="200" x2="278" y2="200" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="195" y="178" width="72" height="18" rx="4" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="231" y="191" font-family="system-ui, sans-serif" font-size="8" fill="#64748b" text-anchor="middle">HTTPS / Web</text>
+
+  <!-- SPA -> API -->
+  <line x1="482" y1="210" x2="528" y2="210" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="490" y="188" width="30" height="18" rx="4" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="505" y="201" font-family="system-ui, sans-serif" font-size="8" fill="#64748b" text-anchor="middle">API</text>
+
+  <!-- SPA -> Workers -->
+  <line x1="350" y1="262" x2="350" y2="298" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="310" y="272" width="80" height="18" rx="4" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="350" y="285" font-family="system-ui, sans-serif" font-size="8" fill="#64748b" text-anchor="middle">WebSocket</text>
+
+  <!-- API -> DB -->
+  <line x1="600" y1="260" x2="640" y2="353" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="600" y="298" width="40" height="18" rx="4" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="620" y="311" font-family="system-ui, sans-serif" font-size="8" fill="#64748b" text-anchor="middle">SQL</text>
+
+  <!-- API -> Workers -->
+  <line x1="530" y1="210" x2="482" y2="350" stroke="#64748b" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrow)"/>
+  <rect x="460" y="265" width="55" height="18" rx="4" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="488" y="278" font-family="system-ui, sans-serif" font-size="8" fill="#64748b" text-anchor="middle">Redis/RPC</text>
+
+  <!-- ============================================ -->
+  <!-- LEGEND -->
+  <!-- ============================================ -->
+  <rect x="40" y="560" width="820" height="110" rx="8" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+
+  <text x="60" y="582" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#475569">C4 Container Notation:</text>
+
+  <!-- Person -->
+  <circle cx="85" cy="610" r="10" fill="#6366f1"/>
+  <text x="102" y="614" font-family="system-ui, sans-serif" font-size="10" fill="#475569">Person</text>
+
+  <!-- Container -->
+  <rect x="175" y="602" width="50" height="16" rx="4" fill="#3b82f6"/>
+  <text x="232" y="614" font-family="system-ui, sans-serif" font-size="10" fill="#475569">Container (Box)</text>
+
+  <!-- Database -->
+  <ellipse cx="345" cy="608" rx="10" ry="5" fill="#ef4444"/>
+  <rect x="335" y="608" width="20" height="10" fill="#ef4444"/>
+  <ellipse cx="345" cy="618" rx="10" ry="5" fill="#ef4444"/>
+  <text x="362" y="614" font-family="system-ui, sans-serif" font-size="10" fill="#475569">Database (Cylinder)</text>
+
+  <!-- Boundary -->
+  <rect x="505" y="602" width="50" height="16" rx="4" fill="none" stroke="#6ee7b7" stroke-width="2"/>
+  <text x="562" y="614" font-family="system-ui, sans-serif" font-size="10" fill="#475569">System Boundary</text>
+
+  <!-- Sync -->
+  <line x1="670" y1="608" x2="710" y2="608" stroke="#64748b" stroke-width="2"/>
+  <polygon points="710,608 700,604 700,612" fill="#64748b"/>
+  <text x="720" y="614" font-family="system-ui, sans-serif" font-size="10" fill="#475569">Sync</text>
+
+  <!-- Async -->
+  <line x1="770" y1="608" x2="810" y2="608" stroke="#64748b" stroke-width="2" stroke-dasharray="6,4"/>
+  <polygon points="810,608 800,604 800,612" fill="#64748b"/>
+  <text x="820" y="614" font-family="system-ui, sans-serif" font-size="10" fill="#475569">Async</text>
+
+  <!-- Level indicator -->
+  <rect x="60" y="635" width="780" height="22" rx="6" fill="#f1f5f9"/>
+  <text x="80" y="650" font-family="system-ui, sans-serif" font-size="9" fill="#64748b">
+    <tspan font-weight="700">L1 Context:</tspan> System box with users ↔ L2 Container (this view) ↔ L3 Component: Internal modules within each container (API routes, DB repos) ↔ L4 Code: Implementation detail
+  </text>
+
+  <metadata>
+    <graph-role>c4-container</graph-role>
+    <semantic-role>c4_model_level_2</semantic-role>
+    <style>c4-review</style>
+    <generated-by>ultimate-diagrams</generated-by>
+    <c4-level>2</c4-level>
+    <c4-type>container</c4-type>
+    <containers>spa,api-gateway,workers,database</containers>
+    <relationships>spa:api:HTTPS, api:db:SQL, api:workers:Redis, spa:workers:WebSocket</relationships>
+  </metadata>
+</svg>

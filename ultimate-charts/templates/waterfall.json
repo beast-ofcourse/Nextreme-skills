@@ -1,0 +1,81 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "title": { "text": "P&L Waterfall", "fontSize": 16 },
+  "width": 500,
+  "height": 350,
+  "padding": { "top": 30, "bottom": 40, "left": 60, "right": 20 },
+  "data": [
+    {
+      "name": "table",
+      "values": [
+        { "label": "Revenue", "value": 1000, "type": "total", "cumulative": 1000 },
+        { "label": "COGS", "value": -400, "type": "negative", "cumulative": 600 },
+        { "label": "Gross Profit", "value": 600, "type": "subtotal", "cumulative": 600 },
+        { "label": "R&D", "value": -150, "type": "negative", "cumulative": 450 },
+        { "label": "Sales & Marketing", "value": -200, "type": "negative", "cumulative": 250 },
+        { "label": "G&A", "value": -100, "type": "negative", "cumulative": 150 },
+        { "label": "Operating Income", "value": 150, "type": "subtotal", "cumulative": 150 },
+        { "label": "Tax", "value": -30, "type": "negative", "cumulative": 120 },
+        { "label": "Net Income", "value": 120, "type": "total", "cumulative": 120 }
+      ],
+      "transform": [
+        { "type": "formula", "as": "running_start", "expr": "datum.cumulative - datum.value" },
+        { "type": "formula", "as": "y_bottom", "expr": "datum.value >= 0 ? datum.running_start : datum.cumulative" },
+        { "type": "formula", "as": "y_top", "expr": "datum.value >= 0 ? datum.cumulative : datum.running_start" },
+        { "type": "formula", "as": "color", "expr": "datum.type === 'total' ? '#374151' : datum.type === 'subtotal' ? '#2196F3' : datum.value >= 0 ? '#4CAF50' : '#F44336'" },
+        { "type": "formula", "as": "connector_top", "expr": "datum.value >= 0 ? datum.cumulative : datum.running_start" }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "band",
+      "domain": { "data": "table", "field": "label" },
+      "range": "width",
+      "padding": 0.3
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "domain": [-200, 1100],
+      "range": "height",
+      "nice": true
+    }
+  ],
+  "axes": [
+    { "orient": "left", "scale": "y", "title": "Amount ($)", "grid": true, "format": "d" },
+    { "orient": "bottom", "scale": "x", "title": null, "labelAngle": -35, "labelFontSize": 11 }
+  ],
+  "marks": [
+    {
+      "type": "rect",
+      "from": { "data": "table" },
+      "encode": {
+        "enter": {
+          "x": { "scale": "x", "field": "label" },
+          "width": { "scale": "x", "band": true },
+          "y": { "scale": "y", "signal": "datum.value >= 0 ? datum.cumulative : datum.running_start" },
+          "y2": { "scale": "y", "signal": "datum.value >= 0 ? datum.running_start : datum.cumulative" },
+          "fill": { "field": "color" },
+          "stroke": { "value": "white" },
+          "strokeWidth": { "value": 1 }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": { "data": "table" },
+      "encode": {
+        "enter": {
+          "x": { "scale": "x", "field": "label", "band": 0.5 },
+          "y": { "scale": "y", "signal": "datum.connector_top" },
+          "text": { "signal": "format(datum.value, ',.0f')" },
+          "fontSize": { "value": 10 },
+          "dy": { "signal": "datum.value >= 0 ? -8 : 14" },
+          "align": { "value": "center" }
+        }
+      }
+    }
+  ]
+}

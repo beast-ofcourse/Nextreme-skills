@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo — Cloud Service Taxonomy</title>
+<style>
+@page { size: A4 landscape; margin: 0.4in; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, "Segoe UI", "Helvetica Neue", Arial, sans-serif; background: #fff; display: flex; justify-content: center; padding: 20px; }
+.page { width: 1100px; background: #fff; padding: 20px 0; }
+.title { text-align: center; font-size: 28px; font-weight: 800; color: #111; margin-bottom: 4px; }
+.subtitle { text-align: center; font-size: 14px; color: #555; margin-bottom: 12px; }
+svg.diagram { width: 100%; height: auto; display: block; }
+@media print { body { padding: 0; } .page { width: 100%; padding: 0; } }
+</style>
+</head>
+<body>
+<div class="page">
+<div class="title">AWS Services Taxonomy</div>
+<div class="subtitle">Cloud service categories — compute, storage, networking, and more</div>
+<svg class="diagram" viewBox="0 0 1400 750" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10" fill="none" stroke="#5a78ff" stroke-width="1.5"/>
+</marker>
+<filter id="shadow" x="-5%" y="-5%" width="115%" height="115%">
+<feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000020"/>
+</filter>
+</defs>
+<rect width="1400" height="750" fill="#fff"/>
+
+<!-- Root -->
+<rect x="500" y="15" width="400" height="44" rx="8" fill="#f3df58" stroke="#b29a10" stroke-width="2" filter="url(#shadow)"/>
+<text x="700" y="43" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#111">Amazon Web Services</text>
+
+<!-- Level 1 - 6 categories -->
+<line x1="700" y1="59" x2="700" y2="85" stroke="#5a78ff" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<line x1="700" y1="125" x2="120" y2="180" stroke="#5a78ff" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="700" y1="125" x2="380" y2="180" stroke="#5a78ff" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="700" y1="125" x2="630" y2="180" stroke="#5a78ff" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="700" y1="125" x2="880" y2="180" stroke="#5a78ff" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="700" y1="125" x2="1130" y2="180" stroke="#5a78ff" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<!-- Categories -->
+<rect x="40" y="90" width="160" height="44" rx="6" fill="#f8e39c" stroke="#9a7b24" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="120" y="117" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#111">Compute</text>
+<rect x="300" y="90" width="160" height="44" rx="6" fill="#f8e39c" stroke="#9a7b24" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="380" y="117" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#111">Storage</text>
+<rect x="550" y="90" width="160" height="44" rx="6" fill="#f8e39c" stroke="#9a7b24" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="630" y="117" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#111">Networking</text>
+<rect x="800" y="90" width="160" height="44" rx="6" fill="#f8e39c" stroke="#9a7b24" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="880" y="117" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#111">Databases</text>
+<rect x="1050" y="90" width="160" height="44" rx="6" fill="#f8e39c" stroke="#9a7b24" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="1130" y="117" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#111">Security</text>
+
+<!-- Compute children -->
+<rect x="50" y="200" width="130" height="36" rx="6" fill="#f3df58" stroke="#b29a10" stroke-width="1" filter="url(#shadow)"/>
+<text x="115" y="223" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#111">EC2</text>
+<rect x="50" y="245" width="130" height="36" rx="6" fill="#fff3c4" stroke="#c0a830" stroke-width="1" filter="url(#shadow)"/>
+<text x="115" y="268" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="500" fill="#111">Lambda</text>
+<rect x="50" y="290" width="130" height="36" rx="6" fill="#fff3c4" stroke="#c0a830" stroke-width="1" filter="url(#shadow)"/>
+<text x="115" y="313" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="500" fill="#111">ECS / EKS</text>
+<rect x="50" y="335" width="130" height="36" rx="6" fill="#fff3c4" stroke="#c0a830" stroke-width="1" filter="url(#shadow)"/>
+<text x="115" y="358" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="500" fill="#111">ECS / EKS</text>
+<line x1="120" y1="134" x2="115" y2="200" stroke="#5a78ff" stroke-width="1"/>
+<line x1="115" y1="236" x2="115" y2="245" stroke="#5a78ff" stroke-width="1"/>
+<line x1="115" y1="281" x2="115" y2="290" stroke="#5a78ff" stroke-width="1"/>
+<line x1="115" y1="326" x2="115" y2="335" stroke="#5a78ff" stroke-width="1"/>
+
+<!-- Storage children -->
+<rect x="310" y="200" width="130" height="36" rx="6" fill="#f3df58" stroke="#b29a10" stroke-width="1" filter="url(#shadow)"/>
+<text x="375" y="223" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#111">S3</text>
+<rect x="310" y="245" width="130" height="36" rx="6" fill="#fff3c4" stroke="#c0a830" stroke-width="1" filter="url(#shadow)"/>
+<text x="375" y="268" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="500" fill="#111">EBS</text>
+<rect x="310" y="290" width="130" height="36" rx="6" fill="#fff3c4" stroke="#c0a830" stroke-width="1" filter="url(#shadow)"/>
+<text x="375" y="313" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="500" fill="#111">EFS</text>
+<rect x="310" y="335" width="130" height="36" rx="6" fill="#fff3c4" stroke="#c0a830" stroke-width="1" filter="url(#shadow)"/>
+<text x="375" y="358" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="500" fill="#111">Glacier</text>
+<line x1="380" y1="134" x2="375" y2="200" stroke="#5a78ff" stroke-width="1"/>
+<line x1="375" y1="236" x2="375" y2="245" stroke="#5a78ff" stroke-width="1"/>
+<line x1="375" y1="281" x2="375" y2="290" stroke="#5a78ff" stroke-width="1"/>
+<line x1="375" y1="326" x2="375" y2="335" stroke="#5a78ff" stroke-width="1"/>
+
+<!-- Networking children -->
+<rect x="560" y="200" width="130" height="36" rx="6" fill="#f3df58" stroke="#b29a10" stroke-width="1" filter="url(#shadow)"/>
+<text x="625" y="223" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#111">VPC</text>
+<rect x="560" y="245" width="130" height="36" rx="6" fill="#fff3c4" stroke="#c0a830" stroke-width="1" filter="url(#shadow)"/>
+<text x="625" y="268" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="500" fill="#111">CloudFront</text>
+<rect x="560" y="290" width="130" height="36" rx="6" fill="#fff3c4" stroke="#c0a830" stroke-width="1" filter="url(#shadow)"/>
+<text x="625" y="313" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="500" fill="#111">ELB</text>
+<rect x="560" y="335" width="130" height="36" rx="6" fill="#fff3c4" stroke="#c0a830" stroke-width="1" filter="url(#shadow)"/>
+<text x="625" y="358" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="500" fill="#111">Route 53</text>
+<line x1="630" y1="134" x2="625" y2="200" stroke="#5a78ff" stroke-width="1"/>
+<line x1="625" y1="236" x2="625" y2="245" stroke="#5a78ff" stroke-width="1"/>
+<line x1="625" y1="281" x2="625" y2="290" stroke="#5a78ff" stroke-width="1"/>
+<line x1="625" y1="326" x2="625" y2="335" stroke="#5a78ff" stroke-width="1"/>
+
+<!-- Database children -->
+<rect x="810" y="200" width="130" height="36" rx="6" fill="#f3df58" stroke="#b29a10" stroke-width="1" filter="url(#shadow)"/>
+<text x="875" y="223" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#111">RDS</text>
+<rect x="810" y="245" width="130" height="36" rx="6" fill="#fff3c4" stroke="#c0a830" stroke-width="1" filter="url(#shadow)"/>
+<text x="875" y="268" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="500" fill="#111">DynamoDB</text>
+<rect x="810" y="290" width="130" height="36" rx="6" fill="#fff3c4" stroke="#c0a830" stroke-width="1" filter="url(#shadow)"/>
+<text x="875" y="313" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="500" fill="#111">ElastiCache</text>
+<rect x="810" y="335" width="130" height="36" rx="6" fill="#fff3c4" stroke="#c0a830" stroke-width="1" filter="url(#shadow)"/>
+<text x="875" y="358" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="500" fill="#111">Aurora</text>
+<line x1="880" y1="134" x2="875" y2="200" stroke="#5a78ff" stroke-width="1"/>
+<line x1="875" y1="236" x2="875" y2="245" stroke="#5a78ff" stroke-width="1"/>
+<line x1="875" y1="281" x2="875" y2="290" stroke="#5a78ff" stroke-width="1"/>
+<line x1="875" y1="326" x2="875" y2="335" stroke="#5a78ff" stroke-width="1"/>
+
+<!-- Security children -->
+<rect x="1060" y="200" width="130" height="36" rx="6" fill="#f3df58" stroke="#b29a10" stroke-width="1" filter="url(#shadow)"/>
+<text x="1125" y="223" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#111">IAM</text>
+<rect x="1060" y="245" width="130" height="36" rx="6" fill="#fff3c4" stroke="#c0a830" stroke-width="1" filter="url(#shadow)"/>
+<text x="1125" y="268" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="500" fill="#111">KMS</text>
+<rect x="1060" y="290" width="130" height="36" rx="6" fill="#fff3c4" stroke="#c0a830" stroke-width="1" filter="url(#shadow)"/>
+<text x="1125" y="313" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="500" fill="#111">WAF</text>
+<rect x="1060" y="335" width="130" height="36" rx="6" fill="#fff3c4" stroke="#c0a830" stroke-width="1" filter="url(#shadow)"/>
+<text x="1125" y="358" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="500" fill="#111">GuardDuty</text>
+<line x1="1130" y1="134" x2="1125" y2="200" stroke="#5a78ff" stroke-width="1"/>
+<line x1="1125" y1="236" x2="1125" y2="245" stroke="#5a78ff" stroke-width="1"/>
+<line x1="1125" y1="281" x2="1125" y2="290" stroke="#5a78ff" stroke-width="1"/>
+<line x1="1125" y1="326" x2="1125" y2="335" stroke="#5a78ff" stroke-width="1"/>
+
+<!-- Legend -->
+<rect x="50" y="460" width="14" height="14" rx="3" fill="#f3df58" stroke="#b29a10" stroke-width="1.5"/>
+<text x="70" y="472" font-family="system-ui,sans-serif" font-size="11" fill="#555">Root / primary category</text>
+<rect x="260" y="460" width="14" height="14" rx="3" fill="#f8e39c" stroke="#9a7b24" stroke-width="1.5"/>
+<text x="280" y="472" font-family="system-ui,sans-serif" font-size="11" fill="#555">Sub-category</text>
+<rect x="440" y="460" width="14" height="14" rx="3" fill="#fff3c4" stroke="#c0a830" stroke-width="1"/>
+<text x="460" y="472" font-family="system-ui,sans-serif" font-size="11" fill="#555">Service</text>
+<line x1="580" y1="467" x2="620" y2="467" stroke="#5a78ff" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="630" y="472" font-family="system-ui,sans-serif" font-size="11" fill="#555">Hierarchy connection</text>
+</svg>
+</div>
+</body>
+</html>

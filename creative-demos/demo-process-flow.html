@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo — Auth Process Flow</title>
+<style>
+@page { size: A4 portrait; margin: 0.4in; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, "Segoe UI", "Helvetica Neue", Arial, sans-serif; background: #fff; display: flex; justify-content: center; padding: 20px; }
+.page { width: 800px; background: #fff; padding: 20px 0; }
+.title { text-align: center; font-size: 28px; font-weight: 800; color: #111; margin-bottom: 4px; }
+.subtitle { text-align: center; font-size: 14px; color: #555; margin-bottom: 12px; }
+svg.diagram { width: 100%; height: auto; display: block; }
+@media print { body { padding: 0; } .page { width: 100%; padding: 0; } }
+</style>
+</head>
+<body>
+<div class="page">
+<div class="title">OAuth 2.0 Authorization Code Flow</div>
+<div class="subtitle">RFC 6749 — Step-by-step authentication sequence</div>
+<svg class="diagram" viewBox="0 0 760 1050" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10" fill="none" stroke="#5a78ff" stroke-width="1.5"/>
+</marker>
+<filter id="shadow" x="-5%" y="-5%" width="115%" height="115%">
+<feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000020"/>
+</filter>
+</defs>
+<rect width="760" height="1050" fill="#fff"/>
+
+<!-- Lanes -->
+<rect x="10" y="60" width="160" height="970" rx="4" fill="#f5f7ff" stroke="#d0d5f0" stroke-width="1"/>
+<text x="90" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#5a78ff">User / Browser</text>
+<rect x="190" y="60" width="160" height="970" rx="4" fill="#f5f7ff" stroke="#d0d5f0" stroke-width="1"/>
+<text x="270" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#5a78ff">Frontend App</text>
+<rect x="370" y="60" width="160" height="970" rx="4" fill="#f5f7ff" stroke="#d0d5f0" stroke-width="1"/>
+<text x="450" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#5a78ff">Auth Server</text>
+<rect x="550" y="60" width="190" height="970" rx="4" fill="#f5f7ff" stroke="#d0d5f0" stroke-width="1"/>
+<text x="645" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#5a78ff">Resource Server</text>
+
+<!-- Step 1 -->
+<rect x="220" y="110" width="100" height="36" rx="6" fill="#f8e39c" stroke="#9a7b24" stroke-width="1" filter="url(#shadow)"/>
+<text x="270" y="133" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="500" fill="#111">Initiate Login</text>
+<rect x="390" y="170" width="120" height="36" rx="6" fill="#f3df58" stroke="#b29a10" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="450" y="193" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#111">Auth Request</text>
+<line x1="270" y1="146" x2="450" y2="170" stroke="#5a78ff" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="340" y="163" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#888">1. Redirect to /authorize</text>
+
+<!-- Step 2 -->
+<rect x="30" y="250" width="120" height="36" rx="20" fill="#f8e39c" stroke="#9a7b24" stroke-width="1" filter="url(#shadow)"/>
+<text x="90" y="273" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="500" fill="#111">Login Form</text>
+<line x1="450" y1="206" x2="90" y2="250" stroke="#5a78ff" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="320" y="238" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#888">2. Show login page</text>
+
+<!-- Step 3 -->
+<rect x="30" y="320" width="120" height="36" rx="20" fill="#f8e39c" stroke="#9a7b24" stroke-width="1" filter="url(#shadow)"/>
+<text x="90" y="343" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="500" fill="#111">Credentials</text>
+<line x1="150" y1="338" x2="400" y2="338" stroke="#5a78ff" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="275" y="333" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#888">3. POST username + password</text>
+
+<!-- Step 4 -->
+<rect x="390" y="390" width="120" height="36" rx="6" fill="#f3df58" stroke="#b29a10" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="450" y="413" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#111">Auth Code</text>
+<line x1="450" y1="426" x2="90" y2="436" stroke="#5a78ff" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="320" y="440" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#888">4. Redirect with ?code=xxx</text>
+
+<!-- Step 5 -->
+<rect x="220" y="490" width="100" height="36" rx="6" fill="#f8e39c" stroke="#9a7b24" stroke-width="1" filter="url(#shadow)"/>
+<text x="270" y="513" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="500" fill="#111">Exchange Code</text>
+<line x1="270" y1="526" x2="440" y2="540" stroke="#5a78ff" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="340" y="540" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#888">5. POST /token (code + secret)</text>
+
+<!-- Step 6 -->
+<rect x="390" y="560" width="120" height="36" rx="6" fill="#f3df58" stroke="#b29a10" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="450" y="583" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#111">Access + Refresh Tokens</text>
+<line x1="450" y1="596" x2="280" y2="570" stroke="#5a78ff" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="400" y="600" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#888">6. Return tokens</text>
+
+<!-- Step 7 -->
+<rect x="220" y="630" width="100" height="36" rx="6" fill="#f8e39c" stroke="#9a7b24" stroke-width="1" filter="url(#shadow)"/>
+<text x="270" y="653" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="500" fill="#111">API Call</text>
+<line x1="320" y1="648" x2="570" y2="648" stroke="#5a78ff" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="445" y="643" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#888">7. GET /resource (Bearer token)</text>
+
+<!-- Step 8 -->
+<rect x="570" y="700" width="140" height="36" rx="6" fill="#f3df58" stroke="#b29a10" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="640" y="723" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#111">Protected Resource</text>
+<line x1="640" y1="736" x2="280" y2="720" stroke="#5a78ff" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="520" y="738" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#888">8. Return user data</text>
+
+<!-- Step 9 -->
+<rect x="220" y="780" width="100" height="36" rx="20" fill="#f3df58" stroke="#b29a10" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="270" y="803" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#111">Welcome!</text>
+<line x1="270" y1="816" x2="100" y2="840" stroke="#5a78ff" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="200" y="840" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#888">9. Render dashboard</text>
+
+<rect x="30" y="860" width="120" height="36" rx="20" fill="#e8f5e9" stroke="#4caf50" stroke-width="1" filter="url(#shadow)"/>
+<text x="90" y="883" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#2e7d32">Authenticated ✅</text>
+
+<!-- Legend -->
+<rect x="50" y="950" width="14" height="14" rx="3" fill="#f3df58" stroke="#b29a10" stroke-width="1"/>
+<text x="70" y="962" font-family="system-ui,sans-serif" font-size="11" fill="#555">Server decision / response</text>
+<rect x="240" y="950" width="14" height="14" rx="3" fill="#f8e39c" stroke="#9a7b24" stroke-width="1"/>
+<text x="260" y="962" font-family="system-ui,sans-serif" font-size="11" fill="#555">Client action</text>
+<ellipse cx="450" cy="957" rx="8" ry="8" fill="#e8f5e9" stroke="#4caf50" stroke-width="1"/>
+<text x="463" y="962" font-family="system-ui,sans-serif" font-size="11" fill="#555">End state</text>
+</svg>
+</div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+# Stacked Bar Chart Template — Vega-Lite
+title: Tickets by Priority
+mark: bar
+data:
+  values:
+    - { month: Jan, priority: Low, count: 45 }
+    - { month: Jan, priority: High, count: 12 }
+    - { month: Feb, priority: Low, count: 52 }
+    - { month: Feb, priority: High, count: 18 }
+    - { month: Mar, priority: Low, count: 48 }
+    - { month: Mar, priority: High, count: 15 }
+encoding:
+  x: { field: month, type: nominal, title: null }
+  y: { field: count, type: quantitative, title: Tickets }
+  color: { field: priority, type: nominal, title: Priority }

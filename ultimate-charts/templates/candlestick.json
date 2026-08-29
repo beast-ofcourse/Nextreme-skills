@@ -1,0 +1,102 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "title": { "text": "Price Chart", "fontSize": 16 },
+  "width": 600,
+  "height": 350,
+  "padding": 10,
+  "signals": [
+    { "name": "chartWidth", "update": "width" },
+    { "name": "chartHeight", "update": "height - 30" }
+  ],
+  "data": [
+    {
+      "name": "ohlc",
+      "values": [
+        { "date": "2025-01-06", "open": 142.5, "high": 145.8, "low": 141.2, "close": 144.9, "volume": 52000000 },
+        { "date": "2025-01-07", "open": 145.0, "high": 148.2, "low": 144.3, "close": 147.6, "volume": 48500000 },
+        { "date": "2025-01-08", "open": 147.6, "high": 149.1, "low": 146.0, "close": 146.8, "volume": 43000000 },
+        { "date": "2025-01-09", "open": 146.8, "high": 147.5, "low": 143.9, "close": 144.2, "volume": 51000000 },
+        { "date": "2025-01-10", "open": 144.2, "high": 146.0, "low": 140.5, "close": 141.3, "volume": 55000000 }
+      ],
+      "transform": [
+        { "type": "formula", "as": "up", "expr": "datum.close >= datum.open" },
+        { "type": "formula", "as": "mid", "expr": "(datum.open + datum.close) / 2" },
+        { "type": "formula", "as": "color", "expr": "datum.up ? '#4CAF50' : '#F44336'"}
+      ]
+    },
+    {
+      "name": "volume_data",
+      "source": "ohlc",
+      "transform": [
+        { "type": "formula", "as": "vcolor", "expr": "datum.up ? '#4CAF5055' : '#F4433655'" }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "band",
+      "domain": { "data": "ohlc", "field": "date" },
+      "range": "width",
+      "padding": 0.15
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "domain": { "data": "ohlc", "fields": ["high", "low"] },
+      "range": [0, { "signal": "chartHeight" }],
+      "zero": false,
+      "nice": true
+    },
+    {
+      "name": "yVolume",
+      "type": "linear",
+      "domain": { "data": "ohlc", "field": "volume" },
+      "range": [{ "signal": "chartHeight + 20" }, { "signal": "height" }],
+      "zero": true,
+      "nice": true
+    }
+  ],
+  "axes": [
+    { "orient": "left", "scale": "y", "title": "Price ($)", "grid": true, "format": ".1f" },
+    { "orient": "right", "scale": "yVolume", "title": "Volume", "grid": false, "format": "s" },
+    { "orient": "bottom", "scale": "x", "title": null, "grid": false }
+  ],
+  "marks": [
+    { "type": "rule", "from": { "data": "ohlc" },
+      "encode": {
+        "enter": {
+          "x": { "scale": "x", "field": "date", "band": 0.5 },
+          "y": { "scale": "y", "field": "low" },
+          "y2": { "scale": "y", "field": "high" },
+          "stroke": { "value": "#666" },
+          "strokeWidth": { "value": 1.5 }
+        }
+      }
+    },
+    { "type": "rect", "from": { "data": "ohlc" },
+      "encode": {
+        "enter": {
+          "x": { "scale": "x", "field": "date", "band": 0.2 },
+          "width": { "scale": "x", "band": 0.6 },
+          "y": { "scale": "y", "field": "open" },
+          "y2": { "scale": "y", "field": "close" },
+          "fill": { "field": "color" },
+          "stroke": { "value": "#333" },
+          "strokeWidth": { "value": 0.5 }
+        }
+      }
+    },
+    { "type": "rect", "from": { "data": "volume_data" },
+      "encode": {
+        "enter": {
+          "x": { "scale": "x", "field": "date", "band": 0.2 },
+          "width": { "scale": "x", "band": 0.6 },
+          "y": { "scale": "yVolume", "field": "volume" },
+          "y2": { "signal": "height" },
+          "fill": { "field": "vcolor" }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "title": { "text": "Energy Flow Sankey", "fontSize": 16 },
+  "width": 700,
+  "height": 400,
+  "padding": 10,
+  "data": [
+    {
+      "name": "nodes",
+      "values": [
+        { "id": 0, "name": "Solar", "category": 0 },
+        { "id": 1, "name": "Wind", "category": 0 },
+        { "id": 2, "name": "Grid", "category": 1 },
+        { "id": 3, "name": "Storage", "category": 1 },
+        { "id": 4, "name": "Residential", "category": 2 },
+        { "id": 5, "name": "Commercial", "category": 2 },
+        { "id": 6, "name": "Industrial", "category": 2 }
+      ]
+    },
+    {
+      "name": "links",
+      "values": [
+        { "source": 0, "target": 2, "value": 40 },
+        { "source": 0, "target": 3, "value": 10 },
+        { "source": 1, "target": 2, "value": 60 },
+        { "source": 1, "target": 3, "value": 15 },
+        { "source": 2, "target": 4, "value": 25 },
+        { "source": 2, "target": 5, "value": 35 },
+        { "source": 2, "target": 6, "value": 40 },
+        { "source": 3, "target": 4, "value": 5 },
+        { "source": 3, "target": 5, "value": 10 },
+        { "source": 3, "target": 6, "value": 10 }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": [0, 1, 2],
+      "range": ["#4CAF50", "#2196F3", "#FF9800"]
+    }
+  ],
+  "marks": [
+    { "type": "group", "name": "sankey", "from": { "data": "nodes" },
+      "marks": [
+        { "type": "rect",
+          "encode": {
+            "enter": {
+              "x": { "value": 0 },
+              "y": { "value": 0 },
+              "width": { "value": 20 },
+              "height": { "value": 20 },
+              "fill": { "scale": "color", "field": "category" }
+            }
+          }
+        },
+        { "type": "text",
+          "encode": {
+            "enter": {
+              "x": { "value": 25 },
+              "y": { "value": 14 },
+              "text": { "field": "name" },
+              "fontSize": { "value": 12 }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

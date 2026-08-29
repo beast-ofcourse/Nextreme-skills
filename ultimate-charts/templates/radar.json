@@ -1,0 +1,56 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "title": { "text": "Skills Assessment", "fontSize": 16 },
+  "width": 400,
+  "height": 400,
+  "padding": 40,
+  "data": [
+    {
+      "name": "table",
+      "values": [
+        { "skill": "Leadership", "score": 85, "person": "Alex" },
+        { "skill": "Technical", "score": 92, "person": "Alex" },
+        { "skill": "Communication", "score": 78, "person": "Alex" },
+        { "skill": "Strategy", "score": 88, "person": "Alex" },
+        { "skill": "Execution", "score": 82, "person": "Alex" },
+        { "skill": "Leadership", "score": 70, "person": "Jordan" },
+        { "skill": "Technical", "score": 95, "person": "Jordan" },
+        { "skill": "Communication", "score": 65, "person": "Jordan" },
+        { "skill": "Strategy", "score": 75, "person": "Jordan" },
+        { "skill": "Execution", "score": 80, "person": "Jordan" }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "angular",
+      "type": "point",
+      "domain": { "data": "table", "field": "skill" },
+      "range": [0, 360],
+      "padding": 0.5
+    },
+    {
+      "name": "radial",
+      "type": "linear",
+      "domain": [0, 100],
+      "range": [180, 0]
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": ["Alex", "Jordan"],
+      "range": ["#2196F3", "#FF9800"]
+    }
+  ],
+  "marks": [
+    { "type": "group", "name": "polygons",
+      "from": { "data": "table" },
+      "marks": [
+        { "type": "path", "name": "spider",
+          "from": { "data": "table" },
+          "encode": { "enter": { "stroke": { "scale": "color", "field": "person" }, "fill": { "scale": "color", "field": "person" }, "fillOpacity": { "value": 0.1 } } }
+        }
+      ]
+    }
+  ]
+}

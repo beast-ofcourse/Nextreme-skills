@@ -38,6 +38,10 @@ Discover skills live from the repo (each `*/SKILL.md`); the set below is a snaps
 - `next-big-thing` — biggest high-impact build; gates on approval.
 - `nextreme-decision` — makes the extreme call + out-of-box opt-in.
 - `nextreme-skill-creator` — design/write/improve skills.
+- `high-quality-flowcharts` — print-ready flowcharts, roadmaps, decision trees (PDF).
+- `ultimate-charts` — publication-grade SVG charts from data.
+- `ultimate-diagrams` — architecture, UML, agent-workflow technical diagrams.
+- `readme-architect` — repo-grounded professional README authoring.
 - `tdd-coach` — red-green-refactor on real tasks.
 - `git-guardrails` — blocks destructive/irreversible git.
 - `skill-router` — this skill; routes intent to the right skill.

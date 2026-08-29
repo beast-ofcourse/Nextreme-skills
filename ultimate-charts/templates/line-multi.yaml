@@ -1,0 +1,19 @@
+# Multi-Series Line Chart Template — Vega-Lite
+title: Revenue by Region
+mark:
+  type: line
+  point: true
+data:
+  values:
+    - { month: Jan, region: EMEA, revenue: 120 }
+    - { month: Jan, region: APAC, revenue: 80 }
+    - { month: Feb, region: EMEA, revenue: 140 }
+    - { month: Feb, region: APAC, revenue: 90 }
+    - { month: Mar, region: EMEA, revenue: 160 }
+    - { month: Mar, region: APAC, revenue: 110 }
+    - { month: Apr, region: EMEA, revenue: 155 }
+    - { month: Apr, region: APAC, revenue: 130 }
+encoding:
+  x: { field: month, type: ordinal, title: null }
+  y: { field: revenue, type: quantitative, title: Revenue }
+  color: { field: region, type: nominal, title: Region }

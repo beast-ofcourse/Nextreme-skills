@@ -1,0 +1,160 @@
+<svg width="900" height="650" viewBox="0 0 900 650" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow-produce" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#059669"/>
+    </marker>
+    <marker id="arrow-consume" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7c3aed"/>
+    </marker>
+    <linearGradient id="topic-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+    <linearGradient id="prod-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+    <linearGradient id="cons-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#f8fafc"/>
+
+  <!-- Title -->
+  <text x="450" y="40" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="#1e293b" text-anchor="middle" letter-spacing="0.5">Event-Driven Architecture: Order Processing</text>
+
+  <!-- ============================================ -->
+  <!-- PRODUCERS -->
+  <!-- ============================================ -->
+  <text x="100" y="120" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#475569">Producers</text>
+
+  <rect x="50" y="135" width="150" height="70" rx="12" fill="url(#prod-grad)" stroke="#047857" stroke-width="2"/>
+  <text x="125" y="165" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" fill="white" text-anchor="middle">Web App</text>
+  <text x="125" y="185" font-family="system-ui, sans-serif" font-size="9" fill="rgba(255,255,255,0.7)" text-anchor="middle">Places Orders</text>
+
+  <rect x="50" y="225" width="150" height="70" rx="12" fill="url(#prod-grad)" stroke="#047857" stroke-width="2"/>
+  <text x="125" y="255" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" fill="white" text-anchor="middle">Admin Panel</text>
+  <text x="125" y="275" font-family="system-ui, sans-serif" font-size="9" fill="rgba(255,255,255,0.7)" text-anchor="middle">Update Inventory</text>
+
+  <!-- ============================================ -->
+  <!-- TOPIC RAILS (event-transit style) -->
+  <!-- ============================================ -->
+  <text x="380" y="120" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#475569">Event Topics (Kafka)</text>
+
+  <!-- Orders Topic -->
+  <rect x="250" y="140" width="260" height="46" rx="23" fill="url(#topic-grad)" stroke="#475569" stroke-width="2"/>
+  <text x="380" y="165" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" fill="white" text-anchor="middle">orders.topic</text>
+  <text x="380" y="180" font-family="system-ui, sans-serif" font-size="8" fill="rgba(255,255,255,0.5)" text-anchor="middle">partition: 3 · replication: 3</text>
+
+  <!-- Payments Topic -->
+  <rect x="250" y="200" width="260" height="46" rx="23" fill="url(#topic-grad)" stroke="#475569" stroke-width="2"/>
+  <text x="380" y="225" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" fill="white" text-anchor="middle">payments.topic</text>
+  <text x="380" y="240" font-family="system-ui, sans-serif" font-size="8" fill="rgba(255,255,255,0.5)" text-anchor="middle">partition: 2 · replication: 3</text>
+
+  <!-- Notifications Topic -->
+  <rect x="250" y="260" width="260" height="46" rx="23" fill="url(#topic-grad)" stroke="#475569" stroke-width="2"/>
+  <text x="380" y="285" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" fill="white" text-anchor="middle">notifications.topic</text>
+  <text x="380" y="300" font-family="system-ui, sans-serif" font-size="8" fill="rgba(255,255,255,0.5)" text-anchor="middle">partition: 1 · replication: 2</text>
+
+  <!-- ============================================ -->
+  <!-- PRODUCER -> TOPIC EDGES -->
+  <!-- ============================================ -->
+  <!-- Web App -> Orders -->
+  <line x1="200" y1="165" x2="248" y2="165" stroke="#059669" stroke-width="2" marker-end="url(#arrow-produce)"/>
+
+  <!-- Admin -> Inventory (if we add an inventory topic) | Admin -> Orders -->
+  <line x1="200" y1="260" x2="248" y2="223" stroke="#059669" stroke-width="2" marker-end="url(#arrow-produce)"/>
+
+  <!-- ============================================ -->
+  <!-- CONSUMERS -->
+  <!-- ============================================ -->
+  <text x="700" y="120" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#475569">Consumers</text>
+
+  <!-- Inventory Service -->
+  <rect x="600" y="140" width="160" height="60" rx="12" fill="url(#cons-grad)" stroke="#5b21b6" stroke-width="2"/>
+  <text x="680" y="168" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" fill="white" text-anchor="middle">Inventory Service</text>
+  <text x="680" y="185" font-family="system-ui, sans-serif" font-size="9" fill="rgba(255,255,255,0.7)" text-anchor="middle">consumer-group: inv-grp</text>
+
+  <!-- Billing Service -->
+  <rect x="600" y="215" width="160" height="60" rx="12" fill="url(#cons-grad)" stroke="#5b21b6" stroke-width="2"/>
+  <text x="680" y="243" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" fill="white" text-anchor="middle">Billing Service</text>
+  <text x="680" y="260" font-family="system-ui, sans-serif" font-size="9" fill="rgba(255,255,255,0.7)" text-anchor="middle">consumer-group: bill-grp</text>
+
+  <!-- Email Service -->
+  <rect x="600" y="290" width="160" height="60" rx="12" fill="url(#cons-grad)" stroke="#5b21b6" stroke-width="2"/>
+  <text x="680" y="318" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" fill="white" text-anchor="middle">Email Service</text>
+  <text x="680" y="335" font-family="system-ui, sans-serif" font-size="9" fill="rgba(255,255,255,0.7)" text-anchor="middle">consumer-group: email-grp</text>
+
+  <!-- ============================================ -->
+  <!-- TOPIC -> CONSUMER EDGES -->
+  <!-- ============================================ -->
+  <!-- Orders -> Inventory -->
+  <line x1="510" y1="163" x2="598" y2="170" stroke="#7c3aed" stroke-width="2" stroke-dasharray="8,5" marker-end="url(#arrow-consume)"/>
+
+  <!-- Orders -> Billing -->
+  <line x1="510" y1="223" x2="598" y2="245" stroke="#7c3aed" stroke-width="2" stroke-dasharray="8,5" marker-end="url(#arrow-consume)"/>
+
+  <!-- Payments -> Billing -->
+  <line x1="510" y1="225" x2="598" y2="240" stroke="#7c3aed" stroke-width="2" stroke-dasharray="8,5" marker-end="url(#arrow-consume)"/>
+
+  <!-- Notifications -> Email -->
+  <line x1="510" y1="283" x2="598" y2="320" stroke="#7c3aed" stroke-width="2" stroke-dasharray="8,5" marker-end="url(#arrow-consume)"/>
+
+  <!-- ============================================ -->
+  <!-- CONSUMER GROUP HIGHLIGHT -->
+  <!-- ============================================ -->
+  <rect x="585" y="125" width="190" height="245" rx="12" fill="none" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4,2" opacity="0.5"/>
+
+  <!-- ============================================ -->
+  <!-- LEGEND -->
+  <!-- ============================================ -->
+  <rect x="50" y="395" width="800" height="85" rx="8" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+
+  <text x="70" y="420" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#475569">Event Transit Semantics:</text>
+
+  <!-- Producer -->
+  <rect x="70" y="432" width="14" height="14" rx="4" fill="url(#prod-grad)"/>
+  <text x="90" y="444" font-family="system-ui, sans-serif" font-size="10" fill="#475569">Producer</text>
+
+  <!-- Topic -->
+  <rect x="180" y="432" width="80" height="14" rx="7" fill="url(#topic-grad)"/>
+  <text x="270" y="444" font-family="system-ui, sans-serif" font-size="10" fill="#475569">Topic (Kafka)</text>
+
+  <!-- Consumer -->
+  <rect x="370" y="432" width="14" height="14" rx="4" fill="url(#cons-grad)"/>
+  <text x="390" y="444" font-family="system-ui, sans-serif" font-size="10" fill="#475569">Consumer</text>
+
+  <!-- Consumer group -->
+  <rect x="490" y="432" width="14" height="14" rx="3" fill="none" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="510" y="444" font-family="system-ui, sans-serif" font-size="10" fill="#475569">Consumer Group</text>
+
+  <!-- Produce -->
+  <line x1="630" y1="439" x2="670" y2="439" stroke="#059669" stroke-width="2"/>
+  <polygon points="670,439 660,435 660,443" fill="#059669"/>
+  <text x="680" y="444" font-family="system-ui, sans-serif" font-size="10" fill="#475569">Produce</text>
+
+  <!-- Consume -->
+  <line x1="740" y1="439" x2="775" y2="439" stroke="#7c3aed" stroke-width="2" stroke-dasharray="8,5"/>
+  <polygon points="775,439 765,435 765,443" fill="#7c3aed"/>
+  <text x="785" y="444" font-family="system-ui, sans-serif" font-size="10" fill="#475569">Consume</text>
+
+  <!-- ============================================ -->
+  <!-- SCALING INFO -->
+  <!-- ============================================ -->
+  <rect x="50" y="495" width="800" height="55" rx="8" fill="rgba(59,130,246,0.04)" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="70" y="518" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" fill="#2563eb">Scaling Notes:</text>
+  <text x="70" y="535" font-family="system-ui, sans-serif" font-size="10" fill="#475569">Add partitions to increase throughput. Add consumer instances within same group to parallelize. Multiple consumer groups subscribe independently.</text>
+
+  <metadata>
+    <graph-role>event-transit</graph-role>
+    <semantic-role>event_driven_architecture</semantic-role>
+    <style>event-transit</style>
+    <generated-by>ultimate-diagrams</generated-by>
+    <topics>orders,payments,notifications</topics>
+    <producers>web-app,admin-panel</producers>
+    <consumers>inventory,billing,email</consumers>
+  </metadata>
+</svg>

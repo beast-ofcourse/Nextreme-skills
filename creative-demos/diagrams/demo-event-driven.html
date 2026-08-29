@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Real-Time Order Processing — Event-Driven Architecture</title>
+<style>
+@page { size: A4 landscape; margin: 0.4in; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: system-ui, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  background: #eff1f5;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+.page { width: 1300px; background: #eff1f5; padding: 20px 0; }
+.title { text-align: center; font-size: 28px; font-weight: 800; color: #4c4f69; margin-bottom: 4px; }
+.subtitle { text-align: center; font-size: 14px; color: #6c6f85; margin-bottom: 16px; }
+svg.diagram { width: 100%; height: auto; display: block; }
+
+@media print { body { padding: 0; } .page { width: 100%; padding: 0; } }
+
+@media (prefers-color-scheme: dark) {
+  body { background: #1e1e2e; }
+  .page { background: #1e1e2e; }
+  .title { color: #cdd6f4; }
+  .subtitle { color: #a6adc8; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="title">Real-Time Order Processing — Event-Driven Architecture</div>
+<div class="subtitle">Pub/sub messaging pattern — producers, event topics, and consumer groups</div>
+<svg class="diagram" viewBox="0 0 1600 1100" xmlns="http://www.w3.org/2000/svg">
+<style>
+  .diagram-bg { fill: var(--page-bg, #eff1f5); }
+  .node-bg { fill: var(--node-bg, #e6e9ef); }
+  .node-border { stroke: var(--border, #ccd0da); }
+  .text-main { fill: var(--text, #4c4f69); }
+  .text-secondary { fill: var(--text-sec, #6c6f85); }
+  .text-accent { fill: var(--accent, #1e66f5); }
+  .text-inverse { fill: var(--text-inv, #eff1f5); }
+  .arrow-line { stroke: var(--accent, #1e66f5); fill: none; }
+  .arrow-dashed { stroke: var(--accent, #1e66f5); fill: none; stroke-dasharray: 7,5; }
+  .producer-fill { fill: var(--accent, #1e66f5); }
+  .topic-fill { fill: var(--yellow-bg, #fcefcf); stroke: var(--yellow, #df8e1d); }
+  .topic-text { fill: var(--yellow-text, #6a5200); }
+  .consumer-bg { fill: var(--alt-bg, #dce0e8); stroke: var(--border, #ccd0da); }
+  .consumer-header { fill: var(--accent, #1e66f5); }
+  .consumer-header-text { fill: #eff1f5; }
+  .service-box { fill: var(--node-bg, #e6e9ef); stroke: var(--border, #ccd0da); }
+  .legend-bg { fill: var(--node-bg, #e6e9ef); stroke: var(--border, #ccd0da); }
+  .legend-text { fill: var(--text, #4c4f69); }
+  .label-bg { fill: rgba(230,233,239,0.85); }
+  .event-label { fill: var(--text-sec, #6c6f85); font-family: system-ui,sans-serif; font-size: 9.5px; font-weight: 500; }
+  .node-label { font-family: system-ui,sans-serif; font-size: 13px; font-weight: 600; }
+  .node-sublabel { font-family: system-ui,sans-serif; font-size: 10px; font-weight: 400; }
+  .section-title { font-family: system-ui,sans-serif; font-size: 11px; font-weight: 700; fill: var(--text, #4c4f69); }
+  .legend-label { font-family: system-ui,sans-serif; font-size: 11px; fill: var(--text, #4c4f69); }
+  #arrow path, #arrow-dashed path { stroke: var(--accent, #1e66f5); fill: none; }
+
+  @media (prefers-color-scheme: dark) {
+    .diagram-bg { fill: #1e1e2e; }
+    .node-bg { fill: #313244; }
+    .node-border { stroke: #45475a; }
+    .text-main { fill: #cdd6f4; }
+    .text-secondary { fill: #a6adc8; }
+    .text-accent { fill: #89b4fa; }
+    .text-inverse { fill: #1e1e2e; }
+    .arrow-line { stroke: #89b4fa; }
+    .arrow-dashed { stroke: #89b4fa; }
+    .producer-fill { fill: #89b4fa; }
+    .topic-fill { fill: #4a3b1c; stroke: #f9e2af; }
+    .topic-text { fill: #f9e2af; }
+    .consumer-bg { fill: #181825; stroke: #45475a; }
+    .consumer-header { fill: #89b4fa; }
+    .consumer-header-text { fill: #1e1e2e; }
+    .service-box { fill: #313244; stroke: #45475a; }
+    .legend-bg { fill: #313244; stroke: #45475a; }
+    .legend-text { fill: #cdd6f4; }
+    .label-bg { fill: rgba(49,50,68,0.9); }
+    .event-label { fill: #a6adc8; }
+    .node-label { fill: #cdd6f4; }
+    .node-sublabel { fill: #a6adc8; }
+    .section-title { fill: #cdd6f4; }
+    .legend-label { fill: #cdd6f4; }
+  }
+</style>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto">
+    <path d="M 0 0 L 10 5 L 0 10" fill="none" stroke="#1e66f5" stroke-width="1.5"/>
+  </marker>
+  <marker id="arrow-dashed" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto">
+    <path d="M 0 0 L 10 5 L 0 10" fill="none" stroke="#1e66f5" stroke-width="1.5"/>
+  </marker>
+  <filter id="shadow" x="-8%" y="-8%" width="116%" height="116%">
+    <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000016"/>
+  </filter>
+  <filter id="shadow-lg" x="-8%" y="-8%" width="116%" height="116%">
+    <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#00000012"/>
+  </filter>
+</defs>
+
+<!-- Background -->
+<rect width="1600" height="1100" class="diagram-bg"/>
+
+<!-- Decorative line -->
+<line x1="80" y1="52" x2="1520" y2="52" stroke="#1e66f5" stroke-width="2" opacity="0.2"/>
+
+<!-- ===== SECTION LABEL — Producers ===== -->
+<text x="80" y="75" class="section-title" font-size="12" fill="#1e66f5">Producers</text>
+
+<!-- ===== PRODUCERS (top row) ===== -->
+
+<!-- P1: Web App -->
+<rect x="120" y="90" width="200" height="60" rx="8" class="node-bg" stroke="#1e66f5" stroke-width="2" filter="url(#shadow)"/>
+<rect x="120" y="90" width="200" height="60" rx="8" fill="#1e66f5" opacity="0.06"/>
+<text x="220" y="117" text-anchor="middle" class="node-label">Web App</text>
+<text x="220" y="135" text-anchor="middle" class="node-sublabel">Next.js Frontend</text>
+
+<!-- P2: Mobile App -->
+<rect x="440" y="90" width="200" height="60" rx="8" class="node-bg" stroke="#1e66f5" stroke-width="2" filter="url(#shadow)"/>
+<rect x="440" y="90" width="200" height="60" rx="8" fill="#1e66f5" opacity="0.06"/>
+<text x="540" y="117" text-anchor="middle" class="node-label">Mobile App</text>
+<text x="540" y="135" text-anchor="middle" class="node-sublabel">React Native</text>
+
+<!-- P3: Admin Panel -->
+<rect x="760" y="90" width="200" height="60" rx="8" class="node-bg" stroke="#1e66f5" stroke-width="2" filter="url(#shadow)"/>
+<rect x="760" y="90" width="200" height="60" rx="8" fill="#1e66f5" opacity="0.06"/>
+<text x="860" y="117" text-anchor="middle" class="node-label">Admin Panel</text>
+<text x="860" y="135" text-anchor="middle" class="node-sublabel">Internal Dashboard</text>
+
+<!-- ===== EVENT BUS (dashed horizontal line) ===== -->
+<line x1="80" y1="250" x2="1520" y2="250" stroke="#1e66f5" stroke-width="2" stroke-dasharray="10,6" opacity="0.6"/>
+<text x="80" y="243" class="section-title" font-size="12" fill="#1e66f5">Event Bus</text>
+
+<!-- ===== TOPICS (pills on the bus) ===== -->
+
+<!-- T1: Orders Created -->
+<g transform="translate(240,226)">
+  <rect x="0" y="0" width="200" height="44" rx="22" class="topic-fill" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="100" y="27" text-anchor="middle" class="topic-text" font-size="12" font-weight="600">Orders Created</text>
+</g>
+
+<!-- T2: Payments Processed -->
+<g transform="translate(630,226)">
+  <rect x="0" y="0" width="240" height="44" rx="22" class="topic-fill" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="120" y="27" text-anchor="middle" class="topic-text" font-size="12" font-weight="600">Payments Processed</text>
+</g>
+
+<!-- T3: Notifications -->
+<g transform="translate(1100,226)">
+  <rect x="0" y="0" width="200" height="44" rx="22" class="topic-fill" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="100" y="27" text-anchor="middle" class="topic-text" font-size="12" font-weight="600">Notifications</text>
+</g>
+
+<!-- ===== ARROWS: Producers → Topics ===== -->
+
+<!-- Web App → Orders Created -->
+<path d="M 220 150 L 220 190 L 320 190 L 320 226" class="arrow-line" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="245" y="176" width="60" height="16" rx="3" class="label-bg"/>
+<text x="275" y="188" text-anchor="middle" class="event-label">order.created</text>
+
+<!-- Web App → Notifications -->
+<path d="M 220 150 L 220 210 L 1200 210 L 1200 226" class="arrow-line" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="1120" y="196" width="62" height="16" rx="3" class="label-bg"/>
+<text x="1151" y="208" text-anchor="middle" class="event-label">user.notified</text>
+
+<!-- Mobile App → Orders Created -->
+<path d="M 540 150 L 540 190 L 420 190 L 420 226" class="arrow-line" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="458" y="176" width="60" height="16" rx="3" class="label-bg"/>
+<text x="488" y="188" text-anchor="middle" class="event-label">order.created</text>
+
+<!-- Mobile App → Payments Processed -->
+<path d="M 640 150 L 640 190 L 730 190 L 730 226" class="arrow-line" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="655" y="176" width="68" height="16" rx="3" class="label-bg"/>
+<text x="689" y="188" text-anchor="middle" class="event-label">payment.processed</text>
+
+<!-- Admin Panel → Payments Processed -->
+<path d="M 860 150 L 860 190 L 760 190 L 760 226" class="arrow-line" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="776" y="176" width="68" height="16" rx="3" class="label-bg"/>
+<text x="810" y="188" text-anchor="middle" class="event-label">payment.processed</text>
+
+<!-- Admin Panel → Notifications -->
+<path d="M 960 150 L 960 210 L 1100 210 L 1100 226" class="arrow-line" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="1004" y="196" width="56" height="16" rx="3" class="label-bg"/>
+<text x="1032" y="208" text-anchor="middle" class="event-label">admin.notified</text>
+
+<!-- ===== SECTION LABEL — Consumer Groups ===== -->
+<text x="80" y="300" class="section-title" font-size="12" fill="#1e66f5">Consumer Groups</text>
+
+<!-- ===== CONSUMER GROUP 1: Inventory Service ===== -->
+<g transform="translate(80,320)">
+  <!-- Boundary box -->
+  <rect x="0" y="30" width="460" height="370" rx="10" class="consumer-bg" stroke-width="1.5" stroke-dasharray="6,3" filter="url(#shadow-lg)"/>
+  <!-- Header bar -->
+  <rect x="0" y="30" width="460" height="34" rx="10" class="consumer-header" opacity="0.9"/>
+  <rect x="0" y="48" width="460" height="16" class="consumer-header"/>
+  <text x="230" y="53" text-anchor="middle" class="consumer-header-text" font-size="13" font-weight="700">Consumer Group: Inventory Service</text>
+
+  <!-- Internal nodes -->
+  <!-- Stock Manager -->
+  <rect x="140" y="100" width="180" height="52" rx="6" class="service-box" stroke-width="1.2" filter="url(#shadow)"/>
+  <rect x="140" y="100" width="180" height="52" rx="6" fill="#40a02b" opacity="0.05"/>
+  <text x="230" y="124" text-anchor="middle" class="node-label" font-size="12">Stock Manager</text>
+  <text x="230" y="140" text-anchor="middle" class="node-sublabel">Inventory DB</text>
+
+  <!-- Warehouse API -->
+  <rect x="140" y="200" width="180" height="52" rx="6" class="service-box" stroke-width="1.2" filter="url(#shadow)"/>
+  <rect x="140" y="200" width="180" height="52" rx="6" fill="#40a02b" opacity="0.05"/>
+  <text x="230" y="224" text-anchor="middle" class="node-label" font-size="12">Warehouse API</text>
+  <text x="230" y="240" text-anchor="middle" class="node-sublabel">ERP Integration</text>
+
+  <!-- Internal flow arrow -->
+  <line x1="230" y1="152" x2="230" y2="200" class="arrow-dashed" stroke-width="1.2" marker-end="url(#arrow-dashed)"/>
+  <text x="240" y="180" class="event-label" font-size="8">updates stock</text>
+
+  <!-- Subscription label inside box -->
+  <text x="230" y="300" text-anchor="middle" class="event-label" font-size="10" font-weight="500">Subscribes: order.*</text>
+</g>
+
+<!-- ===== CONSUMER GROUP 2: Billing Service ===== -->
+<g transform="translate(570,320)">
+  <!-- Boundary box -->
+  <rect x="0" y="30" width="460" height="370" rx="10" class="consumer-bg" stroke-width="1.5" stroke-dasharray="6,3" filter="url(#shadow-lg)"/>
+  <!-- Header bar -->
+  <rect x="0" y="30" width="460" height="34" rx="10" class="consumer-header" opacity="0.9"/>
+  <rect x="0" y="48" width="460" height="16" class="consumer-header"/>
+  <text x="230" y="53" text-anchor="middle" class="consumer-header-text" font-size="13" font-weight="700">Consumer Group: Billing Service</text>
+
+  <!-- Invoice Generator -->
+  <rect x="140" y="100" width="180" height="52" rx="6" class="service-box" stroke-width="1.2" filter="url(#shadow)"/>
+  <rect x="140" y="100" width="180" height="52" rx="6" fill="#8839ef" opacity="0.05"/>
+  <text x="230" y="124" text-anchor="middle" class="node-label" font-size="12">Invoice Generator</text>
+  <text x="230" y="140" text-anchor="middle" class="node-sublabel">Billing Engine</text>
+
+  <!-- Payment Gateway -->
+  <rect x="140" y="200" width="180" height="52" rx="6" class="service-box" stroke-width="1.2" filter="url(#shadow)"/>
+  <rect x="140" y="200" width="180" height="52" rx="6" fill="#8839ef" opacity="0.05"/>
+  <text x="230" y="224" text-anchor="middle" class="node-label" font-size="12">Payment Gateway</text>
+  <text x="230" y="240" text-anchor="middle" class="node-sublabel">Stripe / PayPal</text>
+
+  <!-- Internal flow -->
+  <line x1="230" y1="152" x2="230" y2="200" class="arrow-dashed" stroke-width="1.2" marker-end="url(#arrow-dashed)"/>
+  <text x="240" y="180" class="event-label" font-size="8">generates invoice</text>
+
+  <text x="230" y="300" text-anchor="middle" class="event-label" font-size="10" font-weight="500">Subscribes: payment.*</text>
+</g>
+
+<!-- ===== CONSUMER GROUP 3: Email Service ===== -->
+<g transform="translate(1060,320)">
+  <!-- Boundary box -->
+  <rect x="0" y="30" width="460" height="370" rx="10" class="consumer-bg" stroke-width="1.5" stroke-dasharray="6,3" filter="url(#shadow-lg)"/>
+  <!-- Header bar -->
+  <rect x="0" y="30" width="460" height="34" rx="10" class="consumer-header" opacity="0.9"/>
+  <rect x="0" y="48" width="460" height="16" class="consumer-header"/>
+  <text x="230" y="53" text-anchor="middle" class="consumer-header-text" font-size="13" font-weight="700">Consumer Group: Email Service</text>
+
+  <!-- Notification Sender -->
+  <rect x="140" y="100" width="180" height="52" rx="6" class="service-box" stroke-width="1.2" filter="url(#shadow)"/>
+  <rect x="140" y="100" width="180" height="52" rx="6" fill="#179299" opacity="0.05"/>
+  <text x="230" y="124" text-anchor="middle" class="node-label" font-size="12">Notification Sender</text>
+  <text x="230" y="140" text-anchor="middle" class="node-sublabel">AWS SES / SendGrid</text>
+
+  <!-- Template Renderer -->
+  <rect x="140" y="200" width="180" height="52" rx="6" class="service-box" stroke-width="1.2" filter="url(#shadow)"/>
+  <rect x="140" y="200" width="180" height="52" rx="6" fill="#179299" opacity="0.05"/>
+  <text x="230" y="224" text-anchor="middle" class="node-label" font-size="12">Template Renderer</text>
+  <text x="230" y="240" text-anchor="middle" class="node-sublabel">Handlebars / MJML</text>
+
+  <!-- Internal flow -->
+  <line x1="230" y1="152" x2="230" y2="200" class="arrow-dashed" stroke-width="1.2" marker-end="url(#arrow-dashed)"/>
+  <text x="240" y="180" class="event-label" font-size="8">sends emails</text>
+
+  <text x="230" y="300" text-anchor="middle" class="event-label" font-size="10" font-weight="500">Subscribes: notification.*</text>
+</g>
+
+<!-- ===== ARROWS: Topics → Consumer Groups ===== -->
+
+<!-- Orders Created → Inventory Service -->
+<path d="M 340 270 L 340 310 L 310 310 L 310 320" class="arrow-dashed" stroke-width="2" marker-end="url(#arrow-dashed)"/>
+<rect x="240" y="298" width="68" height="16" rx="3" class="label-bg"/>
+<text x="274" y="310" text-anchor="middle" class="event-label">order.*</text>
+
+<!-- Payments Processed → Billing Service -->
+<path d="M 750 270 L 750 310 L 800 310 L 800 320" class="arrow-dashed" stroke-width="2" marker-end="url(#arrow-dashed)"/>
+<rect x="662" y="298" width="72" height="16" rx="3" class="label-bg"/>
+<text x="698" y="310" text-anchor="middle" class="event-label">payment.*</text>
+
+<!-- Notifications → Email Service -->
+<path d="M 1200 270 L 1200 310 L 1290 310 L 1290 320" class="arrow-dashed" stroke-width="2" marker-end="url(#arrow-dashed)"/>
+<rect x="1112" y="298" width="82" height="16" rx="3" class="label-bg"/>
+<text x="1153" y="310" text-anchor="middle" class="event-label">notification.*</text>
+
+<!-- ===== LEGEND ===== -->
+<g transform="translate(80,780)">
+  <rect x="0" y="0" width="1440" height="100" rx="8" class="legend-bg" stroke="#ccd0da" stroke-width="1" filter="url(#shadow)"/>
+  <text x="20" y="22" class="section-title" font-size="13">Legend</text>
+
+  <!-- Producer -->
+  <rect x="20" y="38" width="60" height="24" rx="4" class="node-bg" stroke="#1e66f5" stroke-width="1.5"/>
+  <text x="88" y="54" class="legend-label">Producer (emits events)</text>
+
+  <!-- Topic pill -->
+  <rect x="280" y="38" width="60" height="24" rx="12" class="topic-fill" stroke-width="1.2"/>
+  <text x="348" y="54" class="legend-label">Event topic (pub/sub channel)</text>
+
+  <!-- Event bus -->
+  <line x1="550" y1="50" x2="610" y2="50" stroke="#1e66f5" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="618" y="54" class="legend-label">Event bus (message broker)</text>
+
+  <!-- Consumer group boundary -->
+  <rect x="830" y="38" width="60" height="24" rx="4" class="consumer-bg" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="898" y="54" class="legend-label">Consumer group boundary</text>
+
+  <!-- Service -->
+  <rect x="20" y="74" width="60" height="20" rx="4" class="service-box" stroke-width="1"/>
+  <text x="88" y="88" class="legend-label">Consumer service / worker</text>
+
+  <!-- Solid arrow -->
+  <line x1="280" y1="84" x2="330" y2="84" class="arrow-line" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="338" y="88" class="legend-label">Event production</text>
+
+  <!-- Dashed arrow -->
+  <line x1="500" y1="84" x2="550" y2="84" class="arrow-dashed" stroke-width="2" marker-end="url(#arrow-dashed)"/>
+  <text x="558" y="88" class="legend-label">Event consumption / subscription</text>
+
+  <!-- Header bar -->
+  <rect x="800" y="74" width="60" height="20" rx="4" class="consumer-header" opacity="0.85"/>
+  <text x="868" y="88" class="legend-label">Consumer group header</text>
+
+  <!-- Internal flow -->
+  <line x1="1050" y1="84" x2="1090" y2="84" class="arrow-dashed" stroke-width="1.2"/>
+  <text x="1098" y="88" class="legend-label">Internal processing</text>
+</g>
+</svg>
+</div>
+</body>
+</html>

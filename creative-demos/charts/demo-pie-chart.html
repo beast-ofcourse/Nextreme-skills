@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo — Cloud Infrastructure Cost Breakdown</title>
+<style>
+@page { size: A4 portrait; margin: 0.4in; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, "Segoe UI", "Helvetica Neue", Arial, sans-serif; background: #f8f9fc; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+.page { max-width: 920px; width: 100%; background: #fff; border-radius: 12px; padding: 40px; box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04); border: 1px solid #eef0f5; }
+.title { font-size: 28px; font-weight: 800; color: #111; letter-spacing: -0.5px; margin-bottom: 4px; }
+.subtitle { font-size: 14px; color: #555; margin-bottom: 6px; }
+.desc { font-size: 13px; color: #777; margin-bottom: 24px; line-height: 1.5; }
+.chart-area { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.chart-area img { width: 100%; max-width: 600px; height: auto; border-radius: 6px; background: #fff; }
+.controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.btn { font-family: inherit; font-size: 13px; font-weight: 600; padding: 8px 20px; border: none; border-radius: 6px; cursor: pointer; background: #4d93e5; color: #fff; transition: background 0.15s, transform 0.1s; }
+.btn:hover { background: #3a7bc8; }
+.btn:active { transform: scale(0.97); }
+.btn:focus-visible { outline: 2px solid #4d93e5; outline-offset: 2px; }
+.config-section { margin-top: 24px; background: #f8f9fc; border: 1px solid #eef0f5; border-radius: 8px; overflow: hidden; }
+.config-section summary { padding: 14px 18px; font-size: 13px; font-weight: 600; color: #555; cursor: pointer; user-select: none; }
+.config-section summary:hover { background: #f0f2f8; }
+.config-section pre { padding: 18px; font-family: "SF Mono", "Cascadia Code", "Fira Code", "Consolas", monospace; font-size: 12px; line-height: 1.6; color: #333; background: #fff; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+.source-note { margin-top: 24px; padding-top: 16px; border-top: 1px solid #eef0f5; font-size: 12px; color: #999; line-height: 1.5; }
+@media print { body { background: #fff; padding: 0; } .page { box-shadow: none; border: none; padding: 20px; } .btn { display: none; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="title">Cloud Infrastructure Cost Breakdown</div>
+  <div class="subtitle">Monthly spending distribution by service category</div>
+  <div class="desc">Doughnut chart showing how cloud infrastructure spend is distributed across major service categories. Compute represents the largest share at 42%, followed by Storage at 28%. The chart is rendered server-side via QuickChart.io and loaded as an image.</div>
+
+  <div class="chart-area">
+    <img id="chart-img" src="" alt="Cloud infrastructure cost breakdown doughnut chart">
+
+    <div class="controls">
+      <button class="btn" id="refresh-btn">⟳ Refresh Chart</button>
+      <span style="font-size:12px;color:#999;">Chart renders via <code style="background:#eef0f5;padding:1px 6px;border-radius:3px;">quickchart.io</code></span>
+    </div>
+
+    <details class="config-section">
+      <summary>📐 Show QuickChart Config (JSON)</summary>
+      <pre id="config-display"></pre>
+    </details>
+  </div>
+
+  <div class="source-note">
+    <strong>Data source:</strong> Cloud cost management dashboard (AWS + GCP aggregate). Monthly average across FY2025.<br>
+    <strong>Chart library:</strong> Chart.js v4 rendered server-side via QuickChart.io — ideal for email, PDFs, and server-generated images.
+  </div>
+</div>
+
+<script>
+(function () {
+  var chartConfig = {
+    type: "doughnut",
+    data: {
+      labels: ["Compute", "Storage", "Networking", "Databases", "Other"],
+      datasets: [{
+        data: [42, 28, 15, 10, 5],
+        backgroundColor: ["#4d93e5", "#0D7680", "#29BA74", "#8B5CF6", "#F59E0B"],
+        borderWidth: 3,
+        borderColor: "#ffffff",
+        hoverOffset: 8
+      }]
+    },
+    options: {
+      responsive: false,
+      cutout: "65%",
+      plugins: {
+        legend: {
+          position: "bottom",
+          labels: {
+            font: { size: 13, family: "system-ui, sans-serif" },
+            padding: 16,
+            usePointStyle: true,
+            pointStyle: "circle"
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: function (ctx) {
+              return " " + ctx.label + ": " + ctx.parsed + "%";
+            }
+          }
+        },
+        doughnutlabel: {
+          labels: [
+            { text: "Total", font: { size: 14, family: "system-ui" } },
+            { text: "100%", font: { size: 22, weight: "bold", family: "system-ui" } }
+          ]
+        }
+      }
+    }
+  };
+
+  var baseUrl = "https://quickchart.io/chart?width=600&height=400&c=";
+  var chartImg = document.getElementById("chart-img");
+  var configDisplay = document.getElementById("config-display");
+  var refreshBtn = document.getElementById("refresh-btn");
+
+  function buildUrl() {
+    return baseUrl + encodeURIComponent(JSON.stringify(chartConfig));
+  }
+
+  function render() {
+    chartImg.src = buildUrl() + "&v=" + Date.now();
+    configDisplay.textContent = JSON.stringify(chartConfig, null, 2);
+  }
+
+  refreshBtn.addEventListener("click", render);
+  render();
+})();
+</script>
+</body>
+</html>

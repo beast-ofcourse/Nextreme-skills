@@ -1,0 +1,16 @@
+# Line Chart Template — Vega-Lite
+title: Monthly Active Users
+mark:
+  type: line
+  point: true
+  strokeWidth: 2
+data:
+  values:
+    - { month: Jan, users: 1200 }
+    - { month: Feb, users: 2400 }
+    - { month: Mar, users: 3800 }
+    - { month: Apr, users: 3500 }
+    - { month: May, users: 4200 }
+encoding:
+  x: { field: month, type: ordinal, title: null }
+  y: { field: users, type: quantitative, title: Users }

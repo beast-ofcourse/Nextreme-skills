@@ -1,0 +1,16 @@
+# Area Chart Template — Vega-Lite
+title: Cumulative Users
+mark:
+  type: area
+  line: { strokeWidth: 2 }
+  color: { field: total, type: quantitative }
+data:
+  values:
+    - { month: Jan, total: 500 }
+    - { month: Feb, total: 1200 }
+    - { month: Mar, total: 2100 }
+    - { month: Apr, total: 3200 }
+    - { month: May, total: 4500 }
+encoding:
+  x: { field: month, type: ordinal, title: null }
+  y: { field: total, type: quantitative, title: Users }

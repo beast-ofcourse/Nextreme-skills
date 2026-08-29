@@ -1,0 +1,11 @@
+# Pie Chart Template — Vega-Lite
+title: Market Share by Product
+mark: arc
+data:
+  values:
+    - { product: Product A, share: 45 }
+    - { product: Product B, share: 30 }
+    - { product: Product C, share: 25 }
+encoding:
+  theta: { field: share, type: quantitative }
+  color: { field: product, type: nominal, title: Product }
