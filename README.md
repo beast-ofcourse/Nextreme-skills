@@ -64,13 +64,13 @@ Or copy a skill folder into your agent's skills directory. Each `SKILL.md` is se
 │   ├── next-best-thing.json
 │   ├── next-big-thing.json
 │   └── nextreme-skill-creator.json
-└── templates/                      # shared SKILL.md scaffolding
+└── templates/                      # shared SKILL.md scaffolding (SKILL.md.template)
     └── SKILL.md
 ```
 
 ## Authoring a new skill
 
-Copy `templates/SKILL.md`, fill the frontmatter, and follow the craft in `nextreme-skill-creator`. Add matching prompts to `evals/`.
+Copy `templates/SKILL.md.template`, fill the frontmatter, and follow the craft in `nextreme-skill-creator`. Add matching prompts to `evals/`.
 
 ## License
 
