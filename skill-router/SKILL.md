@@ -1,6 +1,6 @@
 ---
 name: skill-router
-description: Route any user intent to the right Nextreme skill instead of guessing which one fires. Use when the user says "which skill should I use", "route this", "what tool for X", or when a request could match more than one skill. The router reads each skill's description and trigger branches, matches the user's intent, and names the single best skill (or the right sequence for a multi-step task). Trigger proactively the moment a request arrives that sounds like it belongs to a specialized skill, so the agent delegates instead of improvising. The router only points — it never runs the work itself.
+description: "Route any user intent to the right Nextreme skill instead of guessing which one fires. Use when the user says \"which skill should I use\", \"route this\", \"what tool for X\", or when a request could match more than one skill. The router reads each skill's description and trigger branches, matches the user's intent, and names the single best skill (or the right sequence for a multi-step task). Trigger proactively the moment a request arrives that sounds like it belongs to a specialized skill, so the agent delegates instead of improvising. The router only points — it never runs the work itself."
 license: MIT
 ---
 

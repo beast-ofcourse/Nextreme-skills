@@ -1,6 +1,6 @@
 ---
 name: nextreme-decision
-description: Make the most extreme, highest-leverage decision on whatever the user asks — a feature choice, an architecture call, a process change, a naming decision, anything that needs a single bold answer. Use when the user says "decide for me", "make the extreme call", "what's the best possible move on X", "pick the winner between A and B", "settle this", or is stuck between options. The skill scans the repo for evidence, commits to ONE decisive recommendation with its reasoning, then offers an EXTREMELY out-of-the-box alternative the user can opt into. Trigger proactively when the user is paralyzed by a choice and wants a strong, opinionated answer instead of a menu.
+description: "Make the most extreme, highest-leverage decision on whatever the user asks — a feature choice, an architecture call, a process change, a naming decision, anything that needs a single bold answer. Use when the user says \"decide for me\", \"make the extreme call\", \"what's the best possible move on X\", \"pick the winner between A and B\", \"settle this\", or is stuck between options. The skill scans the repo for evidence, commits to ONE decisive recommendation with its reasoning, then offers an EXTREMELY out-of-the-box alternative the user can opt into. Trigger proactively when the user is paralyzed by a choice and wants a strong, opinionated answer instead of a menu."
 license: MIT
 ---
 

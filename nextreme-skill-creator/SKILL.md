@@ -1,6 +1,6 @@
 ---
 name: nextreme-skill-creator
-description: Design, write, and improve skills with rigorous craft. Use whenever the user wants to create a skill from scratch, write or edit a SKILL.md, improve an existing skill, run evals or benchmark a skill, or optimize a skill's description for better triggering. Covers the craft — predictability, invocation, information hierarchy, progressive disclosure, leading words, pruning — and the workflow — draft, test, evaluate, iterate, package. Trigger on "make/create/write a skill", "improve this skill", "why doesn't my skill trigger", "optimize my skill description", or any request to capture a workflow as a reusable skill.
+description: "Design, write, and improve skills with rigorous craft. Use whenever the user wants to create a skill from scratch, write or edit a SKILL.md, improve an existing skill, run evals or benchmark a skill, or optimize a skill's description for better triggering. Covers the craft — predictability, invocation, information hierarchy, progressive disclosure, leading words, pruning — and the workflow — draft, test, evaluate, iterate, package. Trigger on \"make/create/write a skill\", \"improve this skill\", \"why doesn't my skill trigger\", \"optimize my skill description\", or any request to capture a workflow as a reusable skill."
 license: MIT
 ---
 

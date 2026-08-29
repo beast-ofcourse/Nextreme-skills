@@ -1,6 +1,6 @@
 ---
 name: tdd-coach
-description: Coach test-driven development on a real task: write the failing test first, watch it fail for the right reason, then make it pass with the smallest change, then refactor. Use when the user says "do this test-first", "TDD this", "write the test before the code", "red-green-refactor", or when a feature is about to be built without tests. Holds the line on the TDD order (no production code before a failing test), keeps the test honest (it must fail first), and resists the urge to over-build. Trigger proactively when the user starts implementing a feature with no test in sight.
+description: "Coach test-driven development on a real task: write the failing test first, watch it fail for the right reason, then make it pass with the smallest change, then refactor. Use when the user says \"do this test-first\", \"TDD this\", \"write the test before the code\", \"red-green-refactor\", or when a feature is about to be built without tests. Holds the line on the TDD order (no production code before a failing test), keeps the test honest (it must fail first), and resists the urge to over-build. Trigger proactively when the user starts implementing a feature with no test in sight."
 license: MIT
 ---
 

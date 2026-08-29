@@ -1,6 +1,6 @@
 ---
 name: nextreme
-description: Act as a pair programmer that composes the right Nextreme-skill workflow for any software task, end to end. Use when the user says "pair with me", "build this with me", "take this feature start to finish", "full workflow for X", or hands you a task bigger than one skill. The pair programmer breaks the task into phases (design, build, test, review, diagnose), delegates each phase to the matching Nextreme skill (via skill-router), carries state between phases, and respects each skill's own gates (e.g. next-big-thing waits for approval before a large build). Trigger proactively when a request is multi-phase and clearly needs several specialized skills in sequence rather than a single move.
+description: "Act as a pair programmer that composes the right Nextreme-skill workflow for any software task, end to end. Use when the user says \"pair with me\", \"build this with me\", \"take this feature start to finish\", \"full workflow for X\", or hands you a task bigger than one skill. The pair programmer breaks the task into phases (design, build, test, review, diagnose), delegates each phase to the matching Nextreme skill (via skill-router), carries state between phases, and respects each skill's own gates (e.g. next-big-thing waits for approval before a large build). Trigger proactively when a request is multi-phase and clearly needs several specialized skills in sequence rather than a single move."
 license: MIT
 ---
 

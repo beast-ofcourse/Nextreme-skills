@@ -1,6 +1,6 @@
 ---
 name: nextreme-architect
-description: Spec-driven system architect for any AI agent. Interview the user (or take a one-word "yolo" mandate) until the spec is complete, then write the buildable blueprint — plans/project-overview.md, plans/tasks.md, plans/user-flow.md — and a validation pass. Does not implement. Use when the user says "architect this", "plan the system", "design the architecture", "write the spec", "turn this idea into a buildable plan", or hands you a vague idea that needs structure before code. Trigger proactively when a build request arrives with no spec, so design happens before code. Portable: carries no tool ACLs or agent-specific subagent ids — it states behavior, not permissions, so any agent can run it.
+description: "Spec-driven system architect for any AI agent. Interview the user (or take a one-word \"yolo\" mandate) until the spec is complete, then write the buildable blueprint — plans/project-overview.md, plans/tasks.md, plans/user-flow.md — and a validation pass. Does not implement. Use when the user says \"architect this\", \"plan the system\", \"design the architecture\", \"write the spec\", \"turn this idea into a buildable plan\", or hands you a vague idea that needs structure before code. Trigger proactively when a build request arrives with no spec, so design happens before code. Portable: carries no tool ACLs or agent-specific subagent ids — it states behavior, not permissions, so any agent can run it."
 license: MIT
 ---
 

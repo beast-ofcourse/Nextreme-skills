@@ -1,6 +1,6 @@
 ---
 name: git-guardrails
-description: Stop destructive and irreversible git operations before they run, and suggest the safe alternative. Use when the user says "guard my git", "block force push", "don't let me reset --hard", "safe git workflow", or before any command touching history, remotes, or untracked files. Intercepts pushes/force-pushes, reset --hard, clean -f, branch -D, checkout over dirty work, and amend-on-shared-history; explains the risk and offers a reversible path. Trigger proactively whenever a proposed git command is history-rewriting or could drop uncommitted work.
+description: "Stop destructive and irreversible git operations before they run, and suggest the safe alternative. Use when the user says \"guard my git\", \"block force push\", \"don't let me reset --hard\", \"safe git workflow\", or before any command touching history, remotes, or untracked files. Intercepts pushes/force-pushes, reset --hard, clean -f, branch -D, checkout over dirty work, and amend-on-shared-history; explains the risk and offers a reversible path. Trigger proactively whenever a proposed git command is history-rewriting or could drop uncommitted work."
 license: MIT
 ---
 

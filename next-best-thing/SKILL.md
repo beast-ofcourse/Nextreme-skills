@@ -1,6 +1,6 @@
 ---
 name: next-best-thing
-description: Find the smallest next change that yields the highest impact in a repository, then ship it. Use when the user says "next best thing", "what should I do next", "smallest high-impact step", "what's the highest-leverage change", or when a project feels stuck and needs the one right move. The move can be anything: a feature, an optimization, a speedup, tightening, polishing, or hardening. Trigger proactively when the user wants direction, not a full plan. Opt-in loop: "/next-best-thing loop N" repeats the workflow N times, one best move per iteration.
+description: "Find the smallest next change that yields the highest impact in a repository, then ship it. Use when the user says \"next best thing\", \"what should I do next\", \"smallest high-impact step\", \"what's the highest-leverage change\", or when a project feels stuck and needs the one right move. The move can be anything: a feature, an optimization, a speedup, tightening, polishing, or hardening. Trigger proactively when the user wants direction, not a full plan. Opt-in loop: \"/next-best-thing loop N\" repeats the workflow N times, one best move per iteration."
 license: MIT
 ---
 
