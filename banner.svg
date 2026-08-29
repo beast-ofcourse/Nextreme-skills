@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img" aria-label="Nextreme Skills">
+  <rect width="720" height="240" fill="#0b0b0f"/>
+  <g transform="translate(40 40)">
+    <!-- mark: an 'N' whose right stroke is an upward arrow = extreme climb -->
+    <path d="M0 160 V0 H38 V120 L120 0 H160 L74 118 L162 160 H120 L38 18 V160 Z" fill="#f5f5f7"/>
+    <path d="M150 160 L196 160 L173 118 Z" fill="#ff5a1f"/>
+  </g>
+  <text x="232" y="118" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="76" font-weight="800" letter-spacing="-2" fill="#f5f5f7">Nextreme</text>
+  <text x="234" y="166" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="26" font-weight="600" letter-spacing="6" fill="#ff5a1f">SKILLS</text>
+  <text x="234" y="200" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" letter-spacing="1" fill="#8a8a93">Agent-agnostic skills for AI agents</text>
+</svg>
