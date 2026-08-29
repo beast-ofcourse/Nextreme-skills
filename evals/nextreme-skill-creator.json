@@ -1,0 +1,23 @@
+{
+  "skill_name": "nextreme-skill-creator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create a skill called 'changelog-writer' that turns git history into a release notes file.",
+      "expected_output": "Agent drafts a SKILL.md (name, pushy description with when-to-trigger branches, workflow with completion criteria) following the craft rules: deliberate invocation, information hierarchy, leading words, pruning. No eval/benchmark assumptions.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Why doesn't my skill trigger when the user asks for a 'review'?",
+      "expected_output": "Agent applies the skill-creator craft: diagnoses the description as the trigger, suggests adding the 'review' branch and pushier wording, possibly a should-trigger/should-not-trigger eval set. Does not rewrite unrelated content.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Improve this skill and optimize its description.",
+      "expected_output": "Agent runs the draft->test->evaluate->iterate->package workflow, then an opt-in description trigger-eval pass (should-trigger + should-not-trigger), and reports scores before/after.",
+      "files": []
+    }
+  ]
+}

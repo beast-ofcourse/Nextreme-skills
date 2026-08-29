@@ -1,0 +1,23 @@
+{
+  "skill_name": "next-big-thing",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "What's the biggest high-impact thing we could build in this project?",
+      "expected_output": "Agent scans the repo, splits candidates into feature (big/medium) and small-stuff buckets, autonomously ships the small stuff, then presents a fine-picked feature shortlist (top 3-5) and WAITS for approval before any large build.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "next big thing",
+      "expected_output": "Triggers the skill; runs scan + small-stuff sweep autonomously, then gates on a feature shortlist for user approval. Does NOT start the big build without a pick.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Plan a major feature and loop it 3 times.",
+      "expected_output": "Treats '3 times' as opt-in loop count; each iteration re-scans, ships small stuff, presents a shortlist, awaits approval, then implements the approved build via design->implement->verify.",
+      "files": []
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "skill_name": "next-best-thing",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "This repo feels stuck. What's the single highest-leverage change I should make right now?",
+      "expected_output": "Agent scans the repo, enumerates 3-7 small candidates, ranks by impact/effort, picks exactly one genuinely-small move, implements it, and verifies. No large plan, no feature backlog dump.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "next best thing",
+      "expected_output": "Triggers the skill and runs the single-move workflow end to end (scan -> pick -> ship -> verify), not a multi-feature roadmap.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Run the next best thing 4 times.",
+      "expected_output": "Treats '4 times' as explicit opt-in loop count; runs the full 5-step workflow 4 times, re-scanning each pass, one move per iteration, stopping early only on failure/clean-repo/user-stop.",
+      "files": []
+    }
+  ]
+}
