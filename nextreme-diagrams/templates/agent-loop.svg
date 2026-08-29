@@ -153,7 +153,7 @@
     <graph-role>agent-loop</graph-role>
     <semantic-role>ai_agent_workflow</semantic-role>
     <style>agentic-workflow</style>
-    <generated-by>ultimate-diagrams</generated-by>
+    <generated-by>nextreme-diagrams</generated-by>
     <nodes>user,llm,tools,memory</nodes>
     <edges>user:llm:sync_request, llm:tools:async_event, tools:llm:sync_response, llm:memory:async_event, memory:llm:sync_response</edges>
   </metadata>

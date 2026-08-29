@@ -133,7 +133,7 @@
     <graph-role>sequence-diagram</graph-role>
     <semantic-role>api_sequence</semantic-role>
     <style>sequence</style>
-    <generated-by>ultimate-diagrams</generated-by>
+    <generated-by>nextreme-diagrams</generated-by>
     <lifelines>client,api-gateway,auth-service,user-db</lifelines>
     <messages>6 synch, 1 exception</messages>
   </metadata>

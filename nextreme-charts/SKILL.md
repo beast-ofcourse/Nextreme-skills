@@ -1,5 +1,5 @@
 ---
-name: ultimate-charts
+name: nextreme-charts
 description: "Generate publication-grade SVG charts from any data using Vega-Lite (with full Vega fallback for exotic types). Also supports QuickChart.io for zero-dependency PNG and ECharts for interactive HTML dashboards. This skill handles every chart type — bar, line, area, pie, scatter, box-plot, heatmap, candlestick, waterfall, sankey, radar, treemap, geographic, and more."
 license: MIT
 ---

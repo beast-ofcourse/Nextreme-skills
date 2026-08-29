@@ -173,7 +173,7 @@
     <graph-role>system-architecture</graph-role>
     <semantic-role>cloud_infrastructure</semantic-role>
     <style>system-architecture</style>
-    <generated-by>ultimate-diagrams</generated-by>
+    <generated-by>nextreme-diagrams</generated-by>
     <nodes>lb,app-a,app-b,redis,db-primary,db-replica,sqs</nodes>
     <edges>lb:app-a:sync, lb:app-b:sync, app-a:redis:sync, app-a:db-primary:sync, app-b:db-primary:sync, app-b:sqs:async, db-primary:db-replica:stream</edges>
   </metadata>

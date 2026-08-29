@@ -33,7 +33,7 @@ To add a new diagram template:
      <graph-role>my-diagram-type</graph-role>
      <semantic-role>description_of_purpose</semantic-role>
      <style>style-name</style>
-     <generated-by>ultimate-diagrams</generated-by>
+     <generated-by>nextreme-diagrams</generated-by>
    </metadata>
    ```
 5. Add a `<defs><marker>` for each arrow type used

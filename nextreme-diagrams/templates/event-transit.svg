@@ -152,7 +152,7 @@
     <graph-role>event-transit</graph-role>
     <semantic-role>event_driven_architecture</semantic-role>
     <style>event-transit</style>
-    <generated-by>ultimate-diagrams</generated-by>
+    <generated-by>nextreme-diagrams</generated-by>
     <topics>orders,payments,notifications</topics>
     <producers>web-app,admin-panel</producers>
     <consumers>inventory,billing,email</consumers>

@@ -1,5 +1,5 @@
 ---
-name: skill-router
+name: nextreme-router
 description: "Route any user intent to the right Nextreme skill instead of guessing which one fires. Use when the user says \"which skill should I use\", \"route this\", \"what tool for X\", or when a request could match more than one skill. The router reads each skill's description and trigger branches, matches the user's intent, and names the single best skill (or the right sequence for a multi-step task). Trigger proactively the moment a request arrives that sounds like it belongs to a specialized skill, so the agent delegates instead of improvising. The router only points — it never runs the work itself."
 license: MIT
 ---
@@ -38,13 +38,13 @@ Discover skills live from the repo (each `*/SKILL.md`); the set below is a snaps
 - `next-big-thing` — biggest high-impact build; gates on approval.
 - `nextreme-decision` — makes the extreme call + out-of-box opt-in.
 - `nextreme-skill-creator` — design/write/improve skills.
-- `high-quality-flowcharts` — print-ready flowcharts, roadmaps, decision trees (PDF).
-- `ultimate-charts` — publication-grade SVG charts from data.
-- `ultimate-diagrams` — architecture, UML, agent-workflow technical diagrams.
+- `nextreme-flowcharts` — print-ready flowcharts, roadmaps, decision trees (PDF).
+- `nextreme-charts` — publication-grade SVG charts from data.
+- `nextreme-diagrams` — architecture, UML, agent-workflow technical diagrams.
 - `readme-architect` — repo-grounded professional README authoring.
 - `tdd-coach` — red-green-refactor on real tasks.
 - `git-guardrails` — blocks destructive/irreversible git.
-- `skill-router` — this skill; routes intent to the right skill.
+- `nextreme-router` — this skill; routes intent to the right skill.
 - `nextreme` — composes a full workflow across skills per task.
 
 ## Principles

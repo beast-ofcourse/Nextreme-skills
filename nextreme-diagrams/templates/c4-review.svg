@@ -165,7 +165,7 @@
     <graph-role>c4-container</graph-role>
     <semantic-role>c4_model_level_2</semantic-role>
     <style>c4-review</style>
-    <generated-by>ultimate-diagrams</generated-by>
+    <generated-by>nextreme-diagrams</generated-by>
     <c4-level>2</c4-level>
     <c4-type>container</c4-type>
     <containers>spa,api-gateway,workers,database</containers>

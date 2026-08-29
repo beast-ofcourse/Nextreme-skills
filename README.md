@@ -15,13 +15,13 @@ A focused, **agent-agnostic** collection of reusable AI-agent skills. Each skill
 | [`nextreme-decision`](nextreme-decision/) | Makes the **most extreme, highest-leverage** call on anything — commits to ONE recommendation, then offers an out-of-the-box alternative. | "decide for me", "make the extreme call", "settle this" |
 | [`nextreme-architect`](nextreme-architect/) | Spec-driven system architect: interviews (or takes a `yolo` mandate), then writes the buildable blueprint — no implementation. | "architect this", "plan the system", "write the spec" |
 | [`nextreme`](nextreme/) | Pair programmer that **composes** the right Nextreme-skill workflow for any multi-phase software task. | "pair with me", "full workflow for X", "build this with me" |
-| [`skill-router`](skill-router/) | Routes any user intent to the **right** Nextreme skill instead of guessing which one fires. | "which skill should I use", "route this" |
+| [`nextreme-router`](nextreme-router/) | Routes any user intent to the **right** Nextreme skill instead of guessing which one fires. | "which skill should I use", "route this" |
 | [`nextreme-skill-creator`](nextreme-skill-creator/) | Designs, writes, and improves skills with rigorous craft (predictability, triggering, hierarchy, pruning). | "create a skill", "improve this skill", "why doesn't my skill trigger" |
 | [`tdd-coach`](tdd-coach/) | Coaches test-driven development: failing test first, smallest pass, then refactor. | "TDD this", "red-green-refactor", "write the test before the code" |
 | [`git-guardrails`](git-guardrails/) | Stops destructive, irreversible git operations before they run and suggests the safe path. | "guard my git", "block force push", "don't let me reset --hard" |
-| [`high-quality-flowcharts`](high-quality-flowcharts/) | Produces publication-grade flowcharts, roadmaps, process diagrams, decision trees, and taxonomy maps as print-ready PDF (HTML+SVG). | "flowchart", "roadmap", "decision tree", "process diagram" |
-| [`ultimate-charts`](ultimate-charts/) | Generates publication-grade SVG charts from data (Vega-Lite/Vega, QuickChart, ECharts) for every chart type. | "chart", "bar chart", "line chart", "visualize this data" |
-| [`ultimate-diagrams`](ultimate-diagrams/) | Generates system architecture, UML, AI/agent workflows, C4, and event-driven technical diagrams (SVG/PDF). | "system diagram", "architecture diagram", "UML", "sequence diagram" |
+| [`nextreme-flowcharts`](nextreme-flowcharts/) | Produces publication-grade flowcharts, roadmaps, process diagrams, decision trees, and taxonomy maps as print-ready PDF (HTML+SVG). | "flowchart", "roadmap", "decision tree", "process diagram" |
+| [`nextreme-charts`](nextreme-charts/) | Generates publication-grade SVG charts from data (Vega-Lite/Vega, QuickChart, ECharts) for every chart type. | "chart", "bar chart", "line chart", "visualize this data" |
+| [`nextreme-diagrams`](nextreme-diagrams/) | Generates system architecture, UML, AI/agent workflows, C4, and event-driven technical diagrams (SVG/PDF). | "system diagram", "architecture diagram", "UML", "sequence diagram" |
 | [`readme-architect`](readme-architect/) | Writes a repo-grounded, professional `README.md` after investigating the actual codebase. | "write a README", "make my repo look professional", "add docs" |
 
 ## How the "next thing" skills differ
@@ -55,7 +55,7 @@ Or copy a skill folder into your agent's skills directory. Each `SKILL.md` is se
 ├── nextreme-decision/              # extreme decision-maker
 ├── nextreme-architect/             # spec-driven planning (portable)
 ├── nextreme/                       # pair-programmer workflow composer
-├── skill-router/                   # intent -> skill router
+├── nextreme-router/                # intent -> skill router
 ├── nextreme-skill-creator/         # skill authoring craft + workflow
 │   └── references/                 # glossary.md, workflow.md
 ├── tdd-coach/                      # test-driven development coach
