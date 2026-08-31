@@ -35,6 +35,7 @@ Completion criterion: the report names the skill/sequence, the matching trigger,
 Discover skills live from the repo (each `*/SKILL.md`); the set below is a snapshot:
 
 - `next-best-thing` — smallest highest-impact move; ships it.
+- `next-best-improvement` — picks one feature-flow fragment that noticeably needs it (user / yolo / random) and makes it insane; branch-gated + proof-backed.
 - `next-big-thing` — biggest high-impact build; gates on approval.
 - `nextreme-decision` — makes the extreme call + out-of-box opt-in.
 - `nextreme-skill-creator` — design/write/improve skills.

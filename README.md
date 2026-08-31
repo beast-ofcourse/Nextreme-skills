@@ -11,6 +11,7 @@ A focused, **agent-agnostic** collection of reusable AI-agent skills. Each skill
 | Skill | What it does | Invoke when |
 | --- | --- | --- |
 | [`next-best-thing`](next-best-thing/) | Finds the **single smallest** change with the highest impact and ships it. | "next best thing", "smallest high-leverage step", "what should I do next" |
+| [`next-best-improvement`](next-best-improvement/) | Picks **one feature-flow-level fragment** that noticeably needs extreme improvement (scan whole project, then `user` / `yolo` / `random` pick) and makes it **insane** — can do anything inside the part, branch-gated + proof-backed. | "next best improvement", "improve a part", "make this insane", "yolo improve", "random improvement" |
 | [`next-big-thing`](next-big-thing/) | Finds the **highest-impact big/medium** build: ships low-risk small stuff autonomously, then gates a feature shortlist on your approval. | "next big thing", "plan a major feature", "biggest move" |
 | [`nextreme-decision`](nextreme-decision/) | Makes the **most extreme, highest-leverage** call on anything — commits to ONE recommendation, then offers an out-of-the-box alternative. | "decide for me", "make the extreme call", "settle this" |
 | [`nextreme-architect`](nextreme-architect/) | Spec-driven system architect: interviews (or takes a `yolo` mandate), then writes the buildable blueprint — no implementation. | "architect this", "plan the system", "write the spec" |
@@ -30,6 +31,7 @@ A focused, **agent-agnostic** collection of reusable AI-agent skills. Each skill
 ## How the "next thing" skills differ
 
 - **`next-best-thing`** thinks *small*: one shippable move, no approval gate, opt-in loop for repeated small wins.
+- **`next-best-improvement`** thinks *extreme*: picks one feature-flow-level fragment that noticeably needs it (whole-project scan + `user` / `yolo` / `random` pick), **must** create a new branch first, then extremely improves it with out-of-the-box brainstorming — proves with before/after + benchmarks.
 - **`next-big-thing`** thinks *large*: clears the safe wins itself, then **stops and waits** for you to pick the big build before writing it.
 
 ## Install
@@ -54,6 +56,7 @@ Or copy a skill folder into your agent's skills directory. Each `SKILL.md` is se
 ├── banner.svg                      # repo banner
 ├── AGENTS.md                       # Engineering Operating System (EOS) + skill catalog
 ├── next-best-thing/                # smallest-high-impact skill
+├── next-best-improvement/          # extreme fragment improvement (user/yolo/random pick, branch-gated)
 ├── next-big-thing/                 # biggest-high-impact skill (gated)
 ├── nextreme-decision/              # extreme decision-maker
 ├── nextreme-architect/             # spec-driven planning (portable)
