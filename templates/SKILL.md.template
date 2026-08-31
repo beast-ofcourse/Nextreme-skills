@@ -1,34 +1,213 @@
 ---
-name: <skill-id>                      # lowercase, hyphens for spaces
+name: <skill-id>                      # nextreme-* — lowercase, hyphens, no caps (e.g. nextreme-ink, nextreme-sheets)
 description: >
-  <One or two sentences stating what the skill does AND the branches that should
-  trigger it. Be pushy — list every context where it's useful, even when the user
-  doesn't name the skill. All "when to use" info belongs here, never in the body.>
+  <What it does in one clause> — <(primary artifact) with taste/discipline>.
+  Uses <primary engine> as <role> with <secondary engine> for <alt case>.
+  This is THE extreme skill for ANY <artifact domain> — distinct from <nearby skill A>,
+  <nearby skill B>, or <generic fallback>. Trigger whenever the user asks for
+  <keyword 1>, <keyword 2>, <keyword 3>, <keyword 4>, or <vague intent> —
+  even if they say "<vague phrase without naming artifact>" without naming <artifact>.
+  Also trigger for "<convert/export phrasing>" or "<template phrasing>".
+  Do NOT trigger for <explicit non-goal A> or <non-goal B>.
 license: MIT
-# compatibility: <optional>          # only set if the skill needs specific tools (e.g. node, docker); omit for an agent-agnostic skill
-# disable-model-invocation: true     # uncomment for a USER-INVOKED (hand-typed) skill
+compatibility: <python>=3.9 | node>=18 | typst>=0.14>   # set only if the skill needs a runtime; omit for agent-agnostic
+# disable-model-invocation: true     # uncomment only for USER-INVOKED (hand-typed) skills
 ---
 
-# <Skill Title>
+# Nextreme <Name> — The <Extreme | Insane | Taste-Driven> <Artifact> Engine
 
-<One lead paragraph: what the skill enables and why it exists.>
+This skill produces **<adjective>, <adjective>, <validation-adjective> <artifact>s** that survive the real world:
+opened in <viewer A>, <viewer B>, and <viewer C> without <typical failure 1> or <typical failure 2>.
+Every output is valid <format> with disciplined <discipline 1>, measured <discipline 2>,
+and calibrated <discipline 3>. You get three deliverables: the **<artifact>**, the
+**spec/source** that built it, and the **validation proof**.
 
-## The workflow
+You are **<unbound | extreme | taste-driven>** — the user does not pick <engine/style/layout>
+— **you do**, per <unit> from content. If they hand you a branded <template artifact>, you honor its masters.
+If they give you one sentence, you invent the story from scratch. If the content is <data case>, you pick
+<right tool for data>; if it is <positional case>, you pick <right tool for position> — never the reverse.
 
-### 1. <First step>
-<Ordered action. End on a Completion criterion so the agent can tell done from not-done.>
+---
 
-Completion criterion: <checkable, and where it matters, exhaustive.>
+## Why This Is Not Generic
 
-### 2. <Next step>
-<Repeat. Keep each step to one job.>
+Most <artifact> skills are bounded: one engine, one template, one layout — so every deck looks like that tool.
+Generic <library> tutorials are <failure mode>: they place <bad example> and call it done, then it clips in the meeting.
+Template-overlay skills break <core abstraction> by stamping text on top of placeholders instead of filling them.
 
-Completion criterion: <...>
+This fuses the very core of the <N> best <domain> systems on GitHub (2026) and refuses their bounds.
+State the lineage in one paragraph: what you stole from each and what bound you dropped — so the reader sees taste + engineering, not hype.
 
-## Reference files
+| Generic | This skill |
+|---|---|
+| <generic behavior> | <extreme behavior> |
+| <generic artifact is raster/image> | <this skill is vector/native editable> |
+| <generic has no validation> | <this skill unzips + validates OOXML / %PDF / etc.> |
 
-- `references/<name>.md` — <what lives here and when to read it. Reached via a context pointer, loaded only when needed.>
+> If the content wants a better <pattern> that no reference names, invent it — but keep it <validation constraint 1>, <constraint 2>, and <constraint 3>.
 
-## Principles
+---
 
-- <One line per principle. State the target behavior, not a prohibition.>
+## Golden Code Quality Rules — ENFORCED
+
+These are non-negotiable. Every artifact and every script this skill ships must pass them. Violation = task fails.
+
+Keep code human-readable, small, and obvious. No AI slop.
+
+* **Names tell the truth** — variables/functions reveal intent. No `data`, `info`, `result`, `handler`, `manager`, `helper`, `utils`, `foo`.
+* **One job per unit** — if you need "and" to describe what a function does, split it. Files own one domain.
+* **Guard clauses over nesting** — early returns, fail fast. No pyramids, no `else` after `return`. Nesting past 2–3 levels is a signal to restructure.
+* **No duplication** — never copy-paste. Third occurrence of the same logic = must abstract. Two is coincidence, not a pattern.
+* **No dead weight** — zero dead code, commented-out code, `console.log`, unused imports. Delete, don't comment out.
+* **Types are contracts** — no `any`, no silent `as` casts, narrow `unknown` explicitly. At an untyped boundary (`JSON.parse`, third-party API), a cast is allowed only alongside visible runtime validation.
+* **Errors never silent** — every failure path is handled, returned, or logged with context. Never an empty catch, never a swallowed promise.
+* **No magic** — no unexplained numbers or strings. Name every constant. No cryptic one-liners.
+* **Explicit dependencies** — no hidden globals, no surprise side effects. Inputs in, outputs out. Pure where possible.
+* **Readability > cleverness** — code reads like prose: linear flow, consistent style, self-documenting. Comments explain why, not what.
+* **No premature abstraction** — no wrappers, layers, or helpers you don't need today. YAGNI. Abstract on the real second pattern.
+* **Leave it cleaner, not bigger** — boy-scout only on touched code.
+* **State assumptions, don't guess silently** — if the spec is ambiguous, say what you assumed and why, in a comment or PR note.
+
+**Auto-rejected AI slop:** placeholder `TODO` without a ticket, generic scaffolding, empty `try/catch`, `lorem`-ish names, duplicated boilerplate, over-engineered factories/managers, unvalidated `as` casts at boundaries, silent assumptions about ambiguous specs, inconsistent style within one file, **and <artifact>-level slop:** <list 3–5 domain slop examples, e.g. typed TOC instead of `w:fldChar` field TOC, headings that are just bold Normal, tables without a named style, charts as raster images>.
+
+---
+
+## Engine Selection — You Decide
+
+| Context | You Pick | Output | Why |
+|---|---|---|---|
+| **Most <artifact>s (default, 90%)** | `<primary engine>` | `<format>` — <property> | <one-line reason> |
+| **<Alt context with branded template>** | `<secondary engine> — <how>` | `<format>` | <why> |
+| **<Edge / print-native / serverless>** | `<fallback engine>` | `<format>` | <why> |
+
+All ship: `scripts/<main>.py` (+ `scripts/<alt>.mjs` if JS lane) + `requirements.txt`. Install once:
+`pip install -r ${CLAUDE_SKILL_DIR}/requirements.txt` (or `npm install` for JS lane — see `references/<engine>.md`).
+Default to <primary> unless the table says otherwise — state the one-line justification per <unit>.
+
+---
+
+## Core Workflow — <Taste-Driven / Geometry-Validated / Page-as-Canvas>
+
+Each step ends on a **completion criterion**. Do not proceed until it passes.
+
+### 1. <Triage — What Is This <Artifact> For?>
+
+<Ask or infer: audience, outcome, and action. Extract intent, length hint, density, template yes/no, and one banned invention.>
+
+Completion criterion: <one intent sentence + format + range + banned invention — checkable.>
+
+### 2. <Ghost / Budget / Inventory — What Fits One <Unit>?>
+
+<For slides: ghost-deck titles must tell story. For docs: `estimate_page_budget` words/lines per page. For data: inventory of tables/figures. Write to size, not trimmed after.>
+
+Completion criterion: <titles survive ghost-deck OR budget number written down OR inventory lists every block — no silent invention.>
+
+### 3. <Route — You Pick Taste + Layout + Engine>
+
+<For each <unit>, decide engine per table, style per `references/<taste>.md` tokens, layout per `references/<layout>.md` palette. If branded template exists, profile it first (`profile` → `layout-catalog + config.json` + `[HINT: layout]`).>
+
+Completion criterion: <per-unit route table — unit | role | engine | layout | style hint — no unit unrouted.>
+
+### 4. <Compose — Native / Vector-Only, No Raster>
+
+<Build per `references/<engine>.md` recipe: every shape honors bounds, text as runs, charts as native, tables as native, images capped at `MAX_IMAGE_WIDTH`.>
+
+Completion criterion: <blank-routed artifact opens with no placeholder warnings; recolor via theme changes all units.>
+
+### 5. <Populate — Asset-First, Never Type a Chart as an Image>
+
+<Decision matrix: numbers→chart, 2×2→matrix, process→diagram, concept→generated image (once), photo→user asset. Every slice earns its place (≤7 bullets, ≤2 formulas, etc.).>
+
+Completion criterion: <every data claim has native chart/table with source; no screenshot-as-chart; every image has provenance.>
+
+### 6. <Rhythm / Density / Page-as-Canvas>
+
+<Apply density alternation (sparse→dense→sparse), chapter color progression, cover-ending echo, fill to bottom of type area (carryover mid-sentence is correct; hole mid-article is defect).>
+
+Completion criterion: <two consecutive units never share same weight without intentional contrast noted; every page but last is a clean block.>
+
+### 7. <Validate — Unzip / Render, Then Prove>
+
+Run the bundled validator — it checks what eyes miss:
+
+```bash
+# skills.sh:
+python ${CLAUDE_SKILL_DIR}/scripts/validate_<artifact>.py <artifact> --strict
+# local clone:
+python <skill-id>/scripts/validate_<artifact>.py <artifact> --strict
+# flags:
+# --check-<thing>  : fail on <domain failure>
+```
+
+It unzips / parses the artifact and checks: valid container, required parts, no `TODO`/`lorem`/`Click to add` residue, no overlapping, no overflow, theme fidelity.
+
+Optional headless render: `soffice --headless --convert-to pdf` → `pdftoppm` → visual QA (the honest gate). The skill passes without it, but flags `render unavailable`.
+
+Completion criterion: `validate_<artifact>.py --strict` exits 0 **and** a 30-second visual in <viewer A> + one other viewer shows no clipping, no overlap, no placeholder residue.
+
+### 8. <Deliver>
+
+Always:
+1. **The <artifact>** — valid, editable, <validation-adjective>.
+2. **The spec/source** — YAML/JSON/HTML that built it.
+3. **Validation log** — `validate_<artifact>.py` output (and PDF render if produced).
+
+Do not deliver <wrong format> as “<artifact>”. Do not claim <library> writes <unsupported feature> — it doesn’t (put it in the template master; it survives round-trip).
+
+---
+
+## Quick Picks — Starter Templates
+
+Copy a template from `templates/` and fill; do not start from zero. Each is valid <spec format> that the script renders with no edits beyond content.
+
+| Need | Template | Why this one |
+|---|---|---|
+| <Common need A> | `<template-a>.<ext>` → `<script>.py` | <one-line> |
+| <Common need B> | `<template-b>.<ext>` | <one-line> |
+| <Common need C> | `<template-c>.<ext>` | <one-line> |
+
+All templates are <format + size>, native shapes, theme-swappable. See `references/<layout>.md`.
+
+---
+
+## Troubleshooting — No Glitch Is “Weird — Ignore It”
+
+| Glitch | Cause | Fix |
+|---|---|---|
+| <Typical glitch> | <cause> | <fix referencing `references/<file>.md`> |
+| <Typical glitch> | <cause> | <fix> |
+| `validate_<artifact>.py` fails `<check>` | <cause> | <fix> |
+
+---
+
+## Reference Files
+
+- `references/<engine>.md` — engine contract: <list what lives here> + escape hatches.
+- `references/<taste>.md` — tokens: <palette, type, spacing, layout tokens>.
+- `references/<layout>.md` — <slide/doc types, grid, geometry recipes>.
+- `references/<validation>.md` — anti-overlap / anti-overflow / theme-preservation / slop checklist.
+- `scripts/<main>.py` — spec→<artifact> engine with <key property>.
+- `scripts/validate_<artifact>.py` — <what it validates>.
+- `scripts/<alt>.mjs` — <alt engine, when it exists>.
+- `templates/` — <list starters, e.g. pitch, report, resume>.
+
+---
+
+## Principles — The Nextreme Signature (Unbound, but Not Unruly)
+
+- **You decide — but you justify.** Every engine/style/layout choice ties to one sentence about content. “Why this <pattern>?” is answered, not shrugged.
+- **Editable / vector over impressive.** A prettier raster is a failed artifact. If it can be native, it is.
+- **Geometry / page-as-canvas is law.** A <artifact> without fixed slot widths or per-page fill will drift into overlap/holes the moment real content lands. Every shape/page declares bounds; validation proves it.
+- **Theme indirection is fidelity.** <Example: `schemeClr` vs `srgbClr`> is the contract that makes a template recolourable — hard <literal> breaks it.
+- **Ghost / budget first.** If the title story / page budget is weak, no amount of cards saves it.
+- **No glitch is minor.** One overlapping card / one river / one white-border cover is a credibility leak. Zero is the bar.
+
+<!--
+  Nextreme brand signature — keep this shape when you fill the template:
+  - Title is "Nextreme <Name> — The <Extreme> <Artifact> Engine" with three deliverables in the lead.
+  - "Why This Is Not Generic" + comparison table + golden rules + engine table come before workflow.
+  - Every workflow step ends on "Completion criterion:" (checkable, exhaustive).
+  - "Quick Picks" + "Troubleshooting" + "Reference Files" + "Principles" in that order, same voice.
+  Anyone opening a filled skill should think: "ah, the structure and the writing style — this is definitely Nextreme."
+  This template itself is MIT. When you ship a skill from it, keep the discipline, not just the headings.
+-->
