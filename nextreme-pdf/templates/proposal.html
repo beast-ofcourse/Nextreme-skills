@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Proposal — CX Platform Modernization · Meridian Health</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 20mm 15mm }
+  @page :first { margin: 0 }
+  body { margin: 0; font-family: Inter, sans-serif; color: #18181b; line-height: 1.55; letter-spacing: -0.025em; background: #fafafa }
+  h1, h2 { font-family: Syne, sans-serif; letter-spacing: -0.06em }
+  pre, table, img { max-width: 100% }
+</style>
+</head>
+<body class="bg-zinc-50">
+  <!-- Split cover — Syne, geometric -->
+  <section class="flex" style="width:210mm; height:297mm">
+    <div class="w-[55%] bg-[#1B365D] text-white p-12 flex flex-col justify-center">
+      <p class="text-xs uppercase tracking-[-0.01em] opacity-70">Proposal · Meridian Health</p>
+      <h1 class="text-4xl font-extrabold leading-[1.1] mt-4" style="letter-spacing:-0.10em">CX Platform<br>Modernization</h1>
+      <p class="text-sm opacity-80 mt-3">42k tickets / mo → 6.5m handle · $252k fixed</p>
+      <p class="text-xs opacity-60 mt-10">Apex Solutions · Valid until Mar 31, 2026</p>
+    </div>
+    <div class="w-[45%] bg-zinc-100 relative overflow-hidden flex items-center justify-center">
+      <div class="absolute inset-0" style="background: linear-gradient(135deg, #1B365D 0%, #2E86AB 100%); opacity: 0.08"></div>
+      <p class="text-xs text-zinc-500 relative">Geometric accent — split</p>
+    </div>
+  </section>
+
+  <main class="px-12 py-8 bg-white">
+    <div class="max-w-[170mm] mx-auto">
+      <div class="h-1 w-12 bg-[#1B365D] mb-4"></div>
+      <h2 class="text-[18pt] font-semibold">Problem → Solution</h2>
+      <p class="text-[10pt] text-zinc-700 mt-3">Three knowledge bases → <strong>one graph</strong>. 34% manual routing → <strong>LLM triage</strong>. Spreadsheet reporting → <strong>real-time ops dashboard</strong>. No rip-and-replace — telephony and chat widgets stay.</p>
+
+      <h3 class="text-sm font-semibold mt-8">Timeline</h3>
+      <table class="w-full text-[9pt] mt-3" style="border-collapse:collapse; border-top:1px solid #18181b; border-bottom:1px solid #18181b">
+        <thead><tr class="border-b border-zinc-900"><th class="text-left py-2 text-xs uppercase tracking-[-0.01em]">Phase</th><th class="py-2">Duration</th><th class="text-left">Deliverable</th></tr></thead>
+        <tbody>
+          <tr class="border-b border-zinc-100"><td class="py-1.5">Discovery</td><td class="text-center">3w</td><td>Architecture sign-off</td></tr>
+          <tr class="border-b border-zinc-100 bg-zinc-50"><td class="py-1.5">Build — Knowledge</td><td class="text-center">5w</td><td>Unified graph, 90% dedup</td></tr>
+          <tr><td class="py-1.5">Pilot → Rollout</td><td class="text-center">7w</td><td>20 → 120 agents</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="text-sm font-semibold mt-8">Investment — $252,000 fixed</h3>
+      <table class="w-full text-[9pt] mt-3" style="border-collapse:collapse; border-top:1px solid #18181b; border-bottom:1px solid #18181b">
+        <thead><tr class="border-b border-zinc-900"><th class="text-left py-2">Item</th><th class="text-right">Amount</th></tr></thead>
+        <tbody>
+          <tr class="border-b border-zinc-100"><td class="py-1.5">Discovery & Design</td><td class="text-right">$38,000</td></tr>
+          <tr class="border-b border-zinc-100 bg-zinc-50"><td class="py-1.5">Platform Build</td><td class="text-right">$142,000</td></tr>
+          <tr><td class="py-1.5 font-semibold">Total</td><td class="text-right font-semibold">$252,000</td></tr>
+        </tbody>
+      </table>
+
+      <blockquote class="border-l-4 border-[#1B365D] bg-zinc-50 p-4 my-8">
+        <p class="text-[9.5pt]"><strong>Terms:</strong> 30% on signature, 40% on pilot, 30% on rollout. Net 30. Hosting/LLM on your cloud.</p>
+      </blockquote>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Priya Sharma — Resume</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500;800&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 12mm 14mm }
+  body { margin: 0; font-family: Inter, sans-serif; color: #18181b; line-height: 1.45; letter-spacing: -0.025em; background: white }
+  h1, h2 { font-family: Newsreader, Georgia, serif; letter-spacing: -0.06em; font-weight: 500 }
+  h2 { font-size: 10pt; text-transform: uppercase; letter-spacing: -0.01em; color: #1B365D; border-bottom: 1px solid #e4e4e7; padding-bottom: 4pt; margin-top: 16pt }
+  p, li { font-size: 9.5pt }
+  ul { padding-left: 14pt }
+  li { margin-bottom: 3pt }
+</style>
+</head>
+<body>
+  <div class="max-w-[170mm] mx-auto pt-6">
+    <!-- Typographic cover — oversized word -->
+    <div class="text-center border-b border-zinc-900 pb-4">
+      <h1 class="text-[28pt] font-extrabold" style="letter-spacing:-0.10em; line-height:1.1">Priya Sharma</h1>
+      <p class="text-[9pt] text-zinc-500 mt-1 tracking-[-0.01em]">Bengaluru · priya.sharma@email.com · +91 98XXX XXXXX · linkedin.com/in/priyasharma · github.com/priyasharma</p>
+    </div>
+
+    <p class="text-[9.5pt] text-zinc-700 mt-4 leading-[1.5]">
+      Product engineer · 5 years · 2M MAU analytics platform from batch (6h) to streaming (4m) · <strong>Flint, Kafka, Postgres, React, FastAPI</strong> · Seeking senior full-stack in developer tools / data infra.
+    </p>
+
+    <h2>Experience</h2>
+    <div class="mt-2">
+      <div class="flex justify-between items-baseline">
+        <p class="font-semibold">Senior Software Engineer — Flux Data</p>
+        <p class="text-xs text-zinc-500">2023 – Present · Bengaluru</p>
+      </div>
+      <ul class="mt-1">
+        <li>Owned ingestion 1.2B events/day — Flink streaming cut p95 report 6h → 4m, cost −22%.</li>
+        <li>Typed event schema + SDKs (Python/TS/Go) — 0 broken contracts in 18 mo vs 11 before.</li>
+        <li>Led 4, led RFC + on-call runbooks — MTTR 47 → 18m.</li>
+      </ul>
+    </div>
+
+    <div class="mt-3">
+      <div class="flex justify-between items-baseline">
+        <p class="font-semibold">Software Engineer — Meridian Health</p>
+        <p class="text-xs text-zinc-500">2021 – 2023 · Remote</p>
+      </div>
+      <ul class="mt-1">
+        <li>API gateway (FastAPI) fronting 14 services — auth, rate-limit, audit — 99.95% up.</li>
+        <li>Shipped eligibility check — claim rejection −31%.</li>
+      </ul>
+    </div>
+
+    <h2>Skills</h2>
+    <table class="w-full text-[8.5pt] mt-2" style="border-collapse:collapse; border-top:1px solid #18181b">
+      <tbody>
+        <tr class="border-b border-zinc-100"><td class="py-1.5 font-semibold w-32">Languages</td><td class="py-1.5">Python, TypeScript, Go, SQL</td></tr>
+        <tr class="border-b border-zinc-100 bg-zinc-50"><td class="py-1.5 font-semibold">Data & Infra</td><td class="py-1.5">Flink, Kafka, Postgres, Redis, AWS (ECS, S3, Lambda)</td></tr>
+        <tr><td class="py-1.5 font-semibold">Web</td><td class="py-1.5">React, Next.js, FastAPI, Node.js</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Education</h2>
+    <p class="text-[9.5pt] mt-1"><strong>B.Tech, Computer Science — NIT Trichy</strong> · 2017 – 2021 · CGPA 8.9 / 10</p>
+
+    <h2>Selected Projects</h2>
+    <ul class="mt-1">
+      <li><strong>Graphify</strong> — code knowledge graph, 30+ languages, SQLite (1.4k★).</li>
+      <li>On-call handover bot — adopted by 6 teams.</li>
+    </ul>
+
+    <p class="text-[7pt] text-zinc-400 text-center mt-8">One page · Auto-fit: if you add content, scale type down with care</p>
+  </div>
+</body>
+</html>

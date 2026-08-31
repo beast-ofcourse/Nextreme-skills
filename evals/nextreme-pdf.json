@@ -1,0 +1,70 @@
+{
+  "skill_name": "nextreme-pdf",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Make a 7-page business report PDF about Q4 ops — cover, executive summary, tables, and a chart. I want it to look like Stripe, not like AI slop.",
+      "expected_output": "A4 PDF with full-bleed dark cover (dot grid, Playfair, no white border via @page :first {margin:0}), zinc backbone (90% zinc), semantic negative tracking, geometric spacing (4/8/12/16…), h1 with accent rule, three-line table (accent header, banded), vector chart (not screenshot), hyphens:auto for no rivers. Passes validate_pdf.py --strict.",
+      "files": [],
+      "expectations": [
+        "Produces PDF with %PDF header and ≥4 pages (report budget 550-650w/p)",
+        "Cover is full-bleed (body margin 0, @page :first margin 0, .cover 210mm×297mm) — no white border",
+        "Tracking is semantic negative (display -0.10em etc.), not positive",
+        "Table is three-line with accent header, not screenshot",
+        "Passes scripts/validate_pdf.py --strict"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Create a one-page resume PDF that auto-fits to exactly one page — warm, editorial, not generic Inter everywhere.",
+      "expected_output": "A4 resume with typographic cover (oversized word, DM Serif), Newsreader body 9.5pt, Parchment optional, line-heights 1.4–1.45, weight locked 500, one page strict (auto-fit scales type until fill 92%+). No second page.",
+      "files": [],
+      "expectations": [
+        "Single page PDF (validate page count 1)",
+        "Uses Newsreader/DM Serif for headlines (not just Inter)",
+        "Line-heights within 1.1–1.55, never 1.6+",
+        "No positive tracking, no hard shadow, no rgba tag double-rect",
+        "Passes --check-fill with no hole mid-article"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Make a portfolio PDF — 6 pages, atmospheric near-black with radial glow, Fraunces, and a meander diagonal photo spread.",
+      "expected_output": "Portfolio with atmospheric cover (radial glow, Fraunces), zinc or near-black, meander threading on interior spread (two diagonal photos + continuous text via meander), ring/whisper shadow only, one accent per spread.",
+      "files": [],
+      "expectations": [
+        "Cover is atmospheric (near-black #0a0a0a + radial glow) — not zinc default",
+        "Interior spread uses meander diagonal photos + threading text (not stacked blocks)",
+        "Accent appears once per spread (gradient only on hero)",
+        "Depth via ring or whisper shadow, not hard drop",
+        "Passes validate with no overflow"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Turn this long academic draft into a 6-page magazine PDF — cream bg, Lora+Cormorant, 2-column, with a pull quote and side-wrap figure.",
+      "expected_output": "Magazine A4 with warm cream #fffbf5, Lora body + Cormorant heads, 2-col (column-count:2), pull quote block, figure with side-wrap via wrap-it (not float), hyphens:auto for no rivers.",
+      "files": ["draft.md"],
+      "expectations": [
+        "Warm cream bg #fffbf5, not white or zinc",
+        "2-column layout with column-rule, Lora + Cormorant",
+        "Pull quote block present (border-l-4, bg-zinc-50)",
+        "Figure side-wrap uses wrap-it/meander, not stacked",
+        "Justified with hyphens, no rivers"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Reformat my existing report.md into a better-looking PDF — keep the content, change the taste to terracotta warm academic.",
+      "expected_output": "REFORMAT route: parses markdown to content.json blocks, then CREATE pipeline with terracotta #9C6B4F on cream, Playfair, dot grid, three-line tables. Accent derived from warm academic semantics, not template default.",
+      "files": ["report.md"],
+      "expectations": [
+        "Parses markdown into block types (h1, body, callout, table) — not raw dump",
+        "Accent is terracotta #9C6B4F (warm academic) — not default ink-blue",
+        "Table is reformatted to three-line with accent header",
+        "Cover is minimal or report fullbleed with new palette",
+        "Passes taste lint (no positive tracking, no rgba)"
+      ]
+    }
+  ]
+}

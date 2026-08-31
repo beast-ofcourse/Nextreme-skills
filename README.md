@@ -24,6 +24,7 @@ A focused, **agent-agnostic** collection of reusable AI-agent skills. Each skill
 | [`nextreme-diagrams`](nextreme-diagrams/) | Generates system architecture, UML, AI/agent workflows, C4, and event-driven technical diagrams (SVG/PDF). | "system diagram", "architecture diagram", "UML", "sequence diagram" |
 | [`nextreme-docs`](nextreme-docs/) | Generates publication-grade `.docx` / `.doc` Word documents — reports, proposals, resumes, invoices, letters, contracts, manuals, papers, certificates — with disciplined styles, explicit geometry, field-backed TOC/page numbers, and OOXML validation. | "Word document", "docx", "doc", "report", "resume", "invoice", "proposal", "contract", "letter" |
 | [`nextreme-pptx`](nextreme-pptx/) | Generates insane, unbound PowerPoint `.pptx` decks — pitch, report, academic, editorial, Bento — with native editable shapes, chart+table, geometry-validated Bento Grid, and zero overlap/overflow. | "pptx", "ppt", "PowerPoint", "slides", "deck", "pitch deck", "presentation" |
+| [`nextreme-pdf`](nextreme-pdf/) | Generates taste-driven, unbound PDF documents — reports, proposals, resumes, portfolios, magazines — with zinc/parchment taste, editorial typography, HTML+Tailwind → Playwright/Paged.js, and page-as-canvas QC. | "pdf", "PDF", "report", "proposal", "resume", "portfolio", "magazine", "whitepaper" |
 | [`readme-architect`](readme-architect/) | Writes a repo-grounded, professional `README.md` after investigating the actual codebase. | "write a README", "make my repo look professional", "add docs" |
 
 ## How the "next thing" skills differ
@@ -68,6 +69,10 @@ Or copy a skill folder into your agent's skills directory. Each `SKILL.md` is se
 │   ├── references/                 # engine-matrix.md, style-system.md, slide-types.md, validation.md
 │   ├── scripts/                    # create_pptx.py, validate_pptx.py, render_pptx.mjs
 │   └── templates/                  # pitch, report, academic, editorial, bento
+├── nextreme-pdf/                   # taste-driven unbound PDF — 7 HTML templates, HTML+Tailwind+Playwright/Paged.js, page-as-canvas QC
+│   ├── references/                 # design-taste.md, engine-matrix.md, document-types.md, validation.md
+│   ├── scripts/                    # generate_pdf.py, render_pdf.mjs, validate_pdf.py
+│   └── templates/                  # report, proposal, resume, portfolio, magazine, letter, minimal
 ├── tdd-coach/                      # test-driven development coach
 ├── git-guardrails/                 # git safety rails
 ├── evals/                          # trigger-test prompts per skill

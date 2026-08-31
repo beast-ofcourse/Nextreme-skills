@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Q4 2025 Operations Review — North Region</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500;600;800&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 20mm 15mm; @top-center { content: counter(page) " / " counter(pages); font-size: 8pt; color: #71717a; font-family: Inter, sans-serif } }
+  @page :first { margin: 0 }
+  body { margin: 0; font-family: Inter, system-ui, sans-serif; color: #18181b; line-height: 1.55; letter-spacing: -0.025em; background: #fafafa }
+  h1, h2, h3 { font-family: Newsreader, Georgia, serif; font-weight: 500; letter-spacing: -0.06em; line-height: 1.25 }
+  pre, table, img { max-width: 100% }
+  .cover { width: 210mm; height: 297mm; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40mm 20mm }
+  p { hyphens: auto; text-wrap: pretty }
+</style>
+</head>
+<body class="bg-zinc-50">
+  <!-- Cover — fullbleed, dot grid, no white border -->
+  <section class="cover" style="background: #1B365D; color: white; position: relative; overflow: hidden;">
+    <div style="position:absolute; inset:0; opacity:0.12; background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 20px 20px;"></div>
+    <p class="text-xs tracking-[-0.01em] uppercase opacity-70" style="letter-spacing:-0.01em">Confidential · North Region</p>
+    <h1 class="text-5xl font-extrabold mt-6" style="letter-spacing:-0.10em; line-height: 1.1">Q4 2025<br>Operations Review</h1>
+    <p class="text-lg mt-4 opacity-80" style="letter-spacing:-0.025em">412,800 shipments · 98.2% SLA · Board Report</p>
+    <p class="text-xs mt-12 opacity-60">Operations Analytics · August 2026</p>
+  </section>
+
+  <!-- Density: sparse cover → dense evidence -->
+  <main class="px-12 py-10 bg-white">
+    <div class="max-w-[170mm] mx-auto">
+      <div class="h-1 w-12 bg-[#1B365D] mb-4"></div>
+      <h1 class="text-[22pt]">Executive Summary</h1>
+      <p class="text-[10.5pt] leading-[1.55] text-zinc-700 text-justify mt-4">
+        North Region closed Q4 2025 with <strong>98.2% SLA adherence</strong> — a 2.1-point gain over Q3. On-time delivery rose to 94.7% while incidents fell 18% QoQ. The single material risk remains cold-chain supplier concentration, addressed by the dual-vendor program (Section 4). Volume grew 7.3% to 412,800 shipments; cost per shipment fell <strong>$4.12 → $3.84</strong>.
+      </p>
+
+      <h2 class="text-lg font-semibold mt-10 tracking-[-0.06em]">1. Throughput — Peak Without Premium</h2>
+      <p class="text-[10pt] text-zinc-600 mt-2">Two sortation lines commissioned in November lifted peak capacity to 18,200 units/day — no overtime premium in December for the first time in 2025.</p>
+
+      <table class="w-full text-sm mt-6" style="border-collapse:collapse; border-top:1px solid #18181b; border-bottom:1px solid #18181b">
+        <thead>
+          <tr class="border-b border-zinc-900">
+            <th class="text-left text-xs uppercase tracking-[-0.01em] py-2.5 font-semibold">Month</th>
+            <th class="text-right text-xs uppercase tracking-[-0.01em] py-2.5">Shipments</th>
+            <th class="text-right text-xs uppercase tracking-[-0.01em] py-2.5">On-time</th>
+            <th class="text-right text-xs uppercase tracking-[-0.01em] py-2.5">Incidents</th>
+          </tr>
+        </thead>
+        <tbody class="text-[9.5pt]">
+          <tr class="border-b border-zinc-100"><td class="py-2">October</td><td class="text-right">128,400</td><td class="text-right">93.8%</td><td class="text-right">42</td></tr>
+          <tr class="border-b border-zinc-100 bg-zinc-50"><td class="py-2">November</td><td class="text-right">134,900</td><td class="text-right">94.9%</td><td class="text-right">31</td></tr>
+          <tr><td class="py-2">December</td><td class="text-right">149,500</td><td class="text-right">95.1%</td><td class="text-right">28</td></tr>
+        </tbody>
+      </table>
+      <p class="text-xs text-zinc-500 mt-2 text-center tracking-[-0.01em]">Table 1 — Q4 Throughput by Month</p>
+
+      <div class="h-px bg-zinc-200 my-8"></div>
+
+      <h2 class="text-lg font-semibold tracking-[-0.06em]">2. Cost per Shipment — Bridge</h2>
+      <table class="w-full text-sm mt-4" style="border-collapse:collapse; border-top:1px solid #18181b; border-bottom:1px solid #18181b">
+        <thead>
+          <tr class="border-b border-zinc-900">
+            <th class="text-left text-xs uppercase tracking-[-0.01em] py-2.5">Element</th>
+            <th class="text-right text-xs uppercase py-2.5">Q3</th>
+            <th class="text-right text-xs uppercase py-2.5">Q4</th>
+            <th class="text-right text-xs uppercase py-2.5">Δ</th>
+          </tr>
+        </thead>
+        <tbody class="text-[9.5pt]">
+          <tr class="border-b border-zinc-100"><td class="py-2">Line haul</td><td class="text-right">$2.18</td><td class="text-right">$2.05</td><td class="text-right text-emerald-700">−$0.13</td></tr>
+          <tr class="border-b border-zinc-100 bg-zinc-50"><td class="py-2">Sortation</td><td class="text-right">$0.94</td><td class="text-right">$0.88</td><td class="text-right text-emerald-700">−$0.06</td></tr>
+          <tr><td class="py-2 font-semibold">Total</td><td class="text-right">$4.12</td><td class="text-right">$3.84</td><td class="text-right text-emerald-700">−$0.28</td></tr>
+        </tbody>
+      </table>
+
+      <blockquote class="border-l-4 border-[#1B365D] bg-zinc-50 p-4 pl-6 my-8">
+        <p class="text-[10pt] font-medium">Recommendation: Approve cold-chain Line 3 (Hub C, payback 14 mo); add penalty clauses for >2% delay; publish SOP v4.2 by Jan 15.</p>
+      </blockquote>
+
+      <p class="text-xs text-zinc-500 text-center mt-12">North Region · Operations Review · Page <span class="pageNumber"></span></p>
+    </div>
+  </main>
+</body>
+</html>

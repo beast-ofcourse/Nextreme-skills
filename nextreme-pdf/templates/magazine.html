@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Event Graph — Magazine</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Lora:ital,wght@0,400;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 18mm 16mm }
+  body { margin: 0; font-family: Lora, Georgia, serif; color: #1c1917; background: #fffbf5; line-height: 1.55 }
+  h1, h2 { font-family: Cormorant Garamond, Georgia, serif; letter-spacing: -0.06em; font-weight: 500 }
+  .columns { column-count: 2; column-gap: 16mm; column-rule: 1px solid #e7e5e4 }
+</style>
+</head>
+<body class="bg-[#fffbf5]">
+  <div class="max-w-[170mm] mx-auto py-8">
+    <p class="text-xs uppercase tracking-[-0.01em] text-stone-500">Magazine · Issue 07 — 2026</p>
+    <h1 class="text-[30pt] leading-[1.1] mt-2" style="letter-spacing:-0.10em">The Event<br>Graph</h1>
+    <p class="text-[11pt] italic text-stone-600 mt-2" style="letter-spacing:-0.025em">Every event a node, every join an edge — the medium that was missing.</p>
+
+    <div class="columns mt-8 text-[10pt] leading-[1.6] text-justify" style="hyphens:auto">
+      <p class="first-letter:text-5xl first-letter:font-serif first-letter:float-left first-letter:mr-2 first-letter:leading-none">Tables ask you to know the question in advance. Graphs let you ask the question you didn’t know to ask. At 1.2B events per day, the batch report’s 6-hour latency isn’t a bug — it’s the medium. Flux replaces tables with a graph: events as nodes, joins as edges. Any query is a subgraph, not a migration. The paper on page 3 shows the cut: 6.0h → 4.1m p95, cost −22%, zero broken contracts in 18 months.</p>
+      <p class="mt-4">The editorial system matters: warm cream `#fffbf5`, Lora for body, Cormorant for heads, `hyphens: auto` and `text-wrap: pretty` so rivers never form. Photos thread around text via <code>meander</code> — diagonal placements, not stacked blocks. This spread is the proof.</p>
+      <blockquote class="border-l-4 border-stone-900 bg-white p-4 my-6 break-inside-avoid" style="column-span: none;">
+        <p class="italic">Design is intelligence made visible — now at data scale.</p>
+        <p class="text-xs text-stone-500 mt-1">— Flux principle #3</p>
+      </blockquote>
+      <p>Next: the 11-day dual-write that proved 0.00% divergence after a timezone fix. Then the graph studio that lets any team ask a new question without a pipeline.</p>
+    </div>
+
+    <p class="text-xs text-stone-400 text-center mt-10">Magazine · 6 pages · Lora + Cormorant · meander threading</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kaku — Portfolio</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0 }
+  @page :first { margin: 0 }
+  body { margin: 0; font-family: Inter, sans-serif; background: #0a0a0a; color: #fafafa }
+  h1, h2 { font-family: Fraunces, Georgia, serif; letter-spacing: -0.06em }
+</style>
+</head>
+<body>
+  <!-- Atmospheric cover — near-black + radial glow -->
+  <section class="relative flex flex-col justify-center px-14" style="width:210mm; height:297mm; background: radial-gradient(600px 400px at 30% 20%, rgba(120,90,255,0.18), transparent), #0a0a0a;">
+    <p class="text-xs uppercase tracking-[-0.01em] text-zinc-400">Portfolio · 2026</p>
+    <h1 class="text-6xl font-semibold mt-4 leading-[0.95]" style="letter-spacing:-0.10em">Kaku</h1>
+    <p class="text-lg text-zinc-300 mt-3 max-w-[90mm]">Brand and product for teams that ship — strategy through pixels.</p>
+    <p class="text-xs text-zinc-500 mt-10">Bengaluru · kaku.design · hello@kaku.design</p>
+  </section>
+
+  <section class="bg-white text-zinc-900 px-12 py-10">
+    <div class="max-w-[170mm] mx-auto">
+      <div class="h-1 w-12 bg-zinc-900 mb-4"></div>
+      <h2 class="text-[18pt]">Selected Work</h2>
+      <div class="grid grid-cols-2 gap-6 mt-6">
+        <div class="bg-zinc-50 p-5 rounded-xl border border-zinc-100">
+          <p class="text-[9pt] uppercase tracking-[-0.01em] text-zinc-500">01 · Flux Data</p>
+          <h3 class="text-sm font-semibold mt-1">Event Graph Platform</h3>
+          <p class="text-[9pt] text-zinc-600 mt-1">From batch to streaming — 6h → 4m, brand system for 2M MAU.</p>
+        </div>
+        <div class="bg-zinc-50 p-5 rounded-xl border border-zinc-100">
+          <p class="text-[9pt] uppercase tracking-[-0.01em] text-zinc-500">02 · Meridian</p>
+          <h3 class="text-sm font-semibold mt-1">Clinician Gateway</h3>
+          <p class="text-[9pt] text-zinc-600 mt-1">API gateway for 14 services — auth, audit, -31% claim rejection.</p>
+        </div>
+        <div class="bg-zinc-50 p-5 rounded-xl border border-zinc-100">
+          <p class="text-[9pt] uppercase tracking-[-0.01em] text-zinc-500">03 · Kami</p>
+          <h3 class="text-sm font-semibold mt-1">Editorial System</h3>
+          <p class="text-[9pt] text-zinc-600 mt-1">Warm parchment, ink-blue, 6 doc types — one visual language.</p>
+        </div>
+        <div class="bg-zinc-50 p-5 rounded-xl border border-zinc-100">
+          <p class="text-[9pt] uppercase tracking-[-0.01em] text-zinc-500">04 · Nextreme</p>
+          <h3 class="text-sm font-semibold mt-1">Skills Collection</h3>
+          <p class="text-[9pt] text-zinc-600 mt-1">9 skills, 0 AI slop — the page as unit of design.</p>
+        </div>
+      </div>
+      <p class="text-xs text-zinc-500 text-center mt-10">Portfolio · 6 pages · meander threading on pages 3–4</p>
+    </div>
+  </section>
+</body>
+</html>

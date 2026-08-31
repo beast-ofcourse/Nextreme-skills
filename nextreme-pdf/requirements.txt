@@ -1,0 +1,12 @@
+reportlab>=4.0
+weasyprint>=62.0
+pypdf>=4.0
+beautifulsoup4>=4.12
+# Optional — best taste (HTML+Tailwind+CJK+charts):
+# npm: playwright, pagedjs  (see scripts/render_pdf.mjs)
+# brew/apt: typst  (for GOST/book page-as-canvas)
+#   typst compile --font-path nextreme-pdf/assets/fonts
+# Optional — charts/math:
+# pip: matplotlib (for math→PNG)  # used by templates when chart block present
+# pip: playwright  # python wrapper for HTML→PDF (alternative to Node)
+# Note: scripts/generate_pdf.py auto-detects Playwright/Typst/WeasyPrint; no single hard dep.
