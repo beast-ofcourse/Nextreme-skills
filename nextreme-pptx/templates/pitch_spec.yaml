@@ -1,0 +1,75 @@
+title: "Flux — The Event Graph for Modern Data Teams"
+author: "Flux Data"
+subject: "Investor Pitch — Cohort 2026"
+theme_key: "vc_clean"
+slide_size: "16:9"
+slides:
+  - type: "cover"
+    title: "Flux — The Event Graph"
+    subtitle: "Turn 1.2B daily events into 4-minute reports · 2M MAU · $2.1M ARR"
+  - type: "bento_features"
+    title: "The Problem Is Scale"
+    items:
+      - title: "Batch is late"
+        body: "Nightly Spark jobs finish 04:30–08:00 UTC — decisions wait 6 hours."
+      - title: "Dashboards lie"
+        body: "Pre-aggregated tables go stale the moment they’re written."
+      - title: "Teams patch"
+        body: "Each squad rebuilds the same pipeline in Python, Flink, and SQL."
+  - type: "comparison"
+    title: "Before → After Flux"
+    items:
+      - title: "Before: Batch"
+        body: "Spark on S3 → Presto. p95 6h. $48.2k/mo. One team per report."
+      - title: "After: Flux"
+        body: "Kafka → Flink → Incremental views. p95 4.1m. $37.6k/mo. One graph, many queries."
+  - type: "matrix_2x2"
+    title: "Positioning — No One Owns the Event Graph"
+    quadrants:
+      - {label: "Batch (Looker, Tableau)"}
+      - {label: "Stream (Flink, Kafka)"}
+      - {label: "Warehouse-only (Snowflake)"}
+      - {label: "Event Graph (Flux)"}
+    items:
+      - {label: "Flux", x: 0.78, y: 0.72}
+      - {label: "Looker", x: 0.22, y: 0.28}
+      - {label: "Flink", x: 0.72, y: 0.28}
+  - type: "stats_grid"
+    title: "Traction — 18 Months In"
+    stats:
+      - {value: "2M", label: "MAU", delta: "+84% YoY"}
+      - {value: "1.2B", label: "Events/day", delta: "+3.1× YoY"}
+      - {value: "4.1m", label: "p95 latency", delta: "—98.9% vs batch"}
+      - {value: "$2.1M", label: "ARR", delta: "+2.4× YoY"}
+  - type: "timeline"
+    title: "Roadmap — Next 12 Months"
+    milestones:
+      - {label: "Q4 ’25", title: "SOC 2 + 3 design partners GA"}
+      - {label: "Q1 ’26", title: "Self-serve graph studio"}
+      - {label: "Q2 ’26", title: "Warehouse sync (Snowflake/BigQuery)"}
+      - {label: "Q3 ’26", title: "EU data residency"}
+  - type: "bento_features"
+    title: "Why This Wins"
+    items:
+      - title: "Graph, not tables"
+        body: "Events as nodes, joins as edges — any query is a subgraph, not a migration."
+      - title: "Incremental by default"
+        body: "Retract streams + RocksDB checkpoints → exactly-once, 60s freshness."
+      - title: "One SDK, three languages"
+        body: "Python / TS / Go generated from typed schema — 0 broken contracts in 18 mo."
+  - type: "bar_chart"
+    title: "Revenue — $2.1M ARR, 124% NRR"
+    categories: ["Q4 ’24", "Q1 ’25", "Q2 ’25", "Q3 ’25"]
+    series:
+      - {name: "ARR", values: [0.6, 1.1, 1.6, 2.1]}
+      - {name: "New logo", values: [0.2, 0.35, 0.45, 0.5]}
+    insight: "NRR 124% — expansion from 6 → 14 enterprise teams drove 62% of net new."
+  - type: "quote"
+    quote: "Flux cut our report waiting from a morning to a coffee."
+    attribution: "— VP Data, Meridian Health, 22k employees"
+  - type: "bar_chart"
+    title: "Ask — $6M Seed"
+    categories: ["Engineering", "Design partners", "GTM"]
+    series:
+      - {name: "Use of funds", values: [3.2, 1.8, 1.0]}
+    insight: "18 mo runway. Hiring: 4 infra + 2 product + 1 design. Design partners fund 40% of build."

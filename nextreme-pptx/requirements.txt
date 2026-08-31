@@ -1,0 +1,7 @@
+python-pptx>=0.8.11
+pyyaml>=6.0
+lxml>=4.9
+Pillow>=10.0
+# Optional — PptxGenJS lane (Node): npm install pptxgenjs
+# Optional — render gate: LibreOffice soffice on PATH for PDF → PNG
+# Optional — template profiling: no extra deps (pure python-pptx + lxml)

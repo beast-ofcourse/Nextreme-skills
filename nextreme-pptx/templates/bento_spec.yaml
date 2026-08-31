@@ -1,0 +1,68 @@
+title: "Bento Grid — 7 Layout Demos (Single Source, 12 Cards)"
+author: "Nextreme PPTX"
+subject: "Layout Showcase — No Overlap Guarantee"
+theme_key: "vc_clean"
+slide_size: "16:9"
+slides:
+  - type: "cover"
+    title: "Bento Grid — 7 Layouts, Zero Overlap"
+    subtitle: "Every card snaps to 12-col grid + GUTTER — validation proves no glitch"
+  - type: "section_header"
+    title: "Single Focus — One Big Claim"
+    kicker: "01 — BENTO"
+  - type: "bento_features"
+    title: "Single Focus Card"
+    items:
+      - title: "Hero claim"
+        body: "12-col hero card, centered — for the one claim the slide must land."
+  - type: "bento_features"
+    title: "50-50 Symmetric"
+    items:
+      - title: "Left — Before"
+        body: "6-col card — the before state."
+      - title: "Right — After"
+        body: "6-col card — the after state."
+  - type: "bento_features"
+    title: "Asymmetric 7+5"
+    items:
+      - title: "Primary (7-col)"
+        body: "The main story — chart or narrative."
+      - title: "Secondary (5-col)"
+        body: "The insight the chart earns."
+  - type: "bento_features"
+    title: "Three-col Equal (4+4+4)"
+    items:
+      - title: "Feature A"
+        body: "Short body, equal weight."
+      - title: "Feature B"
+        body: "Short body, equal weight."
+      - title: "Feature C"
+        body: "Short body, equal weight."
+  - type: "bento_features"
+    title: "Primary-Secondary (8+4)"
+    items:
+      - title: "Evidence (8-col)"
+        body: "Chart, table, or diagram — the proof."
+      - title: "Takeaway (4-col)"
+        body: "One sentence the chart proves."
+  - type: "bento_features"
+    title: "Hero + Subs (12 top + 3×4 bottom)"
+    items:
+      - title: "Top hero"
+        body: "The claim above the fold."
+      - title: "Proof A"
+        body: "Subs below hero."
+      - title: "Proof B"
+        body: "Subs below hero."
+  - type: "stats_grid"
+    title: "Mixed Grid — Stats + Chart Rhythm"
+    stats:
+      - {value: "84%", label: "Activation", delta: "+12pp"}
+      - {value: "42k", label: "Tickets/mo", delta: "from 28k"}
+      - {value: "6.5m", label: "Handle time", delta: "—22%"}
+  - type: "bar_chart"
+    title: "Bento + Chart — Density Alternation"
+    categories: ["A", "B", "C", "D"]
+    series:
+      - {name: "Alpha", values: [12, 19, 3, 17]}
+    insight: "Sparse → dense → sparse — never two dense slides in a row without contrast."

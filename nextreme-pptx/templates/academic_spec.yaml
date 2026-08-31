@@ -1,0 +1,56 @@
+title: "Streaming Report Latency Reduction via Incremental Materialization"
+author: "P. Sharma, R. Mehta — Apex Data Systems"
+subject: "Research Talk — 1.2B Events/Day Case Study"
+theme_key: "academic_minimal"
+slide_size: "16:9"
+slides:
+  - type: "cover"
+    title: "Streaming Report Latency via Incremental Materialization"
+    subtitle: "An Industrial Case Study at 1.2B Events/Day · P. Sharma, R. Mehta — Apex Data Systems"
+  - type: "section_header"
+    title: "The 6-Hour Floor"
+    kicker: "01 — PROBLEM"
+  - type: "bento_features"
+    title: "Batch Reports Are Late by Design"
+    items:
+      - title: "Spark at 02:00 UTC"
+        body: "Scans full dataset. Completes 04:30–08:00 UTC."
+      - title: "Presto over stale tables"
+        body: "Dashboards query yesterday’s data at 09:00 UTC."
+      - title: "Scale breaks it"
+        body: "At 1.2B events/day, +10% volume = +48 min delay."
+  - type: "bar_chart"
+    title: "Latency — Batch vs Streaming (p95, hours)"
+    categories: ["Batch", "Streaming"]
+    series:
+      - {name: "p95", values: [6.0, 0.07]}
+    insight: "98.9% cut: 6.0h → 4.1m (p99: 7.2h → 8.3m). Measurements over 6 months in production."
+  - type: "results_table"
+    title: "Cost & Freshness — Same Hardware Footprint"
+    headers: ["Metric", "Batch", "Streaming", "Change"]
+    rows:
+      - ["p95 latency", "6.0 h", "4.1 m", "—98.9%"]
+      - ["Monthly cost", "$48.2k", "$37.6k", "—22%"]
+      - ["Max staleness", "6 h", "90 s", "—99.6%"]
+  - type: "quote"
+    quote: "We ran dual-write for 11 days, row-for-row — divergence 0.00% after a timezone fix."
+    attribution: "— Migration log, day 4"
+  - type: "section_header"
+    title: "Flink Retract Streams + RocksDB"
+    kicker: "02 — ARCHITECTURE"
+  - type: "timeline"
+    title: "Migration Path — Dual-Write, Validate, Cut Over"
+    milestones:
+      - {label: "Day 0", title: "Flink sink to shadow Postgres"}
+      - {label: "Day 4", title: "Timezone bug found & fixed"}
+      - {label: "Day 11", title: "0.00% divergence — cutover"}
+      - {label: "Day 21", title: "Batch decommissioned"}
+  - type: "bento_features"
+    title: "Takeaways"
+    items:
+      - title: "Pattern reuses"
+        body: "Shadow sink → row-for-row diff → cutover for any batch→streaming."
+      - title: "Exactly-once holds"
+        body: "Retract streams + 60s checkpoints + RocksDB, no report rewrites."
+      - title: "No new algorithm"
+        body: "Measured industrial case, not synthetic benchmark."

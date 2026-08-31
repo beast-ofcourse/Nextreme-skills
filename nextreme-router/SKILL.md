@@ -42,6 +42,7 @@ Discover skills live from the repo (each `*/SKILL.md`); the set below is a snaps
 - `nextreme-charts` — publication-grade SVG charts from data.
 - `nextreme-diagrams` — architecture, UML, agent-workflow technical diagrams.
 - `nextreme-docs` — publication-grade `.docx` / `.doc` Word documents (reports, proposals, resumes, invoices, letters, contracts, manuals).
+- `nextreme-pptx` — insane, unbound PowerPoint `.pptx` decks (pitch, report, academic, editorial, Bento) with native editable shapes, chart, table, and geometry-validated Bento Grid.
 - `readme-architect` — repo-grounded professional README authoring.
 - `tdd-coach` — red-green-refactor on real tasks.
 - `git-guardrails` — blocks destructive/irreversible git.

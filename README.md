@@ -23,6 +23,7 @@ A focused, **agent-agnostic** collection of reusable AI-agent skills. Each skill
 | [`nextreme-charts`](nextreme-charts/) | Generates publication-grade SVG charts from data (Vega-Lite/Vega, QuickChart, ECharts) for every chart type. | "chart", "bar chart", "line chart", "visualize this data" |
 | [`nextreme-diagrams`](nextreme-diagrams/) | Generates system architecture, UML, AI/agent workflows, C4, and event-driven technical diagrams (SVG/PDF). | "system diagram", "architecture diagram", "UML", "sequence diagram" |
 | [`nextreme-docs`](nextreme-docs/) | Generates publication-grade `.docx` / `.doc` Word documents — reports, proposals, resumes, invoices, letters, contracts, manuals, papers, certificates — with disciplined styles, explicit geometry, field-backed TOC/page numbers, and OOXML validation. | "Word document", "docx", "doc", "report", "resume", "invoice", "proposal", "contract", "letter" |
+| [`nextreme-pptx`](nextreme-pptx/) | Generates insane, unbound PowerPoint `.pptx` decks — pitch, report, academic, editorial, Bento — with native editable shapes, chart+table, geometry-validated Bento Grid, and zero overlap/overflow. | "pptx", "ppt", "PowerPoint", "slides", "deck", "pitch deck", "presentation" |
 | [`readme-architect`](readme-architect/) | Writes a repo-grounded, professional `README.md` after investigating the actual codebase. | "write a README", "make my repo look professional", "add docs" |
 
 ## How the "next thing" skills differ
@@ -63,6 +64,10 @@ Or copy a skill folder into your agent's skills directory. Each `SKILL.md` is se
 │   ├── references/                 # document-engine.md, style-system.md, document-types.md, validation-checklist.md
 │   ├── scripts/                    # create_docx.py, validate_docx.py
 │   └── templates/                  # report, proposal, resume, invoice, letter, contract, manual, certificate, academic
+├── nextreme-pptx/                  # insane unbound .pptx decks — 5 templates, dual engine (python-pptx + PptxGenJS), Bento Grid, geometry gates
+│   ├── references/                 # engine-matrix.md, style-system.md, slide-types.md, validation.md
+│   ├── scripts/                    # create_pptx.py, validate_pptx.py, render_pptx.mjs
+│   └── templates/                  # pitch, report, academic, editorial, bento
 ├── tdd-coach/                      # test-driven development coach
 ├── git-guardrails/                 # git safety rails
 ├── evals/                          # trigger-test prompts per skill

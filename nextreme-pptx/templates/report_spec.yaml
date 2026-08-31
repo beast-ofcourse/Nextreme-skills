@@ -1,0 +1,54 @@
+title: "Q4 2025 Operations Review — North Region"
+author: "Ops Analytics"
+subject: "Board Report — Q4 2025"
+theme_key: "vc_clean"
+slide_size: "16:9"
+slides:
+  - type: "cover"
+    title: "Q4 2025 Operations Review"
+    subtitle: "North Region · Confidential · 98.2% SLA · 412,800 shipments"
+  - type: "section_header"
+    title: "Performance"
+    kicker: "01 — THROUGHPUT"
+  - type: "stats_grid"
+    title: "Headline KPIs — Q4 vs Q3"
+    stats:
+      - {value: "412.8k", label: "Shipments", delta: "+7.3% QoQ"}
+      - {value: "94.7%", label: "On-time", delta: "+1.8pp"}
+      - {value: "98.2%", label: "SLA adherence", delta: "+2.1pp"}
+      - {value: "101", label: "Incidents", delta: "—18% QoQ"}
+  - type: "bar_chart"
+    title: "Monthly Throughput"
+    categories: ["Oct", "Nov", "Dec"]
+    series:
+      - {name: "Shipments (k)", values: [128.4, 134.9, 149.5]}
+    insight: "December peak at 149.5k (+10.8% vs Nov) — no overtime premium for first time in 2025; line C lifted capacity to 18.2k units/day."
+  - type: "bar_chart"
+    title: "Cost per Shipment — $4.12 → $3.84"
+    categories: ["Line haul", "Sortation", "Last mile", "Rework"]
+    series:
+      - {name: "Q3", values: [2.18, 0.94, 0.72, 0.28]}
+      - {name: "Q4", values: [2.05, 0.88, 0.68, 0.23]}
+    insight: "—$0.28 driven by fuel surcharge normalization + rework —$0.05 (jam-rate down after v4.2 SOP)."
+  - type: "results_table"
+    title: "Risk & Mitigation"
+    headers: ["Risk", "Exposure", "Mitigation", "Date"]
+    rows:
+      - ["Cold-chain concentration", "68% with one vendor", "Dual-vendor onboarding", "Q1 ’26"]
+      - ["Hub B labor", "Tight market", "40 cross-trained ops", "Done Q4"]
+      - ["Weather", "1.2% delayed 2 days", "BCP invoked, no breach", "Dec storm"]
+  - type: "quote"
+    quote: "No overtime premium in December — first time in 2025."
+    attribution: "— Shift Lead, Hub C"
+  - type: "section_header"
+    title: "What We Need"
+    kicker: "02 — DECISIONS"
+  - type: "bento_features"
+    title: "Recommendations"
+    items:
+      - title: "Approve cold-chain Line 3"
+        body: "Hub C, payback 14 mo at current volume."
+      - title: "Penalty clauses"
+        body: "Dual-vendor terms: >2% delay triggers credit."
+      - title: "SOP v4.2"
+        body: "Publish Jan 15, tabletop Jan 31."

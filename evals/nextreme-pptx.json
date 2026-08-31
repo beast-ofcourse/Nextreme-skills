@@ -1,0 +1,70 @@
+{
+  "skill_name": "nextreme-pptx",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Make me a 10-slide investor pitch deck about Flux — the event graph. I want it to look agency-grade but every chart editable.",
+      "expected_output": "A .pptx with cover → problem → bento_features → matrix_2x2 → stats_grid → timeline → bento_features → bar_chart (native c:chart) → quote → bar_chart with insight. All shapes native, no raster chart, theme vc_clean, 16:9 13.33x7.5, Bento 12-col grid. Passes validate_pptx.py --strict (no overlap, no overflow, no slop).",
+      "files": [],
+      "expectations": [
+        "Produces a .pptx with 8-12 slides, at least one bento_features, one stats_grid, one matrix_2x2, and one native bar_chart",
+        "All charts are native c:chart (not p:pic screenshot) — editable data",
+        "No overlapping shapes (x2 - x > tolerance triggers fail)",
+        "Style derived per deck (vc_clean), not fixed 26-style clone — theme recolor preserved via schemeClr where templated",
+        "Passes scripts/validate_pptx.py --strict"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I have a branded template.pptx — use its masters to build a Q4 board report deck. Don't break the theme.",
+      "expected_output": "Profiles template.pptx to layout-catalog.md + config.json with [HINT: layout] names, maps each slide to a real placeholder via ph idx, fills placeholders via raw _element (not overlay), preserves a:schemeClr. No srgbClr hard-code where accent1 expected. Passes --check-theme.",
+      "files": ["template.pptx"],
+      "expectations": [
+        "Emits layout-catalog.md and config.json listing real layout names + placeholder idx/type/bounds",
+        "slides.md or spec uses [HINT: layout] that exists in config.json — linted",
+        "Content placed in placeholder (ph) via _element, not textbox overlay",
+        "No rasterized slides — all shapes remain vector",
+        "Passes validate_pptx.py --check-theme"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Create a dense academic deck from a paper — cover, method diagram, results table, bar chart, references. No filler.",
+      "expected_output": "A .pptx with academic_minimal theme (serif where editorial), method_diagram via native shapes/arrows (not Gemini hallucinated image), results_table as native table (banded, header schemeClr fill), bar_chart native, references with hanging indent via a:pPr marL/indent. Ghost-deck titles tell the story.",
+      "files": [],
+      "expectations": [
+        "Uses academic_minimal palette + Georgia serif where appropriate",
+        "method_diagram is vector boxes+arrows, not generated PNG",
+        "results_table is native table (not screenshot)",
+        "Titles alone tell the argument (ghost-deck test)",
+        "Passes --strict with no slop/placeholder residue"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Build a Bento showcase deck — one slide per Bento layout. Prove no overlap.",
+      "expected_output": "7+ slide deck covering Single Focus / 50-50 / Asymmetric 7+5 / Three-col 4+4+4 / Primary-Secondary 8+4 / Hero+Subs / Mixed Grid. Each card snaps to 12-col grid + GUTTER=0.32″, CARD_PAD=0.28″, bounds validated. No shape overflows canvas, no 2.5″ narrow body textbox, no overlapping.",
+      "files": [],
+      "expectations": [
+        "Contains at least 5 distinct Bento layouts (Bento Grid palette not prison, but proves variety)",
+        "Every card satisfies left+width ≤ SLIDE_WIDTH-MARGIN and left ≥ MARGIN — validated via a:xfrm cx/cy",
+        "No two cards on same slide share identical span back-to-back without density alternation note",
+        "All text boxes have wordWrap=True, autoSize=None, width ≥2.5″ for body",
+        "Passes validate_pptx.py --check-overlap --check-overflow"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Generate a PPTX via the fast JS lane (PptxGenJS) for the same pitch — I need it in under 2 seconds.",
+      "expected_output": "Via scripts/render_pptx.mjs (Node, pptxgenjs) using same tokens/palette as Python — output is valid .pptx with editable shapes, same theme_key, geometry-clean. JS lane respects Bento tokens; not a pixel-dumped PNG deck.",
+      "files": [],
+      "expectations": [
+        "Produces .pptx via PptxGenJS (npm install pptxgenjs) — not python-pptx",
+        "Same theme_key palette (BG/FG/ACCENT) shared with Python path — recolor consistent",
+        "All slides are editable shapes (no single p:pic ≥90% slide)",
+        "Passes validate_pptx.py --check-editable",
+        "Render completes without requiring LibreOffice"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+title: "The Event Graph — A New Medium for Data"
+author: "Flux Editorial"
+subject: "Brand Story"
+theme_key: "editorial"
+slide_size: "16:9"
+slides:
+  - type: "cover"
+    title: "The Event Graph"
+    subtitle: "Every event a node, every join an edge — the medium that was missing"
+  - type: "quote"
+    quote: "Tables ask you to know the question in advance. Graphs let you ask the question you didn’t know to ask."
+    attribution: "— Flux principle #3"
+  - type: "bento_features"
+    title: "Three Shifts"
+    items:
+      - title: "From tables to graph"
+        body: "Schema is a subgraph, not a migration."
+      - title: "From batch to incremental"
+        body: "Views that stay fresh, not snapshots that age."
+      - title: "From one team to many"
+        body: "One graph, many queries — no per-report pipeline."
+  - type: "stats_grid"
+    title: "Proof in Production"
+    stats:
+      - {value: "2M", label: "MAU on the graph", delta: "from zero in 18 mo"}
+      - {value: "11", label: "Days to prove", delta: "0.00% divergence"}
+      - {value: "18 mo", label: "0 broken contracts", delta: "typed schema"}
+  - type: "quote"
+    quote: "Design is intelligence made visible — now at data scale."
+    attribution: "— Flux editorial, 2026"
+  - type: "section_header"
+    title: "An Editorial Medium, Not a Dashboard Tool"
+    kicker: "CODA"
