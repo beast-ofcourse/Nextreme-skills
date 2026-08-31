@@ -41,6 +41,7 @@ Discover skills live from the repo (each `*/SKILL.md`); the set below is a snaps
 - `nextreme-flowcharts` — print-ready flowcharts, roadmaps, decision trees (PDF).
 - `nextreme-charts` — publication-grade SVG charts from data.
 - `nextreme-diagrams` — architecture, UML, agent-workflow technical diagrams.
+- `nextreme-docs` — publication-grade `.docx` / `.doc` Word documents (reports, proposals, resumes, invoices, letters, contracts, manuals).
 - `readme-architect` — repo-grounded professional README authoring.
 - `tdd-coach` — red-green-refactor on real tasks.
 - `git-guardrails` — blocks destructive/irreversible git.
