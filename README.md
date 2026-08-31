@@ -4,6 +4,10 @@
 
 # Nextreme Skills
 
+<p align="center">
+  <a href="https://skills.sh/beast-ofcourse/Nextreme-skills"><img src="https://skills.sh/b/beast-ofcourse/Nextreme-skills" alt="skills.sh installs" /></a>
+</p>
+
 A focused, **agent-agnostic** collection of reusable AI-agent skills. Each skill lives in its own directory as a single `SKILL.md` (plus `references/` when the body needs to stay lean). They carry no tool ACLs and no agent-specific subagent ids — state behavior, not permissions — so any agent can run them.
 
 ## Skills
