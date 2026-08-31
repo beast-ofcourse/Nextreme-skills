@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet" width="200" height="200" role="img">
+  <title>Spinner — SMIL</title>
+  <desc>Self-contained SMIL rotate, transform-box fill-box, prefers-reduced-motion support via CSS</desc>
+  <style>
+    @media (prefers-reduced-motion: reduce) { #nxt-spinner { animation: none } }
+  </style>
+  <g id="background"><circle cx="100" cy="100" r="96" fill="none" stroke="#f4f4f5" stroke-width="8"/></g>
+  <g id="nodes">
+    <circle cx="100" cy="100" r="80" fill="none" stroke="#1B4F72" stroke-width="8" stroke-linecap="round" stroke-dasharray="120 200" transform="rotate(-90 100 100)">
+      <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="1.1s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <g id="labels"/>
+  <g id="connections"/>
+</svg>

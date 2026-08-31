@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" preserveAspectRatio="xMidYMid meet" width="600" height="200" role="img">
+  <title>Curved TextPath</title>
+  <desc>Text on path with tspan, lang, presentation attrs</desc>
+  <defs>
+    <path id="nxt-curve" d="M 40 120 Q 300 40 560 120"/>
+  </defs>
+  <g id="background"><rect width="600" height="200" fill="#fffbf5"/></g>
+  <g id="nodes">
+    <path d="M 40 120 Q 300 40 560 120" fill="none" stroke="#e7e5e4" stroke-width="1" stroke-dasharray="6 4"/>
+    <text font-family="Cormorant Garamond, Georgia, serif" font-size="22" fill="#1B365D" letter-spacing="-0.02em">
+      <textPath href="#nxt-curve" startOffset="50%" text-anchor="middle">The Event Graph — <tspan fill="#57534e" font-style="italic">curved</tspan> textPath</textPath>
+    </text>
+    <text x="300" y="160" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#a8a29e" letter-spacing="0.06em">lang="en" · textPath · tspan</text>
+  </g>
+  <g id="labels"/>
+  <g id="connections"/>
+</svg>

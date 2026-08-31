@@ -1,0 +1,65 @@
+{
+  "skill_name": "nextreme-svg",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Design a 24x24 spark icon for Nextreme — minimal, stroke 1.5 round caps, dark on light",
+      "expected_output": "icon.svg with viewBox 0 0 24 24, no CSS, presentation attrs, stroke-linecap round, aria-hidden, validate --strict PASSED",
+      "files": [],
+      "expectations": [
+        "viewBox 0 0 24 24 + preserveAspectRatio + xmlns",
+        "No <foreignObject>, no script, no external CSS",
+        "Stroke 1.5 with round caps, layered #background group",
+        "Passes validate_svg.py --strict"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Make a brand logo with wordmark + mark — 3-stop gradient, role=img, no external font",
+      "expected_output": "logo.svg 340x80, linearGradient 3 stops hue-shift, role=img + <title> + <desc>, presentation attrs, no CSS",
+      "files": [],
+      "expectations": [
+        "linearGradient 3 stops with hue shift, not flat 2-stop",
+        "role=img + title + desc present",
+        "No external CSS/font, presentation attrs only",
+        "Passes --strict"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Create an illustration of a desk scene with lamp — five-zone lighting, colored shadows, grain, back-to-front",
+      "expected_output": "illustration.svg 1200x800, 6-stop sky gradient, five-zone lighting, colored shadow linearRGB, feTurbulence grain 0.015, layered background→containers→nodes→labels→connections",
+      "files": [],
+      "expectations": [
+        "6-stop gradient with hue shift, not flat",
+        "Five-zone lighting via gradient + shadow filter (colored, not #000) + noise",
+        "Layered groups in order, no <foreignObject>",
+        "Passes --strict and renders to 2x PNG without blur mismatch"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Draw an architecture diagram: RSE -> SCP -> TF-A -> U-Boot -> Linux, labeled, layered, arrows last, size-to-text",
+      "expected_output": "diagram.svg 1200x800, layered (#background → #containers → #nodes → #labels → #connections), size-to-text before placement, marker-end arrows, viewBox tight +40px, no arrow-through-box",
+      "files": [],
+      "expectations": [
+        "Layer order background→containers→nodes→labels→connections",
+        "5-step plan: inventory → grid → size-to-text → route → canvas",
+        "marker-end arrows, no arrow-through-box/text",
+        "Passes validate --strict (14 checks) and visual 5-point rubric"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Animate an SVG spinner with SMIL rotate, prefers-reduced-motion, self-contained, no CSS dependency",
+      "expected_output": "animation.svg 200x200, SMIL animateTransform rotate 1.1s infinite, transform-box fill-box, @media (prefers-reduced-motion) included",
+      "files": [],
+      "expectations": [
+        "SMIL only (works in <img>), not CSS-only",
+        "prefers-reduced-motion media query present",
+        "Single artifact, p5.js CDN not needed, self-contained",
+        "Passes security + a11y checks"
+      ]
+    }
+  ]
+}

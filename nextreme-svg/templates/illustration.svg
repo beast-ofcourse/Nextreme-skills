@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet" width="1200" height="800" role="img">
+  <title>Five-Zone Illustration — Desk Scene</title>
+  <desc>Desk with lamp — 6-stop gradient, five-zone lighting, colored shadow, noise grain, back-to-front layering</desc>
+  <defs>
+    <linearGradient id="nxt-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/><stop offset="35%" stop-color="#1e3a5f"/><stop offset="70%" stop-color="#2E86AB"/><stop offset="100%" stop-color="#A8DADC"/>
+    </linearGradient>
+    <radialGradient id="nxt-lamp-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff7ed" stop-opacity="0.9"/><stop offset="60%" stop-color="#fed7aa" stop-opacity="0.25"/><stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="nxt-shadow" color-interpolation-filters="linearRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="6"/><feOffset dx="0" dy="8" result="off"/><feFlood flood-color="#1e3a5f" flood-opacity="0.18"/><feComposite in="off" operator="in"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="nxt-noise"><feTurbulence baseFrequency="0.015" numOctaves="2" seed="2"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncR type="table" tableValues="0 0.04"/><feFuncG type="table" tableValues="0 0.04"/><feFuncB type="table" tableValues="0 0.06"/></feComponentTransfer></filter>
+  </defs>
+  <g id="background"><rect width="1200" height="800" fill="url(#nxt-sky)"/></g>
+  <g id="containers">
+    <rect x="0" y="520" width="1200" height="280" fill="#f5f4ed" />
+    <ellipse cx="600" cy="540" rx="420" ry="18" fill="#1e3a5f" opacity="0.12" filter="url(#nxt-shadow)"/>
+  </g>
+  <g id="nodes">
+    <!-- Desk -->
+    <rect x="180" y="420" width="520" height="18" rx="6" fill="#2a2a2a"/>
+    <rect x="220" y="438" width="12" height="82" rx="3" fill="#1a1a1a"/>
+    <rect x="648" y="438" width="12" height="82" rx="3" fill="#1a1a1a"/>
+    <!-- Lamp base — thick rounded line + circle joint -->
+    <line x1="420" y1="420" x2="420" y2="320" stroke="#e5e7eb" stroke-width="14" stroke-linecap="round"/>
+    <circle cx="420" cy="315" r="8" fill="#e5e7eb"/>
+    <line x1="420" y1="315" x2="520" y2="260" stroke="#e5e7eb" stroke-width="14" stroke-linecap="round"/>
+    <circle cx="520" cy="255" r="9" fill="#f4f4f5" stroke="#e5e7eb" stroke-width="2"/>
+    <ellipse cx="520" cy="260" rx="48" ry="12" fill="url(#nxt-lamp-glow)" opacity="0.9"/>
+  </g>
+  <g id="labels">
+    <text x="600" y="720" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#57534e" letter-spacing="-0.01em">Five-zone lighting · desk vignette · 6-stop sky</text>
+  </g>
+  <g id="connections"><rect width="1200" height="800" fill="white" opacity="0.015" filter="url(#nxt-noise)" style="pointer-events:none"/></g>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 80" preserveAspectRatio="xMidYMid meet" width="340" height="80" role="img">
+  <title>Nextreme Logo</title>
+  <desc>Wordmark with mark — presentation attrs, no CSS, no external font</desc>
+  <g id="background"><rect width="340" height="80" rx="8" fill="#f5f4ed"/></g>
+  <g id="nodes">
+    <g id="mark" transform="translate(16,16)">
+      <rect width="48" height="48" rx="10" fill="url(#nxt-logo-grad)"/>
+      <path d="M14 32 L24 14 L34 32 L24 38 Z" fill="white" opacity="0.95"/>
+    </g>
+    <text x="78" y="38" font-family="Georgia, serif" font-size="22" fill="#1B365D" font-weight="600" letter-spacing="-0.02em">Nextreme</text>
+    <text x="78" y="54" font-family="Inter, sans-serif" font-size="10" fill="#71717a" letter-spacing="0.08em">SKILLS</text>
+  </g>
+  <defs>
+    <linearGradient id="nxt-logo-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1B365D"/><stop offset="55%" stop-color="#2E86AB"/><stop offset="100%" stop-color="#A8DADC"/>
+    </linearGradient>
+  </defs>
+</svg>

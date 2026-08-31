@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid meet" width="400" height="240" role="img">
+  <title>Filter Showcase — Shadow, Glow, Grain</title>
+  <desc>feGaussianBlur linearRGB shadows, feTurbulence grain, feColorMatrix hue</desc>
+  <defs>
+    <filter id="nxt-drop" color-interpolation-filters="linearRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="6"/><feOffset dx="0" dy="6"/><feFlood flood-color="#1e3a5f" flood-opacity="0.16"/><feComposite operator="in" in2="SourceAlpha"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="nxt-glow"><feGaussianBlur stdDeviation="4"/><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0.52  0 0 1 0 0.84  0 0 0 1 0"/></filter>
+    <filter id="nxt-grain"><feTurbulence baseFrequency="0.018" numOctaves="2" seed="3"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncR type="table" tableValues="0 0.06"/><feFuncG type="table" tableValues="0 0.06"/><feFuncB type="table" tableValues="0 0.08"/></feComponentTransfer></filter>
+  </defs>
+  <g id="background"><rect width="400" height="240" fill="#fafafa"/><rect width="400" height="240" fill="white" opacity="0.03" filter="url(#nxt-grain)"/></g>
+  <g id="nodes">
+    <rect x="30" y="40" width="100" height="80" rx="12" fill="white" filter="url(#nxt-drop)" stroke="#e4e4e7"/>
+    <rect x="150" y="40" width="100" height="80" rx="12" fill="#1B4F72" filter="url(#nxt-glow)"/>
+    <rect x="270" y="40" width="100" height="80" rx="12" fill="white" stroke="#e4e4e7" filter="url(#nxt-drop)"/>
+    <text x="80" y="85" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#1a1a1e">drop</text>
+    <text x="200" y="85" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="white">glow</text>
+    <text x="320" y="85" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#1a1a1e">grain</text>
+  </g>
+  <g id="labels"><text x="200" y="155" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#71717a">linearRGB · feTurbulence 0.018 · no pure black</text></g>
+  <g id="connections"/>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" width="24" height="24" role="img" aria-hidden="true">
+  <title>Nextreme Icon</title>
+  <desc>A 24×24 spark icon — two stops hue-shift, stroke 1.5 round caps</desc>
+  <g id="background"><rect width="24" height="24" rx="4" fill="#f4f4f5"/></g>
+  <g id="nodes">
+    <path d="M12 3 L14.5 9.5 L21 9.5 L15.8 13.2 L17.5 19.5 L12 15.8 L6.5 19.5 L8.2 13.2 L3 9.5 L9.5 9.5 Z" fill="none" stroke="#1B4F72" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="12" cy="12" r="2.2" fill="#1B4F72" />
+  </g>
+</svg>

@@ -1,0 +1,7 @@
+lxml>=4.9
+cairosvg>=2.7
+# Optional — for render_svg.py PNG fallback:
+# Pillow>=10 (used indirectly via cairosvg)
+# rsvg-convert (librsvg) — system binary, not pip, for PKT-style render path
+# For HTML inline preview (if templates use HTML wrapper):
+# playwright (node) — for browser screenshot path

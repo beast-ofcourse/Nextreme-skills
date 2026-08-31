@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet" width="1200" height="800" role="img">
+  <title>Event Pipeline Diagram — RSE → Linux</title>
+  <desc>Layered diagram: background, containers, nodes, labels, connections last — 5-step plan, size-to-text</desc>
+  <defs>
+    <marker id="nxt-arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#71717a"/></marker>
+    <linearGradient id="nxt-node-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f4f4f5"/></linearGradient>
+  </defs>
+  <g id="background"><rect width="1200" height="800" fill="#fafafa"/><rect width="1200" height="800" fill="white" opacity="0.015" /></g>
+  <g id="containers">
+    <rect x="80" y="80" width="1040" height="640" rx="16" fill="none" stroke="#e4e4e7" stroke-width="1.2" stroke-dasharray="8 6"/>
+    <text x="100" y="105" font-family="Inter, sans-serif" font-size="10" fill="#71717a" letter-spacing="0.06em">TRUSTED FIRMWARE</text>
+  </g>
+  <g id="nodes">
+    <g id="nxt-rse"><rect x="140" y="240" width="160" height="64" rx="10" fill="url(#nxt-node-grad)" stroke="#d4d4d8"/><text x="220" y="275" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#18181b" font-weight="600">RSE</text></g>
+    <g id="nxt-scp"><rect x="380" y="240" width="160" height="64" rx="10" fill="url(#nxt-node-grad)" stroke="#d4d4d8"/><text x="460" y="275" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#18181b" font-weight="600">SCP</text></g>
+    <g id="nxt-tfa"><rect x="620" y="240" width="160" height="64" rx="10" fill="#1B4F72" stroke="#1B4F72"/><text x="700" y="275" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="white" font-weight="600">TF-A</text></g>
+    <g id="nxt-uboot"><rect x="860" y="240" width="160" height="64" rx="10" fill="url(#nxt-node-grad)" stroke="#d4d4d8"/><text x="940" y="275" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#18181b" font-weight="600">U-Boot</text></g>
+    <g id="nxt-linux"><rect x="620" y="460" width="160" height="64" rx="10" fill="#f5f4ed" stroke="#1B365D" stroke-width="1.4"/><text x="700" y="495" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#1B365D" font-weight="600">Linux</text></g>
+  </g>
+  <g id="labels">
+    <text x="220" y="330" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#71717a">Root of trust</text>
+    <text x="700" y="550" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#71717a">Kernel</text>
+  </g>
+  <g id="connections">
+    <path d="M300 272 L380 272" stroke="#71717a" stroke-width="1.4" marker-end="url(#nxt-arrow)" fill="none"/>
+    <path d="M540 272 L620 272" stroke="#71717a" stroke-width="1.4" marker-end="url(#nxt-arrow)" fill="none"/>
+    <path d="M780 272 L860 272" stroke="#71717a" stroke-width="1.4" marker-end="url(#nxt-arrow)" fill="none"/>
+    <path d="M700 304 L700 460" stroke="#1B4F72" stroke-width="1.4" stroke-dasharray="6 3" marker-end="url(#nxt-arrow)" fill="none"/>
+  </g>
+</svg>
