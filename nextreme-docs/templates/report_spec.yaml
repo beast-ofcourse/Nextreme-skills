@@ -1,0 +1,81 @@
+title: "Q4 2025 Operations Review — North Region"
+subtitle: "Prepared for Executive Leadership · Confidential"
+author: "Operations Analytics, North Region"
+subject: "Quarterly Operational Performance and Risk Assessment"
+keywords: ["operations", "Q4 2025", "north region", "executive report"]
+paper: "A4"
+margins: {top: 0.85, bottom: 0.85, left: 0.85, right: 0.85, header_distance: 0.35, footer_distance: 0.35}
+accent_hex: "1B4F72"
+header_text: "CONFIDENTIAL — Q4 2025 Operations Review"
+footer_page_numbers: true
+toc: true
+different_first_page: true
+content:
+  - type: "heading"
+    level: 1
+    text: "Executive Summary"
+  - type: "paragraph"
+    style: "Normal"
+    text: "North Region closed Q4 2025 with 98.2% SLA adherence, a 2.1-point improvement over Q3. On-time delivery rose to 94.7% while incident volume fell 18% quarter-over-quarter. The single material risk remains supplier concentration in cold-chain logistics, addressed by the dual-vendor program detailed in Section 4."
+  - type: "heading"
+    level: 1
+    text: "1. Performance Overview"
+  - type: "paragraph"
+    style: "Normal"
+    text: "Volume grew 7.3% to 412,800 shipments. Capacity utilization averaged 81%, peaking at 94% in week 51. The figures below summarize throughput and incident trends."
+  - type: "table"
+    caption: "Table 1 — Q4 2025 Throughput and Incidents by Month"
+    caption_position: "above"
+    style: "Light Grid Accent 1"
+    headers: ["Month", "Shipments", "On-Time %", "Incidents", "SLA %"]
+    rows:
+      - ["October", "128,400", "93.8%", "42", "97.6%"]
+      - ["November", "134,900", "94.9%", "31", "98.4%"]
+      - ["December", "149,500", "95.1%", "28", "98.6%"]
+      - ["Q4 Total", "412,800", "94.7%", "101", "98.2%"]
+    column_widths: [0.22, 0.20, 0.18, 0.18, 0.22]
+  - type: "heading"
+    level: 2
+    text: "1.1 Capacity and Utilization"
+  - type: "paragraph"
+    style: "Normal"
+    text: "Two additional sortation lines commissioned in November lifted peak capacity to 18,200 units per day. No overtime premium was incurred in December for the first time in 2025. Utilization heat by facility is available in Appendix A."
+  - type: "heading"
+    level: 1
+    text: "2. Financial Summary"
+  - type: "paragraph"
+    style: "Normal"
+    text: "Operating cost per shipment fell to $3.84 from $4.12 in Q3, driven by fuel surcharge normalization and reduced rework. The cost bridge is shown below."
+  - type: "table"
+    caption: "Table 2 — Cost per Shipment Bridge (USD)"
+    style: "Light Grid Accent 1"
+    headers: ["Cost Element", "Q3 2025", "Q4 2025", "Change"]
+    rows:
+      - ["Line haul", "$2.18", "$2.05", "-$0.13"]
+      - ["Sortation", "$0.94", "$0.88", "-$0.06"]
+      - ["Last mile", "$0.72", "$0.68", "-$0.04"]
+      - ["Rework / claims", "$0.28", "$0.23", "-$0.05"]
+      - ["Total", "$4.12", "$3.84", "-$0.28"]
+    column_widths: [0.30, 0.22, 0.22, 0.26]
+  - type: "heading"
+    level: 1
+    text: "3. Risk and Mitigation"
+  - type: "bullet_list"
+    items:
+      - "Cold-chain supplier concentration: single vendor handles 68% of refrigerated volume — dual-vendor onboarding completes end of Q1 2026."
+      - "Labor market tightness in Metro Hub B: cross-training program added 40 certified operators in Q4."
+      - "Weather exposure: December storm caused 2-day delay on 1.2% of shipments — business continuity plan invoked without SLA breach."
+  - type: "heading"
+    level: 1
+    text: "4. Recommendations"
+  - type: "numbered_list"
+    items:
+      - "Approve capital for third cold-chain line in Hub C (payback 14 months at current volume)."
+      - "Extend dual-vendor terms to include penalty clauses for >2% delay rate."
+      - "Publish revised SOP v4.2 to all sites by January 15, 2026 and run tabletop exercise by January 31."
+  - type: "heading"
+    level: 1
+    text: "Appendix A — Facility Utilization Heat"
+  - type: "paragraph"
+    style: "Normal"
+    text: "[CONTENT REQUIRED: insert utilization heat table or figure — data source is WMS export 2025-Q4-utilization.csv]"

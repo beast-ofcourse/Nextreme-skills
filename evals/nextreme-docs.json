@@ -1,0 +1,74 @@
+{
+  "skill_name": "nextreme-docs",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create a professional Q4 business report as a Word doc — cover page, table of contents, executive summary, performance tables, and recommendations. I need a real .docx with proper headings, not just bold paragraphs.",
+      "expected_output": "A .docx with Title/Subtitle cover, field-backed TOC (w:fldChar TOC), Heading 1/2 styles (not Normal+bold), at least one table with Light Grid Accent 1 style and caption, 1.07 body line spacing, and footer Page X of Y. Passes validate_docx.py --strict.",
+      "files": [],
+      "expectations": [
+        "Produces a .docx file",
+        "Uses Heading 1/2 named styles — no fake headings",
+        "Includes a field-backed TOC (w:instrText TOC), not typed text",
+        "Includes at least one styled table with a Caption paragraph",
+        "Has explicit page geometry (A4 or Letter) and header/footer page numbers",
+        "Passes scripts/validate_docx.py --strict"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I need a one-page resume as a Word doc — tight margins, contact header, experience bullets, and a skills matrix table. Must fit one page and open clean in Google Docs.",
+      "expected_output": "A Letter Resume Tight .docx (0.45/0.50in margins) with no header/footer, Title-centered name, tight List Bullet spacing (2pt), skills matrix table with Table Grid, and estimated page count 1. Passes --check-resume-length --max-pages 2.",
+      "files": [],
+      "expectations": [
+        "Produces a .docx file",
+        "Uses 0.45/0.50in resume margins and no page numbers",
+        "Experience bullets use List Bullet style with tight spacing",
+        "Skills matrix is a styled table (not plain text)",
+        "Page count estimate <= 2",
+        "No filler or lorem ipsum"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Generate an invoice as a Word doc — seller/buyer blocks, line-item table with quantities and unit prices, totals row, and payment terms. The math must be right.",
+      "expected_output": "A .docx invoice with seller/buyer blocks, Light Shading Accent 1 line-item table (Qty × Unit Price = Amount per row), summary table with Total Due, right-aligned numeric columns, banded rows, and payment terms footer. Amounts compute correctly.",
+      "files": [],
+      "expectations": [
+        "Produces a .docx file",
+        "Line-item table has correct column widths summing to content width",
+        "Numeric columns right-aligned, header fill accent",
+        "Totals row is distinct (bold/shaded)",
+        "Includes payment terms paragraph (not just a table)",
+        "Passes validate_docx.py --audit-styles"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Make a formal contract as a Word doc — title, parties, definitions, and multilevel numbered clauses (1., 1.1, 1.1.1). I need real multilevel numbering, not typed numbers.",
+      "expected_output": "A .docx with multilevel numId (w:abstractNum/w:num) producing 1. / 1.1 / 1.1.1 hierarchy, A4 with gutter, TOC field, evenAndOddHeaders setting, signature blocks as borderless tables. Numbering is field-backed, not typed.",
+      "files": [],
+      "expectations": [
+        "Produces a .docx file",
+        "Uses a single numId with 3 levels — not typed 1.1.1 in Normal",
+        "Has w:abstractNum / w:num in word/numbering.xml",
+        "Includes TOC field and footer Page X of Y",
+        "Signature blocks are tables with lines, not underscore text",
+        "Passes validate_docx.py --check-fields"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Convert my report.docx to legacy .doc and also to PDF. I need both.",
+      "expected_output": "Canonical .docx plus derived .doc and .pdf via LibreOffice headless (soffice --headless --convert-to). Script logs conversion commands and never claims python-docx writes .doc natively. Both outputs have matching page count to source.",
+      "files": ["report.docx"],
+      "expectations": [
+        "Writes .docx first as canonical output",
+        "Converts via soffice --headless --convert-to doc and pdf when requested",
+        "Logs conversion path explicitly (not silent .doc write)",
+        "Errors clearly if LibreOffice not on PATH",
+        "Delivers .docx alongside derived artifacts, not alone"
+      ]
+    }
+  ]
+}

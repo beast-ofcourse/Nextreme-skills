@@ -1,0 +1,87 @@
+title: "Proposal — Customer Support Platform Modernization"
+subtitle: "Submitted to Meridian Health · Valid until March 31, 2026"
+author: "Apex Solutions — Delivery Office"
+subject: "Proposal for CX Platform Modernization"
+keywords: ["proposal", "CX", "platform", "SOW"]
+paper: "A4"
+margins: {top: 0.85, bottom: 0.85, left: 0.85, right: 0.85}
+accent_hex: "1B4F72"
+header_text: "Apex Solutions — Confidential Proposal"
+footer_page_numbers: true
+toc: true
+different_first_page: true
+content:
+  - type: "heading"
+    level: 1
+    text: "1. Overview"
+  - type: "paragraph"
+    style: "Normal"
+    text: "Meridian Health's support operation handles 42,000 tickets per month across phone, chat, and email. Average handle time is 8.4 minutes and CSAT is 4.2 / 5.0. This proposal modernizes the ticketing backbone, unifies knowledge, and introduces assistive triage — targeting 6.5-minute handle time and 4.6 CSAT within two quarters of go-live."
+  - type: "heading"
+    level: 2
+    text: "Problem Statement"
+  - type: "bullet_list"
+    items:
+      - "Three disconnected knowledge bases force agents to search across systems — 1.8 minutes of every handle is search."
+      - "No triage automation — 34% of tickets are routed manually."
+      - "Reporting is spreadsheet-driven — leadership has no real-time view of queue health."
+  - type: "heading"
+    level: 1
+    text: "2. Solution"
+  - type: "paragraph"
+    style: "Normal"
+    text: "Apex will deliver a unified platform on Meridian's existing cloud tenancy: a single knowledge graph, LLM-assisted triage and suggested replies, and a real-time operations dashboard. No rip-and-replace — the current telephony and chat widgets remain."
+  - type: "heading"
+    level: 2
+    text: "Scope"
+  - type: "numbered_list"
+    items:
+      - "Knowledge unification — ingest and deduplicate 18,000 articles into a single graph with freshness scoring."
+      - "Triage service — classify, prioritize, and route tickets; expose confidence and rationale per decision."
+      - "Agent assist — suggested reply drafts grounded in the ingested knowledge, with citation trails."
+      - "Operations dashboard — queue, SLA, and CSAT views with alerting on threshold breach."
+      - "Migration and training — phased rollout to 120 agents across two sites."
+  - type: "heading"
+    level: 1
+    text: "3. Timeline"
+  - type: "table"
+    caption: "Table 1 — Delivery Timeline"
+    headers: ["Phase", "Duration", "Key Deliverable"]
+    rows:
+      - ["Discovery & Design", "3 weeks", "Architecture and knowledge model sign-off"]
+      - ["Build — Knowledge", "5 weeks", "Unified graph with 90%+ deduplication"]
+      - ["Build — Triage & Assist", "6 weeks", "Triage API and agent assist UI in staging"]
+      - ["Pilot", "3 weeks", "20-agent pilot, success criteria sign-off"]
+      - ["Rollout", "4 weeks", "Full 120-agent rollout and training"]
+    column_widths: [0.30, 0.20, 0.50]
+  - type: "heading"
+    level: 1
+    text: "4. Investment"
+  - type: "table"
+    caption: "Table 2 — Pricing (USD, fixed fee)"
+    style: "Light Shading Accent 1"
+    headers: ["Item", "Quantity", "Unit", "Amount"]
+    rows:
+      - ["Discovery & Design", "1", "Fixed", "$38,000"]
+      - ["Platform Build", "1", "Fixed", "$142,000"]
+      - ["Pilot & Rollout", "1", "Fixed", "$54,000"]
+      - ["Training & Handover", "1", "Fixed", "$18,000"]
+      - ["Total", "", "", "$252,000"]
+    column_widths: [0.42, 0.18, 0.18, 0.22]
+  - type: "paragraph"
+    style: "Normal"
+    text: "Payment terms: 30% on signature, 40% on pilot acceptance, 30% on rollout acceptance. Net 30. Hosting and LLM inference remain on Meridian's cloud account — not included above."
+  - type: "heading"
+    level: 1
+    text: "5. Terms"
+  - type: "numbered_list"
+    items:
+      - "Validity: this proposal is valid until March 31, 2026."
+      - "Warranty: 60-day defect warranty on delivered software from rollout acceptance."
+      - "Change control: scope changes via written change request and price/schedule impact assessment."
+  - type: "heading"
+    level: 1
+    text: "6. Signatures"
+  - type: "paragraph"
+    style: "Normal"
+    text: "By signing, the parties accept the scope, timeline, and pricing above. A master services agreement governs all other terms."

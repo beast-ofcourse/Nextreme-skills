@@ -22,6 +22,7 @@ A focused, **agent-agnostic** collection of reusable AI-agent skills. Each skill
 | [`nextreme-flowcharts`](nextreme-flowcharts/) | Produces publication-grade flowcharts, roadmaps, process diagrams, decision trees, and taxonomy maps as print-ready PDF (HTML+SVG). | "flowchart", "roadmap", "decision tree", "process diagram" |
 | [`nextreme-charts`](nextreme-charts/) | Generates publication-grade SVG charts from data (Vega-Lite/Vega, QuickChart, ECharts) for every chart type. | "chart", "bar chart", "line chart", "visualize this data" |
 | [`nextreme-diagrams`](nextreme-diagrams/) | Generates system architecture, UML, AI/agent workflows, C4, and event-driven technical diagrams (SVG/PDF). | "system diagram", "architecture diagram", "UML", "sequence diagram" |
+| [`nextreme-docs`](nextreme-docs/) | Generates publication-grade `.docx` / `.doc` Word documents — reports, proposals, resumes, invoices, letters, contracts, manuals, papers, certificates — with disciplined styles, explicit geometry, field-backed TOC/page numbers, and OOXML validation. | "Word document", "docx", "doc", "report", "resume", "invoice", "proposal", "contract", "letter" |
 | [`readme-architect`](readme-architect/) | Writes a repo-grounded, professional `README.md` after investigating the actual codebase. | "write a README", "make my repo look professional", "add docs" |
 
 ## How the "next thing" skills differ
@@ -58,6 +59,10 @@ Or copy a skill folder into your agent's skills directory. Each `SKILL.md` is se
 ├── nextreme-router/                # intent -> skill router
 ├── nextreme-skill-creator/         # skill authoring craft + workflow
 │   └── references/                 # glossary.md, workflow.md
+├── nextreme-docs/                  # extreme .docx/.doc Word documents (9 templates, OOXML validation)
+│   ├── references/                 # document-engine.md, style-system.md, document-types.md, validation-checklist.md
+│   ├── scripts/                    # create_docx.py, validate_docx.py
+│   └── templates/                  # report, proposal, resume, invoice, letter, contract, manual, certificate, academic
 ├── tdd-coach/                      # test-driven development coach
 ├── git-guardrails/                 # git safety rails
 ├── evals/                          # trigger-test prompts per skill

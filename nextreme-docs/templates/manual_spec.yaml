@@ -1,0 +1,91 @@
+title: "Acme Sortation System — Operator Manual v4.2"
+subtitle: "North Region Hubs · Effective August 2026"
+author: "Acme Operations Engineering"
+subject: "Sortation System Operator Manual"
+keywords: ["manual", "SOP", "sortation", "operations"]
+paper: "A4"
+margins: {top: 0.85, bottom: 0.85, left: 0.85, right: 0.85}
+accent_hex: "1B4F72"
+header_text: "Acme Sortation System — Operator Manual v4.2"
+footer_page_numbers: true
+toc: true
+different_first_page: true
+content:
+  - type: "heading"
+    level: 1
+    text: "Revision History"
+  - type: "table"
+    style: "Light Grid Accent 1"
+    headers: ["Version", "Date", "Author", "Changes"]
+    rows:
+      - ["4.2", "2026-08-15", "Ops Eng", "Added dual-vendor cold-chain procedure (Section 5)"]
+      - ["4.1", "2026-05-02", "Ops Eng", "Revised jam-clearance sequence; added PPE callout"]
+      - ["4.0", "2026-01-10", "Ops Eng", "New sortation line C integration"]
+    column_widths: [0.18, 0.22, 0.22, 0.38]
+  - type: "heading"
+    level: 1
+    text: "1. Safety"
+  - type: "paragraph"
+    style: "Intense Quote"
+    text: "Lock out and tag out (LOTO) before clearing any jam on lines A–C. Never reach into the sorter while the green beacon is flashing."
+  - type: "bullet_list"
+    items:
+      - "PPE required: safety shoes, cut-resistant gloves, eye protection when handling strapped pallets."
+      - "Emergency stop buttons are located at the head, mid, and tail of each line — test at shift start."
+      - "Report any guard removed or interlock bypassed to the shift supervisor immediately."
+  - type: "heading"
+    level: 1
+    text: "2. System Overview"
+  - type: "paragraph"
+    style: "Normal"
+    text: "The sortation system routes inbound pallets from receiving docks to outbound lanes via three automated lines (A, B, C). Line C handles refrigerated goods and requires cold-chain verification before release."
+  - type: "heading"
+    level: 1
+    text: "3. Startup Procedure"
+  - type: "numbered_list"
+    items:
+      - "Verify all guards are in place and no LOTO tags are present on lines to be started."
+      - "Power on the HMI panel and confirm system state shows READY (not FAULT)."
+      - "Select lane plan from the WMS — verify plan ID matches the shift sheet."
+      - "Start lines in sequence: A, then B, then C — wait for READY between each."
+      - "Run a 5-unit test sort and verify divert accuracy against the lane monitor."
+  - type: "heading"
+    level: 1
+    text: "4. Jam Clearance"
+  - type: "numbered_list"
+    items:
+      - "Press cycle stop and wait for the line to show STOPPED (beacon solid amber)."
+      - "Apply LOTO on the affected line's disconnect switch."
+      - "Clear the jam from the designated access point — do not climb the frame."
+      - "Remove LOTO, reset the fault on the HMI, and run the test sort from Section 3, step 5."
+      - "Log the jam in the shift report with timestamp, lane, and carton ID."
+  - type: "heading"
+    level: 1
+    text: "5. Cold-Chain Verification (Line C)"
+  - type: "paragraph"
+    style: "Normal"
+    text: "Line C carries refrigerated product that must remain between 2°C and 8°C. The procedure below is mandatory after any dual-vendor handover."
+  - type: "numbered_list"
+    items:
+      - "Scan the load temperature logger — reading must be 2–8°C. If out of range, quarantine the load and notify QA."
+      - "Verify the vendor ID in the WMS matches the approved dual-vendor list (Appendix B)."
+      - "Release the lane only after QA confirms the temperature trace in the monitoring portal."
+  - type: "heading"
+    level: 1
+    text: "6. Specifications"
+  - type: "table"
+    caption: "Table 1 — Sortation Line Specifications"
+    style: "Medium Grid 2 Accent 1"
+    headers: ["Parameter", "Line A", "Line B", "Line C (cold-chain)"]
+    rows:
+      - ["Throughput (units/hr)", "2,800", "2,800", "1,600"]
+      - ["Lanes", "24", "24", "16"]
+      - ["Temperature range", "Ambient", "Ambient", "2–8°C"]
+      - ["Peak power (kW)", "18", "18", "26"]
+    column_widths: [0.32, 0.22, 0.22, 0.24]
+  - type: "heading"
+    level: 1
+    text: "Appendix A — Lane Plan Example"
+  - type: "paragraph"
+    style: "Normal"
+    text: "[CONTENT REQUIRED: lane plan table for shift 2026-08-31 — export from WMS lane-plan API]"

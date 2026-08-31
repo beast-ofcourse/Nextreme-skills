@@ -1,0 +1,68 @@
+title: "Resume — Priya Sharma"
+subtitle: ""
+author: "Priya Sharma"
+subject: "Resume"
+keywords: ["resume", "CV"]
+paper: "Letter"
+margins: {top: 0.45, bottom: 0.45, left: 0.50, right: 0.50}
+accent_hex: "2C3E50"
+header_text: ""
+footer_page_numbers: false
+toc: false
+different_first_page: false
+content:
+  - type: "paragraph"
+    style: "Title"
+    alignment: "center"
+    text: "Priya Sharma"
+  - type: "paragraph"
+    style: "Normal"
+    alignment: "center"
+    text: "Bengaluru, India  •  priya.sharma@email.com  •  +91 98XXX XXXXX  •  linkedin.com/in/priyasharma  •  github.com/priyasharma"
+  - type: "paragraph"
+    style: "Normal"
+    text: "Product engineer with 5 years building data-intensive web platforms. Led migration of a 2M MAU analytics product from batch to streaming, cutting report latency from 6 hours to 4 minutes. Seeking senior full-stack roles in developer tools or data infrastructure."
+  - type: "heading"
+    level: 2
+    text: "Experience"
+  - type: "paragraph"
+    style: "Normal"
+    text: "**Senior Software Engineer — Flux Data**  ·  Bengaluru  ·  2023 – Present"
+  - type: "bullet_list"
+    items:
+      - "Owned ingestion pipeline serving 1.2B events/day; replaced nightly batch with Flink streaming — p95 report latency 6h → 4min, infra cost −22%."
+      - "Designed typed event schema and generated SDKs in Python/TS/Go — broke 0 downstream contracts in 18 months vs. 11 the year before."
+      - "Led 4-engineer squad, instituted RFC process and on-call runbooks — MTTR 47min → 18min."
+  - type: "paragraph"
+    style: "Normal"
+    text: "**Software Engineer — Meridian Health**  ·  Remote  ·  2021 – 2023"
+  - type: "bullet_list"
+    items:
+      - "Built clinician-facing API gateway (Python/FastAPI) fronting 14 microservices — auth, rate-limiting, and audit logging; 99.95% availability."
+      - "Shipped real-time eligibility check — reduced claim rejection by 31%."
+      - "Mentored 3 junior engineers; two promoted within a year."
+  - type: "heading"
+    level: 2
+    text: "Skills"
+  - type: "table"
+    style: "Table Grid"
+    headers: ["Category", "Skills"]
+    rows:
+      - ["Languages", "Python, TypeScript, Go, SQL"]
+      - ["Data & Infra", "Flink, Kafka, Postgres, Redis, AWS (ECS, S3, Lambda)"]
+      - ["Web", "React, Next.js, FastAPI, Node.js"]
+      - ["Practices", "Event modeling, DDD, TDD, observability (OpenTelemetry)"]
+    column_widths: [0.28, 0.72]
+  - type: "heading"
+    level: 2
+    text: "Education"
+  - type: "paragraph"
+    style: "Normal"
+    text: "**B.Tech, Computer Science — NIT Trichy**  ·  2017 – 2021  ·  CGPA 8.9 / 10"
+  - type: "heading"
+    level: 2
+    text: "Selected Projects"
+  - type: "bullet_list"
+    items:
+      - "Graphify — code knowledge graph for LLM context (open source, 1.4k stars): SQLite graph of symbols, edges, and files across 30+ languages."
+      - "On-call handover bot — auto-generates shift summary from incident timeline; adopted by 6 teams."

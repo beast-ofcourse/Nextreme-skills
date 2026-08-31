@@ -1,0 +1,97 @@
+title: "Streaming Report Latency Reduction via Incremental Materialization"
+subtitle: "An Industrial Case Study at 1.2B Events per Day"
+author: "P. Sharma, R. Mehta — Apex Data Systems"
+subject: "Academic paper — streaming materialization"
+keywords: ["streaming", "materialization", "latency", "Flink", "case study"]
+paper: "A4"
+margins: {top: 1.0, bottom: 1.0, left: 1.0, right: 1.0, header_distance: 0.5, footer_distance: 0.5}
+accent_hex: "1B4F72"
+header_text: "Sharma & Mehta — Streaming Materialization"
+footer_page_numbers: true
+toc: false
+different_first_page: false
+content:
+  - type: "paragraph"
+    style: "Title"
+    alignment: "center"
+    text: "Streaming Report Latency Reduction via Incremental Materialization"
+  - type: "paragraph"
+    style: "Normal"
+    alignment: "center"
+    text: "Priya Sharma and Rohan Mehta\nApex Data Systems, Bengaluru, India\n{priya.sharma, rohan.mehta}@apex.example"
+  - type: "heading"
+    level: 1
+    text: "Abstract"
+  - type: "paragraph"
+    style: "Quote"
+    text: "Batch reporting at 1.2B events per day imposed a 6-hour latency floor on operational dashboards at a 2M MAU analytics platform. We replaced nightly batch materialization with Flink streaming incremental materialization, cutting p95 report latency to 4 minutes while reducing infra cost by 22%. This paper details the architecture, consistency model, and migration path, and reports production measurements over six months."
+  - type: "paragraph"
+    style: "Normal"
+    text: "**Keywords:** stream processing, materialized views, incremental computation, Flink, analytics"
+  - type: "heading"
+    level: 1
+    text: "1. Introduction"
+  - type: "paragraph"
+    style: "Normal"
+    text: "Operational reporting traditionally relies on nightly batch jobs that scan the full dataset. At billion-event scale, this yields multi-hour freshness that is incompatible with same-day decision making. We describe an industrial migration from batch to streaming that preserved exactly-once semantics and existing SQL report definitions."
+  - type: "heading"
+    level: 1
+    text: "2. Background and Related Work"
+  - type: "paragraph"
+    style: "Normal"
+    text: "Incremental view maintenance has been studied since Blakeley et al. (1986). Modern streaming systems (Flink, Kafka Streams, Materialize) expose it as a platform primitive. Our contribution is a measured industrial case with cost and latency data at scale, not a new algorithm."
+  - type: "heading"
+    level: 1
+    text: "3. Method"
+  - type: "heading"
+    level: 2
+    text: "3.1 Baseline"
+  - type: "paragraph"
+    style: "Normal"
+    text: "Baseline was Apache Spark batch on S3, triggered at 02:00 UTC, completing 04:30–08:00 UTC. Reports queried Presto over the batch output."
+  - type: "heading"
+    level: 2
+    text: "3.2 Streaming Architecture"
+  - type: "paragraph"
+    style: "Normal"
+    text: "We deployed Flink 1.19 on ECS with Kafka as the event log. Materialized views are maintained via retract streams and checkpointed every 60s (exactly-once, RocksDB backend). Report queries read from Postgres read replicas populated by Flink sinks."
+  - type: "heading"
+    level: 1
+    text: "4. Results"
+  - type: "table"
+    caption: "Table 1 — Latency and Cost Comparison"
+    style: "Light Grid Accent 1"
+    headers: ["Metric", "Batch (baseline)", "Streaming", "Change"]
+    rows:
+      - ["p95 report latency", "6.0 h", "4.1 min", "−98.9%"]
+      - ["p99 report latency", "7.2 h", "8.3 min", "−98.1%"]
+      - ["Monthly infra cost", "$48,200", "$37,600", "−22%"]
+      - ["Data freshness (max staleness)", "6 h", "90 s", "−99.6%"]
+    column_widths: [0.36, 0.20, 0.20, 0.24]
+  - type: "paragraph"
+    style: "Normal"
+    text: "Latency distributions and cost breakdowns are discussed in Section 4.1 and Figure 1."
+  - type: "paragraph"
+    style: "Normal"
+    text: "[CONTENT REQUIRED: Figure 1 — latency CDF before/after — export as PNG and embed as image block]"
+  - type: "heading"
+    level: 1
+    text: "5. Discussion"
+  - type: "paragraph"
+    style: "Normal"
+    text: "The primary risk was consistency during the cutover. We ran dual-write for 11 days, comparing batch and streaming outputs row-for-row; divergence was 0.00% after fixing a timezone handling bug in the streaming path. Backfill of historical data reused the batch logic as a Flink bounded source."
+  - type: "heading"
+    level: 1
+    text: "6. Conclusion"
+  - type: "paragraph"
+    style: "Normal"
+    text: "Incremental streaming materialization delivered a two-order-of-magnitude latency improvement at lower cost with no report rewrites. The migration pattern — dual-write, row-for-row validation, then cutover — is reusable for similar batch-to-streaming transitions."
+  - type: "heading"
+    level: 1
+    text: "References"
+  - type: "paragraph"
+    style: "Normal"
+    text: "[1] Blakeley, J. A., Larson, P.-Å., and Tompa, F. W. Efficiently updating materialized views. SIGMOD 1986."
+  - type: "paragraph"
+    style: "Normal"
+    text: "[2] Carbone, P., et al. Apache Flink: Stream and batch processing in a single engine. IEEE Data Eng. Bull. 2015."

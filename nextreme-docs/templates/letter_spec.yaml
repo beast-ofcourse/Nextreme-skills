@@ -1,0 +1,57 @@
+title: "Letter — Offer of Engagement"
+subtitle: ""
+author: "Apex Solutions Pvt Ltd"
+subject: "Offer of Engagement — Senior Product Engineer"
+keywords: ["letter", "offer", "engagement"]
+paper: "Letter"
+margins: {top: 0.75, bottom: 0.75, left: 0.75, right: 0.75}
+accent_hex: "1B4F72"
+header_text: "Apex Solutions Pvt Ltd  ·  Manyata Tech Park, Bengaluru 560045  ·  apex.example  ·  +91 80 XXXX XXXX"
+footer_page_numbers: false
+toc: false
+different_first_page: true
+content:
+  - type: "paragraph"
+    style: "Normal"
+    alignment: "right"
+    text: "August 31, 2026"
+  - type: "paragraph"
+    style: "Normal"
+    text: "Ms. Priya Sharma\nBengaluru, India\npriya.sharma@email.com"
+  - type: "paragraph"
+    style: "Normal"
+    text: "**Subject:** Offer for the position of Senior Product Engineer"
+  - type: "paragraph"
+    style: "Normal"
+    text: "Dear Priya,"
+  - type: "paragraph"
+    style: "Normal"
+    text: "We are pleased to offer you the position of **Senior Product Engineer** at Apex Solutions Pvt Ltd, reporting to the VP of Engineering. Your start date will be **October 6, 2026**, based at our Bengaluru office with hybrid flexibility."
+  - type: "heading"
+    level: 3
+    text: "Compensation"
+  - type: "bullet_list"
+    items:
+      - "Annual base salary: INR 32,00,000, payable monthly."
+      - "Performance bonus: up to 15% of base, paid annually based on company and individual performance."
+      - "Equity: 2,500 RSUs vesting over 4 years with a 1-year cliff."
+  - type: "heading"
+    level: 3
+    text: "Terms"
+  - type: "bullet_list"
+    items:
+      - "Probation period of 3 months from the start date."
+      - "Notice period of 60 days after probation."
+      - "This offer is contingent on successful background verification."
+  - type: "paragraph"
+    style: "Normal"
+    text: "Please confirm acceptance by signing below and returning a scanned copy by **September 7, 2026**. We are excited about the prospect of you joining the team and look forward to building together."
+  - type: "paragraph"
+    style: "Normal"
+    text: "Warm regards,"
+  - type: "paragraph"
+    style: "Normal"
+    text: "Rohan Mehta\nVP of Engineering, Apex Solutions\nrohan.mehta@apex.example"
+  - type: "paragraph"
+    style: "Normal"
+    text: "Accepted by: ___________________________    Date: ______________\nPriya Sharma"

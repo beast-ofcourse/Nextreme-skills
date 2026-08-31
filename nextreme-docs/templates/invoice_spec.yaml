@@ -1,0 +1,52 @@
+title: "Invoice — INV-2026-0847"
+subtitle: ""
+author: "Apex Solutions Pvt Ltd"
+subject: "Invoice INV-2026-0847 — Meridian Health"
+keywords: ["invoice", "INV-2026-0847", "billing"]
+paper: "Letter"
+margins: {top: 0.75, bottom: 0.75, left: 0.75, right: 0.75}
+accent_hex: "2C3E50"
+header_text: ""
+footer_page_numbers: false
+toc: false
+different_first_page: false
+content:
+  - type: "heading"
+    level: 2
+    text: "INVOICE"
+  - type: "paragraph"
+    style: "Normal"
+    text: "**Invoice Number:** INV-2026-0847  ·  **Date:** August 31, 2026  ·  **Due:** September 15, 2026  ·  **PO:** PO-MH-4821"
+  - type: "paragraph"
+    style: "Normal"
+    text: "**From:** Apex Solutions Pvt Ltd, 4th Floor, Tower B, Manyata Tech Park, Bengaluru 560045, India  ·  GSTIN 29ABCDE1234F1Z5  ·  apex@example.com"
+  - type: "paragraph"
+    style: "Normal"
+    text: "**Bill To:** Meridian Health Inc., 1200 Market Street, Suite 400, San Francisco, CA 94102, USA  ·  Attn: Accounts Payable  ·  ap@meridian.example"
+  - type: "table"
+    caption: "Line Items"
+    caption_position: "above"
+    style: "Light Shading Accent 1"
+    headers: ["#", "Description", "Qty", "Unit Price", "Amount"]
+    rows:
+      - ["1", "CX Platform — Build Phase (fixed fee, milestone 2)", "1", "$142,000.00", "$142,000.00"]
+      - ["2", "Additional triage model tuning (out of scope, approved CR-04)", "18 hrs", "$180.00", "$3,240.00"]
+      - ["3", "Training workshop — on-site, 2 days", "1", "$4,500.00", "$4,500.00"]
+    column_widths: [0.08, 0.46, 0.14, 0.16, 0.16]
+  - type: "table"
+    style: "Light Grid Accent 1"
+    headers: ["Summary", "Amount"]
+    rows:
+      - ["Subtotal", "$149,740.00"]
+      - ["Tax (IGST 18% on services — India export, zero-rated)", "$0.00"]
+      - ["Total Due (USD)", "$149,740.00"]
+    column_widths: [0.70, 0.30]
+  - type: "paragraph"
+    style: "Normal"
+    text: "**Payment Terms:** Net 15. Wire to: Apex Solutions Pvt Ltd, HDFC Bank, A/C 502000XXXXXX, IFSC HDFC0000XXX, SWIFT HDFCINBB. Reference invoice number on wire. Late payment incurs 1.5% per month."
+  - type: "paragraph"
+    style: "Normal"
+    text: "**Notes:** This is a computer-generated invoice. Milestone 2 acceptance signed August 28, 2026 (SOW-2026-011, acceptance memo AM-047). Questions: billing@apex.example — +91 80 XXXX XXXX."
+  - type: "paragraph"
+    style: "Normal"
+    text: "Thank you for your business."

@@ -1,0 +1,5 @@
+python-docx>=0.8.11
+pyyaml>=6.0
+# Optional — only when filling an existing .docx template with Jinja2:
+# python-docx-template>=0.16
+# lxml is pulled via python-docx; no direct install needed

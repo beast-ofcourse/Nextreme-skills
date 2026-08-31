@@ -1,0 +1,74 @@
+title: "MASTER SERVICES AGREEMENT"
+subtitle: "Between Apex Solutions Pvt Ltd and Meridian Health Inc."
+author: "Apex Solutions — Legal"
+subject: "MSA — Apex / Meridian"
+keywords: ["contract", "MSA", "legal", "agreement"]
+paper: "A4"
+margins: {top: 1.0, bottom: 1.0, left: 1.0, right: 1.0, header_distance: 0.5, footer_distance: 0.5}
+accent_hex: "6B1D2A"
+header_text: "CONFIDENTIAL — Apex / Meridian MSA"
+footer_page_numbers: true
+toc: true
+different_first_page: false
+content:
+  - type: "paragraph"
+    style: "Normal"
+    alignment: "center"
+    text: "This Master Services Agreement (\"Agreement\") is entered into as of **August 31, 2026** (the \"Effective Date\") by and between **Apex Solutions Pvt Ltd**, a company incorporated under the laws of India with its registered office at Manyata Tech Park, Bengaluru (\"Apex\"), and **Meridian Health Inc.**, a Delaware corporation with its principal place of business at 1200 Market Street, San Francisco, CA (\"Client\"). Apex and Client are each a \"Party\" and collectively the \"Parties.\""
+  - type: "heading"
+    level: 1
+    text: "1. Definitions"
+  - type: "paragraph"
+    style: "Normal"
+    text: "**1.1** \"Services\" means the services described in a Statement of Work referencing this Agreement. **1.2** \"Deliverables\" means the work product delivered under a Statement of Work. **1.3** \"Confidential Information\" has the meaning set out in Section 6."
+  - type: "heading"
+    level: 1
+    text: "2. Services and Statements of Work"
+  - type: "paragraph"
+    style: "Normal"
+    text: "**2.1** Apex shall provide the Services in accordance with each executed Statement of Work. Each SOW will state scope, timeline, fees, and acceptance criteria and, once signed, is incorporated into this Agreement."
+  - type: "paragraph"
+    style: "Normal"
+    text: "**2.2** Changes to a signed SOW require a written change request signed by both Parties describing the change and its impact on fees and schedule."
+  - type: "heading"
+    level: 1
+    text: "3. Fees and Payment"
+  - type: "paragraph"
+    style: "Normal"
+    text: "**3.1** Fees are as set out in the applicable SOW. Unless stated otherwise, fees are in the currency stated in the SOW and are exclusive of taxes."
+  - type: "paragraph"
+    style: "Normal"
+    text: "**3.2** Invoices are payable within thirty (30) days of receipt. Late payment accrues interest at 1.5% per month or the maximum rate permitted by law, whichever is lower."
+  - type: "heading"
+    level: 1
+    text: "4. Intellectual Property"
+  - type: "paragraph"
+    style: "Normal"
+    text: "**4.1** Each Party retains ownership of its pre-existing intellectual property. Deliverables are owned as stated in the SOW; if not stated, Deliverables are owned by Client upon full payment, subject to Apex's retained right to use general knowledge and reusable components."
+  - type: "heading"
+    level: 1
+    text: "5. Warranties and Disclaimers"
+  - type: "paragraph"
+    style: "Normal"
+    text: "**5.1** Apex warrants that Services will be performed in a professional manner consistent with industry standards. **5.2** EXCEPT AS EXPRESSLY STATED, SERVICES AND DELIVERABLES ARE PROVIDED \"AS IS\" WITHOUT WARRANTY OF ANY KIND."
+  - type: "heading"
+    level: 1
+    text: "6. Confidentiality"
+  - type: "paragraph"
+    style: "Normal"
+    text: "**6.1** Each Party shall protect the other's Confidential Information with at least reasonable care and use it only for purposes of this Agreement. **6.2** Confidential Information does not include information that is public, independently developed, or rightfully received from a third party without restriction."
+  - type: "heading"
+    level: 1
+    text: "7. Term and Termination"
+  - type: "paragraph"
+    style: "Normal"
+    text: "**7.1** This Agreement commences on the Effective Date and continues until terminated. Either Party may terminate for convenience on sixty (60) days' written notice, or for cause if the other Party materially breaches and fails to cure within thirty (30) days of notice."
+  - type: "heading"
+    level: 1
+    text: "8. Signatures"
+  - type: "paragraph"
+    style: "Normal"
+    text: "IN WITNESS WHEREOF, the Parties have executed this Agreement as of the Effective Date."
+  - type: "paragraph"
+    style: "Normal"
+    text: "Apex Solutions Pvt Ltd\t\tMeridian Health Inc.\n___________________________\t\t___________________________\nName: Rohan Mehta\t\tName: [CLIENT SIGNATORY]\nTitle: VP, Engineering\t\tTitle:\nDate: August 31, 2026\t\tDate:"
