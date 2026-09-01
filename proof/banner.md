@@ -10,9 +10,9 @@ New banner is **Obsidian Signal** — dark obsidian zinc backbone + electric ora
 
 ## Diff stat
 
-```
- banner.svg | 144 +++++++++++-
- 1 file changed, 134 insertions(+), 10 deletions(-)
+```diff
+ banner.svg | 82 ++++++-
+ 1 file changed, 41 insertions(+), 103 deletions(-)  # Obsidian -> Minimalist (68 lines, 5 layered groups)
 ```
 
 Full diff on this branch (tdd + banner): 20 files, 1680 insertions, 58 deletions (see `proof/nextreme-tdd.md` for tdd portion).
@@ -38,49 +38,48 @@ Full diff on this branch (tdd + banner): 20 files, 1680 insertions, 58 deletions
 - Flat 1-stop fills, pure-black implied shadow (none), no grain, no pattern
 - No layered groups, no `id` prefixes, no filters
 
-### After (160 lines, spec-correct + taste)
+### After (68 lines, spec-correct + minimalist — final)
 
 ```svg
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Nextreme Skills — Agent-agnostic skills for AI agents">
-  <title>Nextreme Skills</title>
-  <desc>Banner for Nextreme Skills — agent-agnostic skills for AI agents. Obsidian canvas with zinc backbone, electric orange accent, and extreme-climb N mark.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Nextreme-Skills">
+  <title>Nextreme-Skills</title>
+  <desc>Minimal professional banner for Nextreme-Skills — centered mark and wordmark on calm background.</desc>
   <defs>
-    <linearGradient id="nxt-bg-glow" ...> 6 stops #1a1a2e → #0b0b0f </linearGradient>
-    <linearGradient id="nxt-nextreme-fill" ...> 6 stops #ffffff → #d6d6e0 hue-shift </linearGradient>
-    <linearGradient id="nxt-accent-grad" ...> 6 stops #ff3b1f → #ffd06a </linearGradient>
-    <pattern id="nxt-grid" width="40" height="40" ...> grid 40px snap </pattern>
-    <filter id="nxt-shadow-mark" color-interpolation-filters="linearRGB"> <feDropShadow flood-color="#1e3a5f" .../> </filter>
-    <filter id="nxt-grain"> <feTurbulence baseFrequency="0.015" .../> </filter>
-    <clipPath id="nxt-n-clip"> ... </clipPath>
+    <linearGradient id="nxt-accent" ...> 6 stops #ff3b1f → #ffd06a </linearGradient>
+    <linearGradient id="nxt-accent-soft" ...> 2 stops </linearGradient>
+    <radialGradient id="nxt-glow" ...> 0% #ff5a1f 0.08 → 100% 0 </radialGradient>
+    <pattern id="nxt-dots" width="32" height="32" ...> dot grid 32px snap </pattern>
+    <filter id="nxt-logo-shadow" color-interpolation-filters="linearRGB"> <feDropShadow flood-color="#1e1e28" 10%/> </filter>
   </defs>
-  <g id="background"> <rect fill="#0b0b0f"/> <rect fill="url(#nxt-bg-glow)"/> <rect fill="url(#nxt-grid)"/> <ellipse fill="url(#nxt-glow-orb)"/> <rect fill="url(#nxt-vignette)"/> </g>
-  <g id="containers"> <rect rx="14" stroke="#1e1e28"/> <path stroke="#ff5a1f" .../> corner ticks </g>
-  <g id="nodes" filter="url(#nxt-shadow-mark)"> <path fill="url(#nxt-nextreme-fill)"/> + specular + form shadow + arrow tip url(#nxt-accent-grad) </g>
-  <g id="labels"> <text fill="url(#nxt-nextreme-fill)" filter="url(#nxt-shadow-text)">Nextreme</text> <text fill="url(#nxt-accent-grad)">SKILLS</text> + accent line + tagline + micro meta </g>
-  <g id="connections" opacity="..."> <path stroke-dasharray="4 6"/> dashed trace + dot </g>
+  <g id="background"> <rect fill="#fcfcfd"/> <rect fill="url(#nxt-dots)"/> <ellipse fill="url(#nxt-glow)"/> </g>
+  <g id="containers"> <rect rx="16" stroke="#ececef"/> </g>
+  <g id="nodes" filter="url(#nxt-logo-shadow)"> <rect rx="12" fill="url(#nxt-accent)"/> + white N-arrow </g>
+  <g id="labels"> <text fill="#0a0a0f" letter-spacing="-1.4" filter="url(#nxt-text-shadow)">Nextreme<tspan fill="#ff5a1f">-</tspan>Skills</text> — 42px/800 single lockup, hyphen in accent </g>
+  <g id="connections"> <rect width="40" height="2.5" rx="1.25" fill="url(#nxt-accent-soft)"/> centered rule </g>
 </svg>
 ```
 
-Deltas:
+Deltas (final minimalist, 68 lines):
 
 | Concern | Before | After |
 |---|---|---|
 | Canvas | `viewBox` only, no `preserveAspectRatio` | `viewBox="0 0 720 240"` + `preserveAspectRatio="xMidYMid meet"` + `role="img"` + `<title>` + `<desc>` |
-| Gradients | flat `fill="#f5f5f7"` + `fill="#ff5a1f"` (1 stop = AI slop) | 4 gradients, each 6 stops hue-shift (18° avg) — `nxt-nextreme-fill` (white→zinc), `nxt-accent-grad` (red-orange→amber), `nxt-bg-glow`, `nxt-accent-line` |
-| Shadows | none (would default to pure black if added) | `nxt-shadow-mark` + `nxt-shadow-text` — `linearRGB`, colored `flood-color="#1e3a5f"` / `flood-color="#0a1628"`, never pure `#000` |
-| Texture | none | `nxt-grid` 40px pattern + `nxt-grain` `feTurbulence baseFrequency="0.015"` at 0.06 opacity, + `nxt-vignette` + `nxt-glow-orb` |
-| Structure | single `<g>` | Layered `background → containers → nodes → labels → connections` (connections last, per `diagram-patterns.md`), stable `id="nxt-*"` |
-| Typography | 76px/800 -2, 26px/600 6, 16px/500 1 (no justify) | Same sizes but now `letter-spacing` calibrated to Nextreme taste: `-2.5` display (-0.10em spirit), `6` label, `0.9` body — plus `font-weight 700` for SKILLS, 15.5px tagline, 9.5px mono meta `18 SKILLS · AGENT-AGNOSTIC · MIT` |
-| Accent law | arrow + SKILLS both flat orange, no line | One accent, one moment: `SKILLS` gradient + `rect` 124×2.5 accent line + dot glow — not repeated per element |
+| Gradients | flat `fill="#f5f5f7"` + `fill="#ff5a1f"` (1 stop = AI slop) | 3 gradients: `nxt-accent` 6-stop `#ff3b1f→#ffd06a` (hue-shift), `nxt-accent-soft` 2-stop, `nxt-glow` radial 8%→0 — not flat 2-stop |
+| Shadows | none (would default to pure black if added) | `nxt-logo-shadow` + `nxt-text-shadow` — `linearRGB`, colored `flood-color="#1e1e28"` 10% / `#0a0a0f` 6%, never pure `#000` |
+| Texture | none | `nxt-dots` 32px dot pattern + `nxt-glow` radial 8% — minimal, professional |
+| Structure | single `<g>` | Layered `background → containers → nodes → labels → connections` (5 groups, connections last, per `diagram-patterns.md`), stable `id="nxt-*"` |
+| Typography | 76px/800 -2, 26px/600 6, 16px/500 1 (no justify) | Single lockup `Nextreme-Skills` 42px/800 `letter-spacing -1.4`, hyphen in `#ff5a1f` via `<tspan>`, single `40×2.5` accent rule — no skill count |
+| Accent law | arrow + SKILLS both flat orange, no line | One accent, one moment: hyphen + `40×2.5` rule under wordmark — not repeated per element |
 | Security / spec | no banned but also no proof | No `<foreignObject>`, no `<script>`, no `javascript:`, no external CSS/font, no raster, presentation attrs only, `validate_svg.py --strict` passes |
 
 ## Brainstorm — 3 Extreme Directions (committed to #1)
 
 | # | Theme | Palette | Typography | Lighting / Texture | When it would win |
 |---|---|---|---|---|---|
-| **1 — Obsidian Signal** ✅ | Dark obsidian zinc backbone (#0b0b0f) + electric orange (#ff5a1f→#ffd06a 6-stop) + muted zinc tagline | `Inter`/`ui-sans-serif` 76/800 tight -2.5, 26/700 tracked 6, 15.5 mono meta | Five-zone via 6-stop gradient + colored shadows `linearRGB` `#1e3a5f` + `feTurbulence` 0.015 grain + radial glow | **Picked — extreme, high-contrast, dark-mode native for GitHub (majority of devs in dark), ownable orange ownage, "extreme climb" arrow reads as lit signal** |
-| 2 — Parchment Atelier | Warm parchment `#f5f4ed` + ink-blue `#1B365D` + terracotta `#9C6B4F` | `Newsreader` serif 500, 1.1–1.3 display leading, ink-blue | Parchment warmth, ring/whisper shadow only, no glow — editorial, premium, but too soft for "extreme" | Would win for academic/heritage report, not for a repo named Nextreme |
-| 3 — Blueprint Grid | Zinc-50/900 + indigo `#1c3cdf` + Nord Frost `#88C0D0` | Mono `JetBrains Mono` tabular, 1.5 stroke technical | Grid pattern, marker arrows, precise 1.5 stroke, diagram-vibe | Would win for system diagram, but banner would feel like documentation, not hero |
+| 1 | Obsidian Signal ✅ | Dark obsidian zinc backbone (#0b0b0f) + electric orange (#ff5a1f→#ffd06a 6-stop) + muted zinc tagline | `Inter`/`ui-sans-serif` 76/800 tight -2.5, 26/700 tracked 6, 15.5 mono meta | Five-zone via 6-stop gradient + colored shadows `linearRGB` `#1e3a5f` + `feTurbulence` 0.015 grain + radial glow | **Picked in v1 — extreme, high-contrast, dark-mode native, ownable orange — then superseded by Minimal Light per review (no skill count, just Nextreme-Skills)** |
+| 2 | Parchment Atelier | Warm parchment `#f5f4ed` + ink-blue `#1B365D` + terracotta `#9C6B4F` | `Newsreader` serif 500, 1.1–1.3 display leading, ink-blue | Parchment warmth, ring/whisper shadow only, no glow — editorial, premium, but too soft for "extreme" | Would win for academic/heritage report, not for a repo named Nextreme |
+| 3 | Blueprint Grid | Zinc-50/900 + indigo `#1c3cdf` + Nord Frost `#88C0D0` | Mono `JetBrains Mono` tabular, 1.5 stroke technical | Grid pattern, marker arrows, precise 1.5 stroke, diagram-vibe | Would win for system diagram, but banner would feel like documentation, not hero |
+| 4 | Minimal Light (final) ✅ | Calm `#fcfcfd` + 32px dot grid `#e5e7eb` + soft radial glow 8%→0 + hairline `#ececef` | `ui-sans-serif` 42/800 -1.4, hyphen in `#ff5a1f`, single lockup | 6-stop orange accent + `linearRGB` 10% shadow, no grain, minimal | **Final per user request — no skill count, just Nextreme-Skills + unique 48×48 N-arrow mark, professional whitespace** |
 
 Pick justification: Nextreme's brand promise is "extreme climb" (N whose right stroke is an upward arrow). Obsidian Signal makes that arrow a *light* — the orange tip that glows on dark, five-zone-lit, grain-broken, grid-rhythmed — exactly the taste the nextreme-pdf/nextreme-svg family already proved. The other two are correct but not *extreme*.
 
@@ -132,13 +131,13 @@ Visual check (SVG opened in VS Code + Chrome + GitHub preview expectation):
 
 ## Benchmarks
 
-| Metric | Before | After | Δ |
+| Metric | Before | After (minimalist) | Δ |
 |---|---|---|---|
-| Lines | 11 | 144 | +1209% |
-| `<linearGradient>` stops total | 0 | 24 (4×6) | from flat to 6-stop |
-| Filters | 0 | 3 (`shadow-mark`, `shadow-text`, `grain`) | +3 |
-| Patterns | 0 | 1 (`nxt-grid` 40px) | +1 |
-| Layered groups | 1 (`<g transform>`) | 4 (`background`, `containers`, `nodes+labels+connections`) + `defs` | +4 |
+| Lines | 11 | 68 | +518% |
+| `<linearGradient>`/`<radialGradient>` stops total | 0 | 8 (6-stop accent + 2 soft) | from flat to 6-stop |
+| Filters | 0 | 2 (`logo-shadow`, `text-shadow`) | +2 |
+| Patterns | 0 | 1 (`nxt-dots` 32px) | +1 |
+| Layered groups | 1 (`<g transform>`) | 5 (`background`, `containers`, `nodes`, `labels`, `connections`) + `defs` | +4 |
 | A11y | `role` + `aria-label` only | `role="img"` + `<title>` + `<desc>` + `preserveAspectRatio` | +3 |
 | Validation | not run | `--strict` PASSED | — |
 | PNG 2× | implicit 720×240 | 1440×480 proof (viewBox math) | crisp |

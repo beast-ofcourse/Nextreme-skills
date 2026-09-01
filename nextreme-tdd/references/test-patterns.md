@@ -7,7 +7,7 @@ Every TDD cycle pins **one behavior**. A behavior is a verb phrase the client ca
 
 Write before RED:
 
-```
+```text
 Behavior: When <client> <action> with <input>, <unit> shall <outcome>.
 Inputs:   <typed inputs + constraints>
 Outputs:  <typed outputs + errors>

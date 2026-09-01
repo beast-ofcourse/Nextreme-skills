@@ -57,9 +57,9 @@ npm install -D fast-check
 - `pytest` → `tests/test_<snake_behavior>.py` (created if `tests/` missing; adds `__init__.py` if package)
 - `vitest`/`jest` → `src/<kebab-behavior>.test.ts` (falls back to `tests/` if `src/` absent; mirrors source structure)
 - `go test` → `<package>/<snake>_test.go` (same package as target file if known, else `./<behavior>_test.go`)
-- `cargo test` → `src/<snake>.rs` inline `#[cfg(test)]` stub, or `tests/test_<snake>.rs` if `--integration`
+- `cargo test` → `tests/test_<snake>.rs` (external integration test; for inline `#[cfg(test)]` add the module manually — scaffold always writes the external form)
 
-Pass `--dry-run` to preview the path without writing.
+Pass `--dry-run` to preview the path without writing. The previously documented `--integration` flag is not implemented; the scaffold always uses the external `tests/` destination.
 
 ## RED vs GREEN Commands (copy-paste)
 

@@ -11,20 +11,19 @@ RED is honest when the failure is **missing symbol** or **wrong value** for the 
 
 Check: run the RED test alone and read the diff — is it about the behavior value? If not, fix the test and re-run.
 
-## 2. No Production Diff Before RED Timestamp
+## 2. No Production Diff Before RED (Manual Ordering Check)
 
-Production code must not appear before RED proof. The verifier checks `git diff --stat` between `HEAD` and staged/working and compares timestamps (or `--since <sha>`):
+The `verify_tdd.py` ordering check is **heuristic, not timestamp-proven**: it inspects `git diff --stat` for production files (`src/*.py`, `lib/*.ts`, `*.go`, `src/*.rs`) in the working tree and warns when a prod diff exists before a RED log is supplied. It does **not** prove temporal RED-before-GREEN from log timestamps.
 
-- Fail if: a production file (`src/*.py`, `lib/*.ts`, `*.go`, `src/*.rs`) was modified before the RED log's time.
-- Pass: only test files changed before RED; production diff appears only between RED and GREEN.
-
-In manual mode: `git diff --stat` should show only `tests/*` / `*.test.*` / `*_test.go` before RED. If it shows `src/` before RED, the order was violated — reset prod and re-do.
+- **Automated:** `verify_tdd.py` warns `prod diff present before RED proof` when a production file appears in `git diff --stat` without `--red-log`/`--green-log` proof artifacts. In `--strict` the warning becomes a failure only when the diff is unambiguous; otherwise it is a manual-review gate.
+- **Timestamp-proven (optional):** supply `--red-log <red.log>` and `--green-log <green.log>` plus `--proof proof/<behavior>.json` (containing `{red_timestamp, green_timestamp, behavior}`) to claim timestamp ordering. The verifier validates `red_timestamp < green_timestamp` and that both logs contain the pinned behavior name. Without that artifact, do **not** claim automated timestamp ordering — treat ordering as a **manual check**.
+- **Manual:** `git diff --stat` should show only `tests/*` / `*.test.*` / `*_test.go` before RED. If it shows `src/` before RED, reset prod and re-do, then re-run verification with the proof artifact.
 
 ## 3. GREEN Is Full Suite Green
 
 - Run the **full** suite command per `framework-matrix.md`, not just the new file.
 - Exit code 0 **and** summary shows `passed` with no failures/skipped-count surprise.
-- No `any` / silent `as` introduced in production diff (grep `any` in `src/` for TS/Python type `Any`).
+- For production code, check manually (`grep -R ":\s*any" src/` and `grep -R "\bas\b" src/`) — the automated verifier scans **test files only** for `any`/`Any` and silent `as`; production `any`/`as` remains a manual gate (see §6).
 
 ## 4. No Truthiness Theater
 

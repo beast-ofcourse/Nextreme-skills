@@ -6,7 +6,7 @@
 // Run:
 //   go test -run Test__behavior_pascal__ -count=1 ./...  # RED (fails on undefined)
 //   go test ./...                                         # GREEN (full suite)
-package __behavior_snake__
+package __package_name__
 
 import "testing"
 

@@ -26,6 +26,7 @@ PROD_FILE_PATTERNS = [".py", ".ts", ".tsx", ".js", ".go", ".rs"]
 TEST_FILE_HINTS = ["test_", ".test.", "_test.go", "__tests__", "tests/"]
 
 def parse_args() -> argparse.Namespace:
+    """Parse CLI arguments for TDD verification."""
     parser = argparse.ArgumentParser(description="Verify TDD cycle")
     parser.add_argument("--strict", action="store_true", help="fail on any warning")
     parser.add_argument("--phase", choices=["red", "green", "refactor"], help="only check that phase")
@@ -34,13 +35,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--cwd", type=Path, default=Path.cwd(), help="repo root")
     parser.add_argument("--red-log", type=Path, default=None, help="path to pasted RED log for offline check")
     parser.add_argument("--green-log", type=Path, default=None, help="path to pasted GREEN log for offline check")
+    parser.add_argument("--proof", type=Path, default=None, help="path to ordered proof JSON {red_timestamp, green_timestamp, behavior} for timestamp ordering")
     return parser.parse_args()
 
 def run_command(cwd: Path, command: list[str]) -> tuple[int, str, str]:
+    """Run a command in a directory and return exit code, stdout, stderr."""
     result = subprocess.run(command, cwd=cwd, capture_output=True, text=True)
     return result.returncode, result.stdout, result.stderr
 
 def git_diff_stat(cwd: Path, since: str | None) -> str:
+    """Get git diff stat for staged and unstaged changes."""
     base = f"{since}..HEAD" if since else "HEAD"
     # --stat for staged+unstaged vs HEAD
     code, out, _ = run_command(cwd, ["git", "diff", "--stat", base])
@@ -53,16 +57,19 @@ def git_diff_stat(cwd: Path, since: str | None) -> str:
     return combined or out
 
 def is_test_file(path: str) -> bool:
+    """Check if a path looks like a test file."""
     lower = path.lower()
     return any(hint in lower for hint in TEST_FILE_HINTS)
 
 def is_prod_file(path: str) -> bool:
+    """Check if a path looks like a production file (not a test file)."""
     lower = path.lower()
     if is_test_file(lower):
         return False
     return any(lower.endswith(ext) for ext in PROD_FILE_PATTERNS)
 
 def check_no_prod_before_red(diff_stat: str) -> list[str]:
+    """Heuristically check for production diff before RED proof."""
     errors: list[str] = []
     if not diff_stat.strip():
         return errors
@@ -77,6 +84,7 @@ def check_no_prod_before_red(diff_stat: str) -> list[str]:
     return errors
 
 def check_truthiness(test_files: list[Path]) -> list[str]:
+    """Check test files for truthiness-only assertions and any usage."""
     errors: list[str] = []
     for test_file in test_files:
         if not test_file.exists() or not test_file.is_file():
@@ -98,6 +106,7 @@ def check_truthiness(test_files: list[Path]) -> list[str]:
     return errors
 
 def check_one_behavior_per_file(test_files: list[Path]) -> list[str]:
+    """Check that each test file covers only one behavior."""
     errors: list[str] = []
     for test_file in test_files:
         if not test_file.exists():
@@ -124,6 +133,7 @@ def check_one_behavior_per_file(test_files: list[Path]) -> list[str]:
     return errors
 
 def is_excluded(test_path: Path, repo_root: Path) -> bool:
+    """Check if a test path should be excluded (templates, caches)."""
     try:
         relative = test_path.relative_to(repo_root)
     except ValueError:
@@ -132,11 +142,65 @@ def is_excluded(test_path: Path, repo_root: Path) -> bool:
     excluded_dirs = {"templates", ".git", ".hg", "node_modules", "__pycache__", ".venv", "venv", "dist", "build"}
     return any(part in excluded_dirs for part in parts)
 
+def check_ordered_proof(proof_path: Path | None, red_log: Path | None, green_log: Path | None) -> list[str]:
+    """Validate timestamp ordering from proof artifact, not git diff stat."""
+    errors: list[str] = []
+    if proof_path is None:
+        return errors
+    if not proof_path.exists():
+        errors.append(f"--proof not found: {proof_path}")
+        return errors
+    try:
+        import json as json_lib
+        payload = json_lib.loads(proof_path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        errors.append(f"invalid proof JSON {proof_path}: {exc}")
+        return errors
+    red_ts = payload.get("red_timestamp")
+    green_ts = payload.get("green_timestamp")
+    behavior = payload.get("behavior")
+    if not red_ts or not green_ts:
+        errors.append(f"proof {proof_path} missing red_timestamp/green_timestamp")
+        return errors
+    if red_ts >= green_ts:
+        errors.append(f"proof ordering failed: red_timestamp {red_ts} >= green_timestamp {green_ts}")
+    if behavior and red_log and red_log.exists():
+        red_content = red_log.read_text(encoding="utf-8", errors="ignore")
+        if behavior not in red_content and behavior.lower() not in red_content.lower():
+            errors.append(f"proof behavior '{behavior}' not found in RED log")
+    if behavior and green_log and green_log.exists():
+        green_content = green_log.read_text(encoding="utf-8", errors="ignore")
+        if behavior not in green_content and behavior.lower() not in green_content.lower():
+            errors.append(f"proof behavior '{behavior}' not found in GREEN log")
+    return errors
+
 def collect_test_files(cwd: Path) -> list[Path]:
-    patterns = ["tests/test_*.py", "tests/*.test.ts", "tests/*.test.js", "src/*.test.ts", "src/*.test.js", "*_test.go", "tests/test_*.rs"]
+    """Collect test files while excluding templates and non-test Rust sources."""
+    patterns = [
+        "tests/test_*.py",
+        "tests/*.test.ts",
+        "tests/*.test.js",
+        "src/*.test.ts",
+        "src/*.test.js",
+        "*_test.go",
+        "tests/test_*.rs",
+        "src/*.rs",
+    ]
     files: list[Path] = []
     for pat in patterns:
-        files.extend(cwd.rglob(pat.replace("tests/", "").replace("src/", "")) if "/" not in pat else cwd.glob(pat))
+        # Use rglob for simple patterns to catch nested, glob for explicit dirs
+        if pat in ("tests/test_*.py", "tests/*.test.ts", "tests/*.test.js", "src/*.test.ts", "src/*.test.js", "tests/test_*.rs"):
+            files.extend(cwd.glob(pat))
+            # Also rglob to catch nested monorepo layouts (e.g., packages/*/src/*.rs)
+            files.extend(cwd.rglob(pat.replace("tests/", "").replace("src/", "")) if "tests/" in pat or "src/" in pat else [])
+        elif pat == "*_test.go":
+            files.extend(cwd.rglob(pat))
+        elif pat == "src/*.rs":
+            # Include all Rust source; inline #[cfg(test)] will be detected via heuristics later
+            files.extend(cwd.glob(pat))
+            files.extend(cwd.rglob("src/*.rs"))
+        else:
+            files.extend(cwd.rglob(pat) if "/" not in pat else cwd.glob(pat))
     # Also brute-force the common exact paths
     for found in cwd.rglob("test_*.py"):
         if found not in files:
@@ -155,11 +219,34 @@ def collect_test_files(cwd: Path) -> list[Path]:
         if resolved not in seen and resolved.is_file():
             seen.add(resolved)
             if not is_excluded(resolved, cwd.resolve()):
+                # For Rust inline tests, only keep src/*.rs files that actually contain a test marker
+                if resolved.suffix == ".rs" and "src" in resolved.parts:
+                    try:
+                        txt = resolved.read_text(encoding="utf-8", errors="ignore")
+                        if "#[test]" not in txt and "#[cfg(test)]" not in txt and "tests/" not in str(resolved).replace("\\", "/"):
+                            # No inline test marker — not a test file, skip for batch/truthiness checks
+                            # but keep for suite trigger? We'll keep a marker file to trigger cargo test anyway
+                            # Instead, mark as non-test for filtering but ensure cargo still runs if any Rust file exists
+                            continue
+                    except OSError:
+                        continue
                 unique.append(resolved)
+    # If no test files but Rust sources exist, ensure cargo test still considered: keep one sentinel
+    if not unique:
+        # Check if any Rust source with inline test exists elsewhere via rglob that we filtered out
+        rust_with_test = [p for p in cwd.rglob("src/*.rs") if p.is_file() and not is_excluded(p.resolve(), cwd.resolve())]
+        for candidate in rust_with_test:
+            try:
+                if "#[test]" in candidate.read_text(encoding="utf-8", errors="ignore") or "#[cfg(test)]" in candidate.read_text(encoding="utf-8", errors="ignore"):
+                    unique.append(candidate.resolve())
+                    break
+            except OSError:
+                continue
     # Filter to only recent/modified + existent; if none, return empty (no batch error)
     return sorted(unique)
 
 def verify_suite_green(cwd: Path, framework: str | None, test_files: list[Path]) -> list[str]:
+    """Verify the full test suite is green for the detected framework."""
     # Skip suite check when no test files exist — nothing to stay green
     if not test_files:
         return []
@@ -184,6 +271,7 @@ def verify_suite_green(cwd: Path, framework: str | None, test_files: list[Path])
     return []
 
 def main() -> None:
+    """Main entry point for TDD verification."""
     args = parse_args()
     cwd: Path = args.cwd.resolve()
     errors: list[str] = []
@@ -211,9 +299,26 @@ def main() -> None:
 
     # Phase: red → check order + honest RED guidance (offline if logs provided)
     if args.phase in (None, "red"):
-        diff_stat = git_diff_stat(cwd, args.since)
-        order_warnings = check_no_prod_before_red(diff_stat)
-        warnings.extend(order_warnings)
+        # Timestamp ordering is only proven via --proof artifact; diff stat is heuristic + manual
+        if args.proof is not None:
+            proof_errors = check_ordered_proof(args.proof, args.red_log, args.green_log)
+            if proof_errors:
+                errors.extend(proof_errors)
+            else:
+                # Proof validated — still run diff heuristic as informational warning
+                diff_stat = git_diff_stat(cwd, args.since)
+                order_warnings = check_no_prod_before_red(diff_stat)
+                warnings.extend(order_warnings)
+        else:
+            diff_stat = git_diff_stat(cwd, args.since)
+            order_warnings = check_no_prod_before_red(diff_stat)
+            warnings.extend(order_warnings)
+            # Only require timestamp proof when a TDD cycle is actually being validated (logs or test files present)
+            has_cycle_evidence = bool(args.red_log or args.green_log or test_files)
+            if has_cycle_evidence and args.strict and not args.red_log and not args.green_log:
+                warnings.append("ordering not timestamp-proven: supply --proof {red_timestamp, green_timestamp, behavior} + --red-log/--green-log for strict RED-before-GREEN proof; current check is heuristic diff stat (manual review required)")
+            elif has_cycle_evidence and args.strict and (args.red_log or args.green_log) and not args.proof:
+                warnings.append("ordering heuristic only: supply --proof for timestamp ordering; without it, RED-before-GREEN is a manual check, not automated verification")
         if args.red_log is not None:
             if not args.red_log.exists():
                 errors.append(f"--red-log not found: {args.red_log}")

@@ -10,13 +10,16 @@ Run:
 from __future__ import annotations
 
 # Replace the import with the real module once it exists.
-# The import itself is the RED mechanism: before the symbol exists, this test fails
-# with ModuleNotFoundError/ImportError — an honest behavior gap, not a typo.
+# Honest RED: missing target symbol. We catch ONLY the expected missing target,
+# re-raising syntax/dependency errors so they are not mistaken for a behavior gap.
 try:
     from src.__behavior_snake__ import __behavior_snake__  # type: ignore[import-not-found]
-except ImportError:
-    # Fallback so the file still loads and the *assertion* fails, not the import.
-    # The test will fail at call time with NameError — also an honest RED.
+except ImportError as _tdd_exc:  # noqa: N806
+    _expected_target = "__behavior_snake__"
+    _message = str(_tdd_exc)
+    # Only normalize the expected missing-target case; re-raise anything else (syntax, dep failure, init error).
+    if _tdd_exc.name not in (_expected_target, f"src.{_expected_target}", None) and _expected_target not in _message and "src." + _expected_target not in _message:
+        raise
     __behavior_snake__ = None  # type: ignore[assignment]
 
 EXPECTED_FOR_HAPPY = 42  # TODO: replace with the real expected value for __case__

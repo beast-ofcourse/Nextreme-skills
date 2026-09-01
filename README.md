@@ -23,6 +23,7 @@ A focused, **agent-agnostic** collection of reusable AI-agent skills. Each skill
 | [`nextreme-router`](nextreme-router/) | Routes any user intent to the **right** Nextreme skill instead of guessing which one fires. | "which skill should I use", "route this" |
 | [`nextreme-skill-creator`](nextreme-skill-creator/) | Designs, writes, and improves skills with rigorous craft (predictability, triggering, hierarchy, pruning). | "create a skill", "improve this skill", "why doesn't my skill trigger" |
 | [`nextreme-tdd`](nextreme-tdd/) | Extreme red-green-refactor TDD: pins one behavior, enforces RED-before-GREEN, scaffolds failing tests and verifies the cycle (pytest/Vitest/Go/Cargo). | "TDD this", "red-green-refactor", "write test before code", "failing test first", "characterization test" |
+| [`tdd-coach`](tdd-coach/) *(deprecated → [`nextreme-tdd`](nextreme-tdd/))* | Deprecated alias for `nextreme-tdd` — forwards to the extreme engine. Use `nextreme-tdd` for new work. | "TDD this" *(redirects to nextreme-tdd)* |
 | [`git-guardrails`](git-guardrails/) | Stops destructive, irreversible git operations before they run and suggests the safe path. | "guard my git", "block force push", "don't let me reset --hard" |
 | [`nextreme-flowcharts`](nextreme-flowcharts/) | Produces publication-grade flowcharts, roadmaps, process diagrams, decision trees, and taxonomy maps as print-ready PDF (HTML+SVG). | "flowchart", "roadmap", "decision tree", "process diagram" |
 | [`nextreme-charts`](nextreme-charts/) | Generates publication-grade SVG charts from data (Vega-Lite/Vega, QuickChart, ECharts) for every chart type. | "chart", "bar chart", "line chart", "visualize this data" |
@@ -89,6 +90,7 @@ Or copy a skill folder into your agent's skills directory. Each `SKILL.md` is se
 │   ├── references/                 # test-patterns.md, framework-matrix.md, validation.md
 │   ├── scripts/                    # detect_framework.py, scaffold_test.py, verify_tdd.py
 │   └── templates/                  # python-pytest, typescript-vitest, go, rust
+├── tdd-coach/                      # deprecated alias → nextreme-tdd (compatibility shim)
 ├── git-guardrails/                 # git safety rails
 ├── evals/                          # trigger-test prompts per skill
 │   ├── next-best-thing.json

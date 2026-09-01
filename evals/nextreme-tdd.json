@@ -21,7 +21,7 @@
       "expectations": [
         "detect_framework.py identifies vitest (package.json with vitest) and prints test_dir/command",
         "Scaffolded test uses expect(...).toEqual(...) truthfully, not toBeTruthy",
-        "RED is honest failure (Cannot find module or wrong value) before src/parse-amount.ts exists",
+        "RED is honest failure (missing-symbol throws RED: symbol missing or wrong-value assertion diff) before src/parse-amount.ts exists, aligned with strict validation",
         "Full suite GREEN, no prod before RED, passes verify_tdd.py --phase green"
       ]
     },

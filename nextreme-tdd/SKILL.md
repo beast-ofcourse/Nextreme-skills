@@ -229,7 +229,7 @@ All templates are behavior-pinned (one behavior per file/`describe`), assertion-
 | `verify_tdd.py` fails `truthiness assertion` | `toBeTruthy` / `assert x` without value | Assert the actual value: `assert result == 42` / `expect(result).toEqual(42)` |
 | `verify_tdd.py` fails `batch behaviors` | Five cases in one test / one file covers three behaviors | Split: one behavior per test/case table; see `references/test-patterns.md` edge palette |
 | `verify_tdd.py` fails `any in test` | `any` / `as` without validation in test | Narrow: use the real type; at boundaries add the parse + `verify_*` pattern |
-| Test passes on first run (no RED) | Behavior already implemented or test is vacuous | Delete impl or tighten assertion — a test you never saw fail proves nothing |
+| Test passes on first run (no RED) | Behavior already implemented or test is vacuous | Do not delete production code to fake RED — write a characterization test that captures the existing observable behavior (it will be GREEN), then begin RED for the *next* new behavior; only tighten assertion if the test is vacuous — a test you never saw fail proves nothing |
 | Suite green locally, red in CI | Missed framework (`vitest` vs `jest`, `pytest` vs `unittest`) | `detect_framework.py --json` again; lock with `--framework` and match CI command |
 | Refactor broke green | Edited under red or changed behavior | Revert refactor tweak, re-run; refactor only under green, one tweak at a time |
 

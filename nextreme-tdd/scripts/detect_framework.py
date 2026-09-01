@@ -57,6 +57,7 @@ MANIFEST_SIGNALS: list[tuple[str, str]] = [
 ]
 
 def parse_args() -> argparse.Namespace:
+    """Parse CLI arguments for framework detection."""
     parser = argparse.ArgumentParser(description="Detect test framework")
     parser.add_argument("--cwd", type=Path, default=Path.cwd(), help="repo root to scan")
     parser.add_argument("--manifest", type=Path, default=None, help="force manifest path")
@@ -65,6 +66,7 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 def detect_from_manifest(cwd: Path, manifest_override: Path | None) -> str | None:
+    """Detect framework from manifest files or file dominance."""
     if manifest_override is not None:
         if not manifest_override.exists():
             print(f"error: --manifest not found: {manifest_override}", file=sys.stderr)
@@ -85,8 +87,28 @@ def detect_from_manifest(cwd: Path, manifest_override: Path | None) -> str | Non
 
     for manifest_name, framework in MANIFEST_SIGNALS:
         candidate = cwd / manifest_name
-        if candidate.exists():
-            return framework
+        if not candidate.exists():
+            continue
+        if framework == "pytest":
+            # Only claim pytest when the manifest contains pytest-specific config/dependency;
+            # otherwise preserve JS detection (e.g., package.json + Vitest) that follows.
+            if manifest_name in ("pytest.ini",):
+                return framework
+            try:
+                manifest_text = candidate.read_text(encoding="utf-8", errors="ignore").lower()
+            except OSError:
+                continue
+            has_pytest_marker = (
+                "pytest" in manifest_text
+                or "[tool.pytest" in manifest_text
+                or "pytest.ini" in manifest_text
+            )
+            if has_pytest_marker:
+                return framework
+            # No pytest marker — do not short-circuit; allow package.json/Vitest detection below
+            continue
+        # cargo / go are definitive
+        return framework
 
     package_json = cwd / "package.json"
     if package_json.exists():
@@ -121,6 +143,7 @@ def detect_from_manifest(cwd: Path, manifest_override: Path | None) -> str | Non
     return dominant
 
 def find_manifest_for_framework(cwd: Path, framework: str) -> str | None:
+    """Find manifest file for a given framework."""
     mapping: dict[str, list[str]] = {
         "pytest": ["pyproject.toml", "setup.cfg", "pytest.ini", "requirements.txt"],
         "vitest": ["package.json"],
@@ -134,6 +157,7 @@ def find_manifest_for_framework(cwd: Path, framework: str) -> str | None:
     return None
 
 def main() -> None:
+    """Main entry point for framework detection."""
     args = parse_args()
     cwd: Path = args.cwd.resolve()
 

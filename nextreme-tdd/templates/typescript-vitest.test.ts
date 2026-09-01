@@ -2,7 +2,7 @@
  * Tests for behavior: __behavior__ — case: __case__
  *
  * One behavior per describe. This template fails honestly before implementation
- * (Cannot find module / undefined), then passes with the minimal code.
+ * (missing target symbol / undefined), then passes with the minimal code.
  *
  * Run:
  *   npx vitest run src/__behavior_kebab__.test.ts --reporter=verbose  # RED
@@ -11,13 +11,26 @@
 import { describe, it, expect } from "vitest";
 
 // Replace with the real module path once it exists.
-// Before the file exists, Vitest reports "Cannot find module" — honest RED.
-// The require fallback keeps the file loadable so the assertion fails on value, not wiring.
+// We normalize ONLY the expected missing-target case (module not found or missing export);
+// any other loader/syntax error is re-thrown so it is not mistaken for an honest RED.
 let behaviorImpl: (() => unknown) | undefined;
+let _tddError: unknown;
 try {
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   behaviorImpl = require("./__behavior_kebab__").__behavior_snake__;
-} catch {
+} catch (caught) {
+  _tddError = caught;
+  const message = caught instanceof Error ? caught.message : String(caught);
+  const expectedModule = "__behavior_kebab__";
+  const expectedExport = "__behavior_snake__";
+  const isExpectedMissing =
+    message.includes(expectedModule) ||
+    message.includes(expectedExport) ||
+    message.includes("Cannot find module") ||
+    message.includes("Cannot find package");
+  if (!isExpectedMissing) {
+    throw caught;
+  }
   behaviorImpl = undefined;
 }
 
