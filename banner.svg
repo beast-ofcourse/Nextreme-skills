@@ -1,11 +1,102 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img" aria-label="Nextreme Skills">
-  <rect width="720" height="240" fill="#0b0b0f"/>
-  <g transform="translate(40 40)">
-    <!-- mark: an 'N' whose right stroke is an upward arrow = extreme climb -->
-    <path d="M0 160 V0 H38 V120 L120 0 H160 L74 118 L162 160 H120 L38 18 V160 Z" fill="#f5f5f7"/>
-    <path d="M150 160 L196 160 L173 118 Z" fill="#ff5a1f"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Nextreme-Skills">
+  <title>Nextreme-Skills</title>
+  <desc>Dark banner with wave flow, metallic NX mark and Nextreme-Skills wordmark — vector recreation of pasted PNG.</desc>
+  <defs>
+    <!-- metallic NX — 6-stop silver, five-zone feel -->
+    <linearGradient id="nxt-nx" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="18%" stop-color="#f0f0f3"/>
+      <stop offset="34%" stop-color="#d9d9de"/>
+      <stop offset="52%" stop-color="#b8b8c0"/>
+      <stop offset="72%" stop-color="#8a8a92"/>
+      <stop offset="100%" stop-color="#4a4a52"/>
+    </linearGradient>
+    <linearGradient id="nxt-nx-hi" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="42%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#222226" stop-opacity="0.55"/>
+    </linearGradient>
+    <!-- soft glow behind mark -->
+    <radialGradient id="nxt-nx-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <!-- wave stroke — thin, low opacity -->
+    <linearGradient id="nxt-wave" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="35%" stop-color="#6b6b78" stop-opacity="0.28"/>
+      <stop offset="65%" stop-color="#8a8a96" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="nxt-nx-shadow" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="linearRGB">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+
+  <!-- layered order: background → containers → nodes → labels → connections -->
+  <g id="background">
+    <rect x="0" y="0" width="720" height="240" fill="#08080a"/>
+    <!-- large soft blob behind content — like PNG's central glow -->
+    <ellipse cx="360" cy="120" rx="420" ry="168" fill="#0f0f14" opacity="1"/>
+    <ellipse cx="360" cy="120" rx="340" ry="132" fill="#12121a" opacity="0.96"/>
+    <!-- wave flows — top-left and bottom, mimicking PNG -->
+    <g opacity="0.95" fill="none" stroke="url(#nxt-wave)" stroke-width="0.7" stroke-linecap="round">
+      <!-- top wave family -->
+      <path d="M -40  38 C  20  62,  80  28, 160  48 C 240  68, 320  22, 420  42"/>
+      <path d="M -40  44 C  20  68,  80  34, 160  54 C 240  74, 320  28, 420  48" opacity="0.85"/>
+      <path d="M -40  50 C  20  74,  80  40, 160  60 C 240  80, 320  34, 420  54" opacity="0.75"/>
+      <path d="M -40  56 C  20  80,  80  46, 160  66 C 240  86, 320  40, 420  60" opacity="0.65"/>
+      <path d="M -40  62 C  20  86,  80  52, 160  72 C 240  92, 320  46, 420  66" opacity="0.55"/>
+      <!-- bottom wave family -->
+      <path d="M  0 182 C  80 148, 160 208, 260 168 C 360 128, 440  88, 560  68 C 640  54, 700  20, 760  -10" />
+      <path d="M  0 188 C  80 154, 160 214, 260 174 C 360 134, 440  94, 560  74 C 640  60, 700  26, 760   -4" opacity="0.92"/>
+      <path d="M  0 194 C  80 160, 160 220, 260 180 C 360 140, 440 100, 560  80 C 640  66, 700  32, 760    2" opacity="0.84"/>
+      <path d="M  0 200 C  80 166, 160 226, 260 186 C 360 146, 440 106, 560  86 C 640  72, 700  38, 760    8" opacity="0.76"/>
+      <path d="M  0 206 C  80 172, 160 232, 260 192 C 360 152, 440 112, 560  92 C 640  78, 700  44, 760   14" opacity="0.68"/>
+      <path d="M  0 212 C  80 178, 160 238, 260 198 C 360 158, 440 118, 560  98 C 640  84, 700  50, 760   20" opacity="0.60"/>
+      <path d="M  0 218 C  80 184, 160 244, 260 204 C 360 164, 440 124, 560 104 C 640  90, 700  56, 760   26" opacity="0.52"/>
+      <path d="M  0 224 C  80 190, 160 250, 260 210 C 360 170, 440 130, 560 110 C 640  96, 700  62, 760   32" opacity="0.44"/>
+      <!-- faint side wisps like PNG edges -->
+      <path d="M -40  88 L  40  64" stroke-width="0.35" opacity="0.18"/>
+      <path d="M 680  34 L 760  -6" stroke-width="0.35" opacity="0.14"/>
+    </g>
+    <!-- vignette -->
+    <rect x="0" y="0" width="720" height="240" fill="black" opacity="0.12"/>
   </g>
-  <text x="232" y="118" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="76" font-weight="800" letter-spacing="-2" fill="#f5f5f7">Nextreme</text>
-  <text x="234" y="166" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="26" font-weight="600" letter-spacing="6" fill="#ff5a1f">SKILLS</text>
-  <text x="234" y="200" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" letter-spacing="1" fill="#8a8a93">Agent-agnostic skills for AI agents</text>
+
+  <g id="containers">
+    <!-- no heavy frame — keep it open like PNG, just a whisper border -->
+    <rect x="0.5" y="0.5" width="719" height="239" rx="2" fill="none" stroke="#1a1a1f" stroke-width="0.6" opacity="0.35"/>
+  </g>
+
+  <g id="nodes">
+    <!-- NX mark — vector recreation, centered left like PNG -->
+    <!-- position around 135,120 like PNG -->
+    <g transform="translate(132 68)" filter="url(#nxt-nx-shadow)">
+      <!-- glow -->
+      <ellipse cx="36" cy="32" rx="38" ry="28" fill="url(#nxt-nx-glow)"/>
+      <!-- NX shape — built from two polygons forming the interlocked N/X -->
+      <!-- left N leg + top -->
+      <path d="M 0 56 L 0 0 L 18 0 L 18 10 L 7.5 10 L 7.5 31.2 L 18 19.8 L 24.2 19.8 L 13.2 31.6 L 7.5 37.8 L 7.5 48.2 L 0 56 Z" fill="url(#nxt-nx)"/>
+      <!-- bottom diagonal of X -->
+      <path d="M 11.8 48.2 L 18 40.6 L 42.8 64 L 54.4 64 L 23.4 36.2 L 11.8 48.2 Z" fill="url(#nxt-nx)"/>
+      <!-- top diagonal of X -->
+      <path d="M 30.6 0 L 58.2 0 L 34.2 24.2 L 28 24.2 L 22 18.4 L 30.6 0 Z" fill="url(#nxt-nx)"/>
+      <!-- right X leg -->
+      <path d="M 18 19.8 L 42 44.6 L 54 44.6 L 54 52.8 L 42.4 52.8 L 18 28.6 L 18 19.8 Z" fill="url(#nxt-nx)" opacity="0.98"/>
+      <path d="M 36 28.6 L 60 52.8 L 72 52.8 L 72 44.6 L 60 32.4 L 36 28.6 Z" fill="url(#nxt-nx)"/>
+      <!-- highlight overlay — top edge specular -->
+      <path d="M 0 0 L 18 0 L 18 3.5 L 0 3.5 Z" fill="url(#nxt-nx-hi)" opacity="0.55"/>
+      <path d="M 30.6 0 L 58.2 0 L 56.8 2.2 L 29.2 2.2 Z" fill="url(#nxt-nx-hi)" opacity="0.45"/>
+    </g>
+  </g>
+
+  <g id="labels">
+    <!-- Nextreme-Skills — single lockup, light weight like PNG, tracking loose -->
+    <text x="226" y="132" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="42" font-weight="300" letter-spacing="0.2" fill="#f2f2f3">Nextreme<tspan fill="#f2f2f3" font-weight="300">-</tspan>Skills</text>
+  </g>
+
+  <g id="connections">
+    <!-- no extra connections — keep it clean like PNG -->
+  </g>
 </svg>
