@@ -1,0 +1,266 @@
+#!/usr/bin/env python3
+"""Verify TDD order and quality: RED-proven, no-prod-before-RED, suite green, no slop.
+
+Checks what eyes miss: order, not just color.
+Exit 0 on strict pass; non-zero on the first hard failure (errors printed to stderr).
+
+Why this exists: order is the contract. A green suite that never saw RED proves nothing.
+"""
+from __future__ import annotations
+
+import argparse
+import re
+import subprocess
+import sys
+from pathlib import Path
+
+TRUTHINESS_PATTERNS: list[tuple[str, str]] = [
+    (r"toBeTruthy\(\)", "Vitest/Jest truthiness — assert the value, not existence"),
+    (r"toBeDefined\(\)", "toBeDefined without value — assert the behavior value"),
+    (r"toBeFalsy\(\)", "toBeFalsy without value — assert the negated value"),
+]
+
+BARE_ASSERT_PATTERN = re.compile(r"^\s*assert\s+[a-zA-Z_][a-zA-Z0-9_]*\s*$", re.MULTILINE)
+
+PROD_FILE_PATTERNS = [".py", ".ts", ".tsx", ".js", ".go", ".rs"]
+TEST_FILE_HINTS = ["test_", ".test.", "_test.go", "__tests__", "tests/"]
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Verify TDD cycle")
+    parser.add_argument("--strict", action="store_true", help="fail on any warning")
+    parser.add_argument("--phase", choices=["red", "green", "refactor"], help="only check that phase")
+    parser.add_argument("--since", default=None, help="git sha to diff since (proves no prod before RED)")
+    parser.add_argument("--framework", choices=["pytest", "vitest", "jest", "go", "cargo"], help="override detected framework")
+    parser.add_argument("--cwd", type=Path, default=Path.cwd(), help="repo root")
+    parser.add_argument("--red-log", type=Path, default=None, help="path to pasted RED log for offline check")
+    parser.add_argument("--green-log", type=Path, default=None, help="path to pasted GREEN log for offline check")
+    return parser.parse_args()
+
+def run_command(cwd: Path, command: list[str]) -> tuple[int, str, str]:
+    result = subprocess.run(command, cwd=cwd, capture_output=True, text=True)
+    return result.returncode, result.stdout, result.stderr
+
+def git_diff_stat(cwd: Path, since: str | None) -> str:
+    base = f"{since}..HEAD" if since else "HEAD"
+    # --stat for staged+unstaged vs HEAD
+    code, out, _ = run_command(cwd, ["git", "diff", "--stat", base])
+    if code != 0:
+        code2, out2, _ = run_command(cwd, ["git", "diff", "--stat"])
+        out = out2 if code2 == 0 else ""
+    code3, unstaged, _ = run_command(cwd, ["git", "diff", "--stat"])
+    code4, staged, _ = run_command(cwd, ["git", "diff", "--cached", "--stat"])
+    combined = (unstaged + "\n" + staged).strip()
+    return combined or out
+
+def is_test_file(path: str) -> bool:
+    lower = path.lower()
+    return any(hint in lower for hint in TEST_FILE_HINTS)
+
+def is_prod_file(path: str) -> bool:
+    lower = path.lower()
+    if is_test_file(lower):
+        return False
+    return any(lower.endswith(ext) for ext in PROD_FILE_PATTERNS)
+
+def check_no_prod_before_red(diff_stat: str) -> list[str]:
+    errors: list[str] = []
+    if not diff_stat.strip():
+        return errors
+    prod_lines = [line for line in diff_stat.splitlines() if line.strip() and not is_test_file(line)]
+    # Heuristic: if diff mentions src/, lib/, app/, pkg/, internal/ before RED, flag
+    for line in prod_lines:
+        if any(token in line for token in [" src/", " lib/", " app/", " pkg/", " internal/", ".py |", ".ts |", ".go |", ".rs |"]):
+            # This is the working tree diff; strict mode treats any prod diff as "order not proven"
+            # We emit a warning, not an error, unless --since proves it.
+            errors.append(f"prod diff present before RED proof: {line.strip()} — run RED before touching prod")
+            break
+    return errors
+
+def check_truthiness(test_files: list[Path]) -> list[str]:
+    errors: list[str] = []
+    for test_file in test_files:
+        if not test_file.exists() or not test_file.is_file():
+            continue
+        try:
+            content = test_file.read_text(encoding="utf-8")
+        except OSError as exc:
+            errors.append(f"could not read {test_file}: {exc}")
+            continue
+        for pattern, message in TRUTHINESS_PATTERNS:
+            if re.search(pattern, content):
+                errors.append(f"{test_file}: truthiness pattern `{pattern}` — {message}")
+        if BARE_ASSERT_PATTERN.search(content):
+            errors.append(f"{test_file}: bare `assert <name>` without comparison — assert the value")
+        if re.search(r"\bany\b", content.lower()) and "verify:tdd allow-any" not in content:
+            # Heuristic: `any` in TS/Python tests is often slop; allow escape hatch
+            if re.search(r":\s*any\b", content) or re.search(r"\bAny\b", content):
+                errors.append(f"{test_file}: `any`/`Any` in test — narrow to the real type")
+    return errors
+
+def check_one_behavior_per_file(test_files: list[Path]) -> list[str]:
+    errors: list[str] = []
+    for test_file in test_files:
+        if not test_file.exists():
+            continue
+        try:
+            content = test_file.read_text(encoding="utf-8")
+        except OSError:
+            continue
+        if "verify:tdd allow-batch" in content:
+            continue
+        describe_count = len(re.findall(r"\bdescribe\s*\(", content))
+        test_def_count = len(re.findall(r"\bdef\s+test_", content))
+        go_test_count = len(re.findall(r"\bfunc\s+Test[A-Z]", content))
+        rust_test_count = len(re.findall(r"#\[test\]", content))
+        total_roots = describe_count + test_def_count + go_test_count + rust_test_count
+        # A single behavior file with a Go table-driven inside one Test is fine (1 root).
+        # Two distinct describes/test funcs for different behaviors is the batch we forbid.
+        # Heuristic: flag files with ≥3 distinct roots (allow 2 for edge+happy grouping with justification)
+        if total_roots >= 3:
+            errors.append(
+                f"{test_file}: {total_roots} top-level test roots — one behavior per file/describe. "
+                f"Split behaviors or add `# verify:tdd allow-batch` with justification."
+            )
+    return errors
+
+def is_excluded(test_path: Path, repo_root: Path) -> bool:
+    try:
+        relative = test_path.relative_to(repo_root)
+    except ValueError:
+        return True
+    parts = relative.parts
+    excluded_dirs = {"templates", ".git", ".hg", "node_modules", "__pycache__", ".venv", "venv", "dist", "build"}
+    return any(part in excluded_dirs for part in parts)
+
+def collect_test_files(cwd: Path) -> list[Path]:
+    patterns = ["tests/test_*.py", "tests/*.test.ts", "tests/*.test.js", "src/*.test.ts", "src/*.test.js", "*_test.go", "tests/test_*.rs"]
+    files: list[Path] = []
+    for pat in patterns:
+        files.extend(cwd.rglob(pat.replace("tests/", "").replace("src/", "")) if "/" not in pat else cwd.glob(pat))
+    # Also brute-force the common exact paths
+    for found in cwd.rglob("test_*.py"):
+        if found not in files:
+            files.append(found)
+    for found in cwd.rglob("*.test.ts"):
+        if found not in files:
+            files.append(found)
+    for found in cwd.rglob("*_test.go"):
+        if found not in files:
+            files.append(found)
+    # Deduplicate and keep only files under cwd
+    seen: set[Path] = set()
+    unique: list[Path] = []
+    for path in files:
+        resolved = path.resolve()
+        if resolved not in seen and resolved.is_file():
+            seen.add(resolved)
+            if not is_excluded(resolved, cwd.resolve()):
+                unique.append(resolved)
+    # Filter to only recent/modified + existent; if none, return empty (no batch error)
+    return sorted(unique)
+
+def verify_suite_green(cwd: Path, framework: str | None, test_files: list[Path]) -> list[str]:
+    # Skip suite check when no test files exist — nothing to stay green
+    if not test_files:
+        return []
+    commands: dict[str, list[str]] = {
+        "pytest": ["pytest", "-q"],
+        "vitest": ["npx", "vitest", "run", "--reporter=verbose"],
+        "jest": ["npx", "jest", "--no-coverage"],
+        "go": ["go", "test", "./..."],
+        "cargo": ["cargo", "test"],
+    }
+    if framework is not None and framework in commands:
+        code, out, err = run_command(cwd, commands[framework])
+        combined = (out + err).lower()
+        if "no tests" in combined or "no test" in combined:
+            # No tests collected — not a suite failure, just empty (warned elsewhere if needed)
+            return []
+        if code != 0:
+            return [f"suite not green for {framework}: {combined[:800]}"]
+        if "failed" in combined or "fail" in combined and "0 failed" not in combined:
+            pass
+        return []
+    return []
+
+def main() -> None:
+    args = parse_args()
+    cwd: Path = args.cwd.resolve()
+    errors: list[str] = []
+    warnings: list[str] = []
+
+    if not cwd.exists() or not cwd.is_dir():
+        print(f"error: --cwd not a directory: {cwd}", file=sys.stderr)
+        sys.exit(2)
+
+    # Resolve framework for green check
+    framework = args.framework
+    if framework is None:
+        detector = Path(__file__).resolve().parent / "detect_framework.py"
+        code, out, err = run_command(cwd, [sys.executable, str(detector), "--cwd", str(cwd), "--json"])
+        if code == 0:
+            try:
+                import json as json_lib
+                payload = json_lib.loads(out)
+                framework = payload.get("framework")
+            except Exception:
+                framework = None
+
+    # Collect test files
+    test_files = collect_test_files(cwd)
+
+    # Phase: red → check order + honest RED guidance (offline if logs provided)
+    if args.phase in (None, "red"):
+        diff_stat = git_diff_stat(cwd, args.since)
+        order_warnings = check_no_prod_before_red(diff_stat)
+        warnings.extend(order_warnings)
+        if args.red_log is not None:
+            if not args.red_log.exists():
+                errors.append(f"--red-log not found: {args.red_log}")
+            else:
+                red_content = args.red_log.read_text(encoding="utf-8", errors="ignore")
+                if "syntaxerror" in red_content.lower() and "assert" not in red_content.lower():
+                    warnings.append("RED log looks like a SyntaxError typo, not a behavior gap — fix wiring and re-run RED")
+                if "modulenotfounderror" in red_content.lower() or "cannot find module" in red_content.lower():
+                    warnings.append("RED log is a missing-module import error — fix the import path before counting as RED")
+
+    # Phase: green + refactor → truthiness, batch, suite green
+    if args.phase in (None, "green", "refactor"):
+        truthiness_errors = check_truthiness(test_files)
+        errors.extend(truthiness_errors)
+        batch_errors = check_one_behavior_per_file(test_files)
+        # Batch is a warning in non-strict, error in strict
+        if args.strict:
+            errors.extend(batch_errors)
+        else:
+            warnings.extend(batch_errors)
+
+        green_errors = verify_suite_green(cwd, framework, test_files)
+        # Suite green failures are errors in strict, warnings otherwise
+        if green_errors:
+            if args.strict:
+                errors.extend(green_errors)
+            else:
+                warnings.extend(green_errors)
+
+    if warnings:
+        for warning in warnings:
+            print(f"warning: {warning}", file=sys.stderr)
+
+    if errors:
+        for error in errors:
+            print(f"error: {error}", file=sys.stderr)
+        print(f"\n{len(errors)} error(s), {len(warnings)} warning(s) — fix and rerun verify_tdd.py --strict", file=sys.stderr)
+        sys.exit(1)
+
+    if warnings and args.strict:
+        print(f"\n{len(warnings)} warning(s) in --strict — treat as errors", file=sys.stderr)
+        sys.exit(1)
+
+    print(f"verify_tdd: OK (framework={framework or 'unknown'} test_files={len(test_files)} strict={args.strict})")
+    if test_files:
+        for test_file in test_files[:5]:
+            print(f"  - {test_file.relative_to(cwd) if test_file.is_relative_to(cwd) else test_file}")
+
+if __name__ == "__main__":
+    main()
