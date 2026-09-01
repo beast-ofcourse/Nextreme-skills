@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Nextreme-Skills">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="288" viewBox="0 0 720 288" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Nextreme-Skills">
   <title>Nextreme-Skills</title>
   <desc>Dark banner with wave flow, metallic NX mark and Nextreme-Skills wordmark — vector recreation of pasted PNG.</desc>
   <defs>
@@ -35,12 +35,12 @@
 
   <!-- layered order: background → containers → nodes → labels → connections -->
   <g id="background">
-    <rect x="0" y="0" width="720" height="240" fill="#08080a"/>
+    <rect x="0" y="0" width="720" height="288" fill="#08080a"/>
     <!-- large soft blob behind content — like PNG's central glow -->
-    <ellipse cx="360" cy="120" rx="420" ry="168" fill="#0f0f14" opacity="1"/>
-    <ellipse cx="360" cy="120" rx="340" ry="132" fill="#12121a" opacity="0.96"/>
-    <!-- wave flows — top-left and bottom, mimicking PNG -->
-    <g opacity="0.95" fill="none" stroke="url(#nxt-wave)" stroke-width="0.7" stroke-linecap="round">
+    <ellipse cx="360" cy="144" rx="420" ry="168" fill="#0f0f14" opacity="1"/>
+    <ellipse cx="360" cy="144" rx="340" ry="132" fill="#12121a" opacity="0.96"/>
+    <!-- wave flows — top-left and bottom, mimicking PNG (shifted +24 for 288 height) -->
+    <g opacity="0.95" fill="none" stroke="url(#nxt-wave)" stroke-width="0.7" stroke-linecap="round" transform="translate(0,24)">
       <!-- top wave family -->
       <path d="M -40  38 C  20  62,  80  28, 160  48 C 240  68, 320  22, 420  42"/>
       <path d="M -40  44 C  20  68,  80  34, 160  54 C 240  74, 320  28, 420  48" opacity="0.85"/>
@@ -61,18 +61,18 @@
       <path d="M 680  34 L 760  -6" stroke-width="0.35" opacity="0.14"/>
     </g>
     <!-- vignette -->
-    <rect x="0" y="0" width="720" height="240" fill="black" opacity="0.12"/>
+    <rect x="0" y="0" width="720" height="288" fill="black" opacity="0.12"/>
   </g>
 
   <g id="containers">
     <!-- no heavy frame — keep it open like PNG, just a whisper border -->
-    <rect x="0.5" y="0.5" width="719" height="239" rx="2" fill="none" stroke="#1a1a1f" stroke-width="0.6" opacity="0.35"/>
+    <rect x="0.5" y="0.5" width="719" height="287" rx="2" fill="none" stroke="#1a1a1f" stroke-width="0.6" opacity="0.35"/>
   </g>
 
   <g id="nodes">
     <!-- NX mark — vector recreation, centered left like PNG -->
-    <!-- position around 135,120 like PNG -->
-    <g transform="translate(132 68)" filter="url(#nxt-nx-shadow)">
+    <!-- position around 135,144 like PNG (shifted +24 for 288 height) -->
+    <g transform="translate(132 92)" filter="url(#nxt-nx-shadow)">
       <!-- glow -->
       <ellipse cx="36" cy="32" rx="38" ry="28" fill="url(#nxt-nx-glow)"/>
       <!-- NX shape — built from two polygons forming the interlocked N/X -->
@@ -93,7 +93,7 @@
 
   <g id="labels">
     <!-- Nextreme-Skills — single lockup, light weight like PNG, tracking loose -->
-    <text x="226" y="132" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="42" font-weight="300" letter-spacing="0.2" fill="#f2f2f3">Nextreme<tspan fill="#f2f2f3" font-weight="300">-</tspan>Skills</text>
+    <text x="226" y="156" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="42" font-weight="300" letter-spacing="0.2" fill="#f2f2f3">Nextreme<tspan fill="#f2f2f3" font-weight="300">-</tspan>Skills</text>
   </g>
 
   <g id="connections">
