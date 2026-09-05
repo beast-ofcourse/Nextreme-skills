@@ -56,6 +56,24 @@ MANIFEST_SIGNALS: list[tuple[str, str]] = [
     ("go.mod", "go"),
 ]
 
+# Dependency and build output dirs must never vote in language dominance —
+# a node_modules tree holds thousands of .js files that would drown real sources.
+EXCLUDED_DIRS = frozenset({
+    "node_modules", ".git", ".hg", ".venv", "venv", "dist", "build",
+    "target", "__pycache__", ".tox", ".eggs", ".mypy_cache", ".pytest_cache",
+})
+
+
+def iter_source_files(cwd: Path, pattern: str):
+    """Yield files matching pattern, skipping dependency/build output dirs."""
+    for path in cwd.rglob(pattern):
+        try:
+            parts = path.relative_to(cwd).parts
+        except ValueError:
+            continue
+        if not any(part in EXCLUDED_DIRS for part in parts):
+            yield path
+
 def parse_args() -> argparse.Namespace:
     """Parse CLI arguments for framework detection."""
     parser = argparse.ArgumentParser(description="Detect test framework")
@@ -117,6 +135,9 @@ def detect_from_manifest(cwd: Path, manifest_override: Path | None) -> str | Non
         except json.JSONDecodeError as exc:
             print(f"error: package.json is invalid JSON: {exc}", file=sys.stderr)
             sys.exit(2)
+        except OSError as exc:
+            print(f"error: package.json unreadable: {exc}", file=sys.stderr)
+            sys.exit(2)
         dev_deps: dict[str, str] = {}
         deps = content.get("dependencies") or {}
         dev = content.get("devDependencies") or {}
@@ -131,11 +152,11 @@ def detect_from_manifest(cwd: Path, manifest_override: Path | None) -> str | Non
         # No test runner declared but package.json exists → assume vitest (modern default)
         return "vitest"
 
-    # Fallback by file extension dominance
-    python_files = list(cwd.rglob("*.py"))
-    ts_files = list(cwd.rglob("*.ts")) + list(cwd.rglob("*.tsx")) + list(cwd.rglob("*.js"))
-    go_files = list(cwd.rglob("*.go"))
-    rs_files = list(cwd.rglob("*.rs"))
+    # Fallback by file extension dominance (dependency dirs excluded)
+    python_files = list(iter_source_files(cwd, "*.py"))
+    ts_files = list(iter_source_files(cwd, "*.ts")) + list(iter_source_files(cwd, "*.tsx")) + list(iter_source_files(cwd, "*.js"))
+    go_files = list(iter_source_files(cwd, "*.go"))
+    rs_files = list(iter_source_files(cwd, "*.rs"))
     counts = {"pytest": len(python_files), "vitest": len(ts_files), "go": len(go_files), "cargo": len(rs_files)}
     dominant = max(counts, key=lambda k: counts[k])
     if counts[dominant] == 0:
