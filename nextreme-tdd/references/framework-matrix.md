@@ -6,18 +6,18 @@ Decision law: **you do, per repo, from evidence.** Don't ask the user which fram
 
 | Priority | Signal | Framework | Test Dir / File | RED / GREEN Command |
 |---|---|---|---|---|
-| 1 | `pyproject.toml` / `setup.cfg` + `pytest.ini` / `tests/` | **pytest** | `tests/test_<behavior>.py` | `pytest tests/test_<behavior>.py -q` (RED) → `pytest -q` (GREEN full suite) |
+| 1 | `pyproject.toml` / `setup.cfg` + `pytest.ini` / `tests/` | **pytest** | `tests/test_<behavior>.py` | `python -m pytest tests/test_<behavior>.py -q` (RED) → `python -m pytest -q` (GREEN full suite) |
 | 2 | `package.json` with `vitest` in `devDeps` | **Vitest** | `src/<name>.test.ts` or `tests/<name>.test.ts` | `npx vitest run <file> --reporter=verbose` → `npx vitest run --reporter=verbose` |
 | 3 | `package.json` with `jest` in `devDeps` | **Jest** | `__tests__/<name>.test.ts` or `src/<name>.test.ts` | `npx jest <file> --no-coverage` → `npx jest --no-coverage` |
 | 4 | `go.mod` + `*_test.go` | **go test** | `<pkg>/*_test.go` | `go test -run Test<Behavior> ./...` → `go test ./...` |
 | 5 | `Cargo.toml` | **cargo test** | `src/<name>.rs` `#[cfg(test)]` or `tests/*.rs` | `cargo test <behavior> -- --nocapture` → `cargo test` |
-| 6 | No manifest, `*.py` files dominate | **pytest** (default) | `tests/test_<behavior>.py` | `pytest -q` |
+| 6 | No manifest, `*.py` files dominate | **pytest** (default) | `tests/test_<behavior>.py` | `python -m pytest -q` |
 | 7 | No manifest, `*.ts`/`*.js` dominate | **Vitest** (default) | `src/<name>.test.ts` | `npx vitest run --reporter=verbose` |
 
 Run `scripts/detect_framework.py --json` to get the machine answer:
 
 ```json
-{ "framework": "pytest", "manifest": "pyproject.toml", "test_dir": "tests", "command": "pytest -q", "file_template": "python-pytest.test.py" }
+{ "framework": "pytest", "manifest": "pyproject.toml", "test_dir": "tests", "command": "python -m pytest -q", "file_template": "python-pytest.test.py" }
 ```
 
 ## Override
@@ -67,7 +67,7 @@ Keep RED scoped to the new test (proves it fails alone); keep GREEN as full suit
 
 | Framework | RED (scoped) | GREEN (full suite) |
 |---|---|---|
-| pytest | `pytest tests/test_<behavior>.py -q -v` | `pytest -q` |
+| pytest | `python -m pytest tests/test_<behavior>.py -q -v` | `python -m pytest -q` |
 | Vitest | `npx vitest run src/<x>.test.ts --reporter=verbose` | `npx vitest run --reporter=verbose` |
 | Jest | `npx jest src/<x>.test.ts --no-coverage` | `npx jest --no-coverage` |
 | go test | `go test -run Test<Behavior> -count=1 ./...` | `go test ./...` |

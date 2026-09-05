@@ -8,7 +8,7 @@ On prompt submit, inject one line: "Does this task add or change behavior? If ye
 
 ## 2. Post-change suite run (fast feedback)
 
-After any test or source file write, run the framework's scoped command (`pytest -q <file>`, `npx vitest run <file>`). Surfaces failures the moment they land. Cannot block — informational only.
+After any test or source file write, run the framework's scoped command (`python -m pytest <file>`, `npx vitest run <file>`). Surfaces failures the moment they land. Cannot block — informational only.
 
 ## 3. Stop gate (the real enforcement)
 

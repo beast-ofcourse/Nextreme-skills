@@ -75,7 +75,7 @@ Keep code human-readable, small, and obvious. No AI slop.
 
 | Context | You Pick | Output | Why |
 |---|---|---|---|
-| **Python (default for `*.py`, `pyproject.toml`, `requirements.txt`)** | **`pytest`** — `tests/test_<behavior>.py` | `def test_<behavior>_<case>()` | Auto-discovery, fixtures, `assert` rewriting; `pytest -q` is the RED/GREEN prover |
+| **Python (default for `*.py`, `pyproject.toml`, `requirements.txt`)** | **`pytest`** — `tests/test_<behavior>.py` | `def test_<behavior>_<case>()` | Auto-discovery, fixtures, `assert` rewriting; `python -m pytest -q` is the RED/GREEN prover |
 | **TypeScript / JS (`package.json`, `vitest`/`jest`, `*.ts`)** | **`Vitest`** (fallback `Jest`) — `src/<name>.test.ts` | `it("should <behavior> when <case>")` | ESM-native, `vi` compat, `vitest run --reporter=verbose` proves RED reason |
 | **Go (`go.mod`, `*.go`)** | **`go test`** — `*_test.go` | `func Test<Behavior>_<Case>(t *testing.T)` | Table-driven `t.Run`, `_test.go` convention, `go test -run` isolates RED |
 | **Rust (`Cargo.toml`, `*.rs`)** | **`cargo test`** — `src/<name>.rs` `#[cfg(test)]` or `tests/` | `#[test] fn <behavior>_<case>()` | Built-in harness, `cargo test -- --nocapture` shows RED reason |
@@ -107,7 +107,7 @@ Run the detector; don't guess.
 python ${CLAUDE_SKILL_DIR}/scripts/detect_framework.py --json
 # local clone:
 python nextreme-tdd/scripts/detect_framework.py --json
-# → { "framework": "pytest", "manifest": "pyproject.toml", "test_dir": "tests", "command": "pytest -q" }
+# → { "framework": "pytest", "manifest": "pyproject.toml", "test_dir": "tests", "command": "python -m pytest -q" }
 # flags: --manifest <path> (override), --framework pytest|vitest|jest|go|cargo (force)
 ```
 
@@ -141,7 +141,7 @@ python ${CLAUDE_SKILL_DIR}/scripts/scaffold_test.py --behavior "<behavior>" --ca
 Edit the scaffold to the smallest assertion that captures the behavior. Run it and **prove RED**:
 
 ```bash
-pytest tests/test_<behavior>.py -q      # or vitest run --reporter=verbose / go test -run TestBehavior / cargo test
+python -m pytest tests/test_<behavior>.py -q      # or vitest run --reporter=verbose / go test -run TestBehavior / cargo test
 # expect: FAILED / unknown symbol / wrong result — not a typo
 ```
 
@@ -156,7 +156,7 @@ Completion criterion: one test exists, it fails, you pasted the failure (unknown
 Write the minimal production code to turn that one test green. No extra branches, no speculative generalization — only what the failing assertion demands. The test file is frozen from here: if red persists, fix the implementation, never weaken the test (see `references/validation.md` §8). Watch for hardcoded values that pass one test and fail the next (`if input == '1h30m' return 5400`) — catch them now via triangulation, not three tests later. Run the **full suite**, not just the new test.
 
 ```bash
-pytest -q
+python -m pytest -q
 # or vitest run --reporter=verbose
 # or go test ./...
 # or cargo test

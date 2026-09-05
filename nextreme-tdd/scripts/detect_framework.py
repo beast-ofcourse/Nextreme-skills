@@ -16,8 +16,8 @@ from pathlib import Path
 FRAMEWORKS: dict[str, dict[str, str]] = {
     "pytest": {
         "test_dir": "tests",
-        "command": "pytest -q",
-        "scoped": "pytest {file} -q -v",
+        "command": "python -m pytest -q",
+        "scoped": "python -m pytest {file} -q -v",
         "template": "python-pytest.test.py",
     },
     "vitest": {

@@ -61,6 +61,16 @@ def is_test_file(path: str) -> bool:
     lower = path.lower()
     return any(hint in lower for hint in TEST_FILE_HINTS)
 
+def read_log_text(log_path: Path) -> str:
+    """Read a captured log tolerantly: PowerShell `>` writes UTF-16LE, consoles write UTF-8."""
+    raw = log_path.read_bytes()
+    for encoding in ("utf-8-sig", "utf-16", "utf-8"):
+        try:
+            return raw.decode(encoding)
+        except (UnicodeDecodeError, ValueError):
+            continue
+    return raw.decode("utf-8", errors="ignore")
+
 def is_prod_file(path: str) -> bool:
     """Check if a path looks like a production file (not a test file)."""
     lower = path.lower()
@@ -152,7 +162,7 @@ def check_ordered_proof(proof_path: Path | None, red_log: Path | None, green_log
         return errors
     try:
         import json as json_lib
-        payload = json_lib.loads(proof_path.read_text(encoding="utf-8"))
+        payload = json_lib.loads(proof_path.read_bytes().decode("utf-8-sig"))
     except Exception as exc:
         errors.append(f"invalid proof JSON {proof_path}: {exc}")
         return errors
@@ -165,13 +175,16 @@ def check_ordered_proof(proof_path: Path | None, red_log: Path | None, green_log
     if red_ts >= green_ts:
         errors.append(f"proof ordering failed: red_timestamp {red_ts} >= green_timestamp {green_ts}")
     if behavior and red_log and red_log.exists():
-        red_content = red_log.read_text(encoding="utf-8", errors="ignore")
+        red_content = read_log_text(red_log)
         if behavior not in red_content and behavior.lower() not in red_content.lower():
             errors.append(f"proof behavior '{behavior}' not found in RED log")
     if behavior and green_log and green_log.exists():
-        green_content = green_log.read_text(encoding="utf-8", errors="ignore")
+        green_content = read_log_text(green_log)
         if behavior not in green_content and behavior.lower() not in green_content.lower():
-            errors.append(f"proof behavior '{behavior}' not found in GREEN log")
+            errors.append(
+                f"proof behavior '{behavior}' not found in GREEN log "
+                "(capture the green log verbose, e.g. python -m pytest -v, so test names appear)"
+            )
     return errors
 
 def collect_test_files(cwd: Path) -> list[Path]:
@@ -251,7 +264,8 @@ def verify_suite_green(cwd: Path, framework: str | None, test_files: list[Path])
     if not test_files:
         return []
     commands: dict[str, list[str]] = {
-        "pytest": ["pytest", "-q"],
+        # python -m keeps cwd on sys.path (bare pytest does not) — src-layout safe.
+        "pytest": [sys.executable, "-m", "pytest", "-q"],
         "vitest": ["npx", "vitest", "run", "--reporter=verbose"],
         "jest": ["npx", "jest", "--no-coverage"],
         "go": ["go", "test", "./..."],
@@ -323,7 +337,7 @@ def main() -> None:
             if not args.red_log.exists():
                 errors.append(f"--red-log not found: {args.red_log}")
             else:
-                red_content = args.red_log.read_text(encoding="utf-8", errors="ignore")
+                red_content = read_log_text(args.red_log)
                 if "syntaxerror" in red_content.lower() and "assert" not in red_content.lower():
                     warnings.append("RED log looks like a SyntaxError typo, not a behavior gap — fix wiring and re-run RED")
                 if "modulenotfounderror" in red_content.lower() or "cannot find module" in red_content.lower():

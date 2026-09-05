@@ -14,8 +14,8 @@ Usage:
 ```bash
 python nextreme-tdd/scripts/scaffold_test.py --behavior calculate_tax_rounds_half_up --case happy_path
 # → writes the templated file, then:
-pytest tests/test_calculate_tax_rounds_half_up.py -q -v   # RED
-pytest -q                                                 # GREEN after you write the minimal impl
+python -m pytest tests/test_calculate_tax_rounds_half_up.py -q -v   # RED
+python -m pytest -q                                                 # GREEN after you write the minimal impl
 ```
 
 Each file is one behavior, one tracer bullet. Third helper copy → extract.
