@@ -11,8 +11,11 @@
 import { describe, it, expect } from "vitest";
 
 // Replace with the real module path once it exists.
-// We normalize ONLY the expected missing-target case (module not found or missing export);
-// any other loader/syntax error is re-thrown so it is not mistaken for an honest RED.
+// Honest RED is a behavior gap in one of two shapes:
+//   (a) the EXPECTED module itself is missing ("Cannot find module './<name>'"),
+//   (b) the module loads but the EXPECTED export is absent.
+// A loader error for any OTHER module (typo'd unrelated import) is re-thrown —
+// it is a wiring mistake, not a behavior gap.
 let behaviorImpl: (() => unknown) | undefined;
 let _tddError: unknown;
 try {
@@ -23,11 +26,11 @@ try {
   const message = caught instanceof Error ? caught.message : String(caught);
   const expectedModule = "__behavior_kebab__";
   const expectedExport = "__behavior_snake__";
-  const isExpectedMissing =
-    message.includes(expectedModule) ||
-    message.includes(expectedExport) ||
-    message.includes("Cannot find module") ||
-    message.includes("Cannot find package");
+  const loaderMentionsExpected =
+    (message.includes("Cannot find module") || message.includes("Cannot find package")) &&
+    message.includes(expectedModule);
+  const exportMissing = message.includes(expectedExport);
+  const isExpectedMissing = loaderMentionsExpected || exportMissing;
   if (!isExpectedMissing) {
     throw caught;
   }
