@@ -1,0 +1,53 @@
+{
+  "skill_name": "nextreme-tdd",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "TDD this: add function calculateTax(amount) that rounds half-up to 2 decimals. Write the failing test first, show RED, then minimal GREEN.",
+      "expected_output": "tests/test_calculate_tax_rounds_half_up.py with test_calculate_tax_rounds_half_up_happy_path failing honestly (NameError) before impl; after scaffold, GREEN with full suite; verify_tdd.py --strict passes; behavior contract pinned before code",
+      "files": [],
+      "expectations": [
+        "Behavior contract written before any production code: When X calls calculateTax, it shall round half-up",
+        "RED log exists and is a behavior gap (NameError/wrong value), not a typo",
+        "No production diff before RED; GREEN is full suite (pytest -q), not just one file",
+        "Assertion checks value (== 10.02), not truthiness; no any; verify_tdd.py --strict exits 0"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Do this test-first in TypeScript (vitest): parseAmount(input: string) → number, rejects overflow with RangeError. I have no test yet.",
+      "expected_output": "src/parse-amount.test.ts scaffolded from template, RED shows undefined symbol or wrong value; detects vitest via package.json + npx vitest run; GREEN with full suite green; one behavior per describe",
+      "files": [],
+      "expectations": [
+        "detect_framework.py identifies vitest (package.json with vitest) and prints test_dir/command",
+        "Scaffolded test uses expect(...).toEqual(...) truthfully, not toBeTruthy",
+        "RED is honest failure (missing-symbol throws RED: symbol missing or wrong-value assertion diff) before src/parse-amount.ts exists, aligned with strict validation",
+        "Full suite GREEN, no prod before RED, passes verify_tdd.py --phase green"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I already shipped src/pricing.ts without a test — 'it works'. Pin its observable behavior and add the characterization test the TDD way.",
+      "expected_output": "Characterization test that captures current output of pricing.ts as expected value; noted order inverted; next cycle starts at RED for new behavior; no deletion of existing code to force fake RED",
+      "files": [],
+      "expectations": [
+        "Characterization behavior contract captures observable input→output without peeking at internals",
+        "Test initially GREEN (characterization) then RED for the next NEW behavior is shown",
+        "Assumption logged: 'order inverted — existing code, characterization first'",
+        "verify_tdd.py reports OK (characterization path) or notes inversion, not false RED"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Refactor this just-green code: it has duplication and a bad name. Do it the TDD way — refactor under green, stay green each tweak.",
+      "expected_output": "Refactor diff that removes duplication and renames truthfully, with re-run GREEN after every tweak; no new behavior added; suite stays green; verify_tdd.py --phase refactor exits 0",
+      "files": [],
+      "expectations": [
+        "Refactor starts only after GREEN proof shown",
+        "Each tweak re-runs full suite (log shows repeated GREEN)",
+        "No new branches/cases introduced in refactor phase",
+        "Third duplicate helper extracted, two is coincidence — not over-abstracted"
+      ]
+    }
+  ]
+}

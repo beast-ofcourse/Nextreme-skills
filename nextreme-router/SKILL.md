@@ -40,6 +40,7 @@ Discover skills live from the repo (each `*/SKILL.md`); the set below is a snaps
 - `nextreme-decision` — makes the extreme call + out-of-box opt-in.
 - `nextreme-skill-creator` — design/write/improve skills.
 - `nextreme-review` — extreme all-in-one review + behaviour stress; never fixes; ships review-report.md with fix handoff.
+- `nextreme-tdd` — extreme red-green-refactor TDD (behavior-pinned, order-enforced, 3 harnesses + 4 templates).
 - `nextreme-flowcharts` — print-ready flowcharts, roadmaps, decision trees (PDF).
 - `nextreme-charts` — publication-grade SVG charts from data.
 - `nextreme-diagrams` — architecture, UML, agent-workflow technical diagrams.

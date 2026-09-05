@@ -1,0 +1,3 @@
+# nextreme-tdd: zero runtime deps — pure Python stdlib for detect/scaffold/verify.
+# Optional, only if you use property-based invariants:
+# hypothesis>=6.0
