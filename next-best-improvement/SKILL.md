@@ -1,7 +1,7 @@
 ---
 name: next-best-improvement
 description: >
-  Picks one feature-flow-level fragment of the whole project that noticeably needs extreme improvement and makes it insane — can do anything (refactor, redesign, perf, UX, deps, tests) to make it extremely better. Uses a whole-project scan then one of 3 picking modes: ask user for a specific part, yolo (AI picks the most needy part), or random (AI surfaces candidates then randomly picks one). This is THE extreme skill for ANY “improve a part”, “make this insane”, “extreme polish”, “yolo improve”, “random improvement”, “next improvement”, “pick a section to improve”, “take this feature and make it extreme”, “out-of-the-box improvement”, or “brainstorm an insane improvement” — even if the user doesn’t say “next-best-improvement”. Also trigger for “improve this feature flow”, “extreme refactor this part”, “take the worst part and make it best”. Do NOT trigger for small high-leverage “next-best-thing” (smallest move) or whole-project architecture (use nextreme-architect) — this is one picked fragment, extreme.
+  Picks one feature-flow-level fragment of the whole project that noticeably needs extreme improvement and makes it insane — can do anything (refactor, redesign, perf, UX, deps, tests) to make it extremely better. Uses a whole-project scan then one of 3 picking modes: ask user for a specific part, yolo (AI picks the most needy part), or random (AI surfaces candidates then randomly picks one). This is THE extreme skill for ANY “improve a part”, “make this insane”, “extreme polish”, “yolo improve”, “random improvement”, “next improvement”, “pick a section to improve”, “take this feature and make it extreme”, “out-of-the-box improvement”, or “brainstorm an insane improvement” — even if the user doesn’t say “next-best-improvement”. Also trigger for “improve this feature flow”, “extreme refactor this part”, “take the worst part and make it best”. Do NOT trigger for small high-leverage “next-best-thing” (smallest move) or whole-project architecture (use nextreme-plans) — this is one picked fragment, extreme.
 license: MIT
 compatibility: git>=2.20
 ---
@@ -76,7 +76,7 @@ Each step ends on a **completion criterion**. Do not proceed until it passes.
 
 ### 1. Scan — Understand the Whole Project with Commonsense
 
-Map the repo as `nextreme-architect` would: `glob` + `grep` + `read` key files, but filter with taste. Surface **feature-flow-level** candidates that noticeably need extreme improvement — a whole feature, a major section, a subsystem, a critical flow — never a 20-line README, never a single trivial helper. Use commonsense: if you need “and” to describe what the part *does* for a user, it’s probably too small.
+Map the repo as `nextreme-plans` would: `glob` + `grep` + `read` key files, but filter with taste. Surface **feature-flow-level** candidates that noticeably need extreme improvement — a whole feature, a major section, a subsystem, a critical flow — never a 20-line README, never a single trivial helper. Use commonsense: if you need “and” to describe what the part *does* for a user, it’s probably too small.
 
 Reference: `references/scan-guide.md` — what counts as a part, how to surface 5–8 candidates.
 

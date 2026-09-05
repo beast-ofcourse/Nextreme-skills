@@ -11,7 +11,7 @@ You are the pair programmer. You don't replace the specialized skills — you se
 ## The workflow
 
 ### 1. Decompose the task
-Break the user's task into phases from this palette: **design** (`system-architect` / `nextreme-decision`), **direction** (`next-best-thing` / `next-big-thing`), **build** (the implementation skill or `next-big-thing`'s gated build), **review** (`code-reviewer` when present / `nextreme-skill-creator`'s review lens), **diagnose** (`bug-diagnostician` when present), **safety** (`git-guardrails`). Drop phases that don't apply; keep the order honest.
+Break the user's task into phases from this palette: **design** (`system-architect` / `nextreme-decision`), **direction** (`next-best-thing` / `next-big-thing`), **build** (the implementation skill or `next-big-thing`'s gated build), **review** (`nextreme-review`), **diagnose** (`bug-diagnostician` when present), **safety** (`git-guardrails`). Drop phases that don't apply; keep the order honest.
 
 Completion criterion: the task is a numbered phase list, each phase tagged with the skill that owns it; no inapplicable phase was included.
 

@@ -1,0 +1,42 @@
+{
+  "skill_name": "nextreme-review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Review this: src/auth.ts refresh-token rotation. Is it ready to merge?",
+      "expected_output": "review-report.md with verdict; token-reuse race or missing revoked-token check caught as Critical with file:line; break attempt logged (concurrent refresh); handoff prompt names files and order; zero source edits",
+      "files": [],
+      "expectations": [
+        "Scope locked as file/branch target with read-only vow stated",
+        "At least one behaviour break attempted with run log, not syntax-only review",
+        "Findings graded Critical/Major/Minor with file:line evidence",
+        "review-report.md exists with verdict plus self-contained handoff prompt",
+        "No source diffs outside review-report.md"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Audit this branch against plans/tasks.md phase 3 — did the code build what the plan promised?",
+      "expected_output": "review-report.md tracing each phase-3 journey to code; plan-promised but unbuilt behaviour flagged; unbuilt non-goal absence confirmed; drift outranks style nits",
+      "files": [],
+      "expectations": [
+        "Each plan journey gets a traces-to-code verdict",
+        "Architecture drift listed as findings with severity",
+        "No plan claim reviewed as fact without tracing it to code",
+        "Handoff prompt orders fixes Criticals first with verify steps"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Stress test scripts/parse_upload.py — throw hostile inputs at it and tell me what breaks.",
+      "expected_output": "review-report.md with empty/huge/malformed input runs and exit codes; unhandled exception or silent data corruption caught as Critical/Major; edge-case table with observed results",
+      "files": [],
+      "expectations": [
+        "Verification commands pasted with exit codes",
+        "Each risky path has a break attempt plus observed result",
+        "Severity reflects behaviour impact, not code aesthetics",
+        "Zero source edits; report is the only output file"
+      ]
+    }
+  ]
+}
