@@ -37,6 +37,30 @@
         "Severity reflects behaviour impact, not code aesthetics",
         "Zero source edits; report is the only output file"
       ]
+    },
+    {
+      "id": 4,
+      "prompt": "Review this diff: src/billing.py adds a discount path. Be brutal but honest.",
+      "expected_output": "review-report.md + review-report.json; at least one initial suspicion REFUTED on re-read with reason; surviving Criticals CONFIRMED with file:line; plausible-but-unobserved items in Unverified, none blocking",
+      "files": [],
+      "expectations": [
+        "Refutation pass present: each Critical/Major marked CONFIRMED or dropped/demoted with reason",
+        "No cosmetic-only report; no hedged language in findings",
+        "review-report.json parses with matching verdict, counts, and findings",
+        "Verification log lists every command with exit code"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Review this: src/auth.py changes token refresh. Is it ready?",
+      "expected_output": "Human floor tripped (auth path) requiring explicit sign-off even if verdict is ship; trust boundaries enumerated; secrets/privilege-escalation checked",
+      "files": [],
+      "expectations": [
+        "Human floor tripped for auth change regardless of finding count",
+        "Security lens enumerates trust boundaries with per-boundary verdict",
+        "New code without tests flagged as a finding",
+        "Zero source edits; .md plus .json written"
+      ]
     }
   ]
 }

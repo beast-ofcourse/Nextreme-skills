@@ -21,7 +21,13 @@ Intent: <one-line what the change claims to do>
 
 ## Unverified
 
-- <area not covered and why — e.g. no staging env, external API unmocked>
+- <PLAUSIBLE-but-unobserved area and the exact observation that would settle it — never blocks>
+
+## Verification log (provenance — a gate without this is an assumption)
+
+| Command | Exit | At |
+|---|---|---|
+| `<exact command>` | `<code>` | `<timestamp>` |
 
 ## Handoff prompt (copy-paste to fixing agent)
 

@@ -22,7 +22,7 @@ A focused, **agent-agnostic** collection of reusable AI-agent skills. Each skill
 | [`nextreme`](nextreme/) | Pair programmer that **composes** the right Nextreme-skill workflow for any multi-phase software task. | "pair with me", "full workflow for X", "build this with me" |
 | [`nextreme-router`](nextreme-router/) | Routes any user intent to the **right** Nextreme skill instead of guessing which one fires. | "which skill should I use", "route this" |
 | [`nextreme-skill-creator`](nextreme-skill-creator/) | Designs, writes, and improves skills with rigorous craft (predictability, triggering, hierarchy, pruning). | "create a skill", "improve this skill", "why doesn't my skill trigger" |
-| [`nextreme-review`](nextreme-review/) | Extreme all-in-one reviewer: stress-tests plans down to runtime behaviour, never writes fixes, ships `review-report.md` with graded findings + fix handoff. | "review this", "audit", "stress test", "find bugs", "is this ready" |
+| [`nextreme-review`](nextreme-review/) | Extreme all-in-one reviewer: stress-tests plans down to runtime behaviour, refutes its own findings, never writes fixes, ships `review-report.md` + `.json` with graded findings + fix handoff. | "review this", "audit", "stress test", "find bugs", "is this ready" |
 | [`nextreme-tdd`](nextreme-tdd/) | Extreme red-green-refactor TDD: pins one behavior, enforces RED-before-GREEN, scaffolds failing tests and verifies the cycle (pytest/Vitest/Go/Cargo). | "TDD this", "red-green-refactor", "write test before code", "failing test first", "characterization test" |
 | [`git-guardrails`](git-guardrails/) | Stops destructive, irreversible git operations before they run and suggests the safe path. | "guard my git", "block force push", "don't let me reset --hard" |
 | [`nextreme-flowcharts`](nextreme-flowcharts/) | Produces publication-grade flowcharts, roadmaps, process diagrams, decision trees, and taxonomy maps as print-ready PDF (HTML+SVG). | "flowchart", "roadmap", "decision tree", "process diagram" |
@@ -70,8 +70,8 @@ Or copy a skill folder into your agent's skills directory. Each `SKILL.md` is se
 ├── nextreme-router/                # intent -> skill router
 ├── nextreme-skill-creator/         # skill authoring craft + workflow
 │   └── references/                 # glossary.md, workflow.md
-├── nextreme-review/                # extreme all-in-one reviewer — behaviour stress, no fixes, review-report.md + fix handoff
-│   └── templates/                  # review-report.md
+├── nextreme-review/                # extreme all-in-one reviewer — behaviour stress, refutation pass, no fixes, review-report.md + .json + fix handoff
+│   └── templates/                  # review-report.md, review-report.json
 ├── nextreme-docs/                  # extreme .docx/.doc Word documents (9 templates, OOXML validation)
 │   ├── references/                 # document-engine.md, style-system.md, document-types.md, validation-checklist.md
 │   ├── scripts/                    # create_docx.py, validate_docx.py

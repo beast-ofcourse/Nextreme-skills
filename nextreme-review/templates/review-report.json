@@ -1,0 +1,20 @@
+{
+  "skill": "nextreme-review",
+  "target": "<branch vs base / file list>",
+  "verdict": "ship | fix-first | blocked",
+  "counts": {"critical": 0, "major": 0, "minor": 0},
+  "human_floor_tripped": false,
+  "findings": [
+    {
+      "severity": "critical | major | minor",
+      "status": "CONFIRMED",
+      "file": "<path>",
+      "line": 0,
+      "title": "<what breaks>",
+      "impact": "<blast radius, one sentence>",
+      "evidence": "<quoted source / command output>"
+    }
+  ],
+  "unverified": ["<PLAUSIBLE area + settling observation>"],
+  "verification_log": [{"command": "<exact>", "exit": 0, "at": "<timestamp>"}]
+}
