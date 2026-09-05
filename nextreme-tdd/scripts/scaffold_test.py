@@ -63,7 +63,8 @@ def infer_go_package(cwd: Path, destination: Path) -> str:
         if candidate.name.endswith("_test.go"):
             continue
         try:
-            first_line = candidate.read_text(encoding="utf-8", errors="ignore").splitlines()[0] if candidate.exists() else ""
+            lines = candidate.read_text(encoding="utf-8", errors="ignore").splitlines()
+            first_line = lines[0] if lines else ""
             if first_line.strip().startswith("package "):
                 inferred = first_line.strip().split()[1]
                 if re.fullmatch(r"[a-zA-Z_][a-zA-Z0-9_]*", inferred):
@@ -197,7 +198,11 @@ def main() -> None:
         sys.exit(1)
 
     print(f"wrote {destination} (framework={framework} behavior={behavior} case={case})")
-    print(f"next: run RED with {FRAMEWORK_DESTINATIONS[framework]} then verify_tdd.py --phase red")
+    try:
+        rel_hint = str(destination.relative_to(cwd))
+    except ValueError:
+        rel_hint = str(destination)
+    print(f"next: run RED with {rel_hint} then verify_tdd.py --phase red")
 
 if __name__ == "__main__":
     main()
