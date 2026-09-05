@@ -15,6 +15,8 @@ Generate production-grade technical diagrams using the best available engine. Th
 
 The skill automatically detects which path is available. Both produce equivalent visual quality.
 
+**Read only what the task needs:** UML-only → Engine Selection + shape vocabulary + your UML pattern; C4-only → section 5 + C4 discipline; AI/agent flow → section 2 + semantic arrows; diagram review → Review mode; quick sketch → Built-in path + grid rules. The full file is the fallback, not the default.
+
 ---
 
 ## Quick Start
@@ -648,8 +650,8 @@ Consumer grps: Y=560-620, dashed boxes around related consumers
 After generating the diagram (SVG from CLI or HTML from built-in), offer to package it as a print-ready PDF:
 
 ```bash
-# For built-in HTML output:
-python <project_root>/scripts/generate_pdf.py output.html output.pdf [--landscape] [--paper-size A4]
+# For built-in HTML output (script lives in the nextreme-pdf skill):
+python ../nextreme-pdf/scripts/generate_pdf.py output.html output.pdf [--landscape] [--paper-size A4]
 ```
 
 The script tries Playwright first (best quality), then WeasyPrint, then pdfkit.
@@ -658,7 +660,7 @@ The script tries Playwright first (best quality), then WeasyPrint, then pdfkit.
 
 ## Complete Workflow (Step by Step)
 
-1. **Understand the request** — What kind of diagram? What's the content hierarchy?
+1. **Understand the request** — What kind of diagram? What's the content hierarchy? For existing systems, inventory from code (`glob` + `grep` imports/routes/schemas), never from memory. Mark every element and edge **Explicit** (in source), **Inferred** (implied by naming/structure — dashed + noted), or **Unknown** (marked uncertain, never invented).
 2. **Choose the diagram type** — System architecture? UML? AI workflow? Event-driven?
 3. **Check CLI availability** — `where fireworks-cli.exe` (Windows) or `which fireworks-cli` (Mac/Linux)
 4. **Write a JSON spec** — Capture all nodes, edges, and metadata in a JSON file
@@ -666,8 +668,13 @@ The script tries Playwright first (best quality), then WeasyPrint, then pdfkit.
    - CLI available → `fireworks-cli render ...` or `python scripts/render_diagram.py ...`
    - CLI unavailable → Generate HTML+SVG using the built-in patterns above
 6. **Output the diagram** — Display it or save to file
-7. **Optional: PDF export** — Run `scripts/generate_pdf.py` for a print-ready PDF
-8. **Verify the output** — Check for clipped text, overlapping elements, missing labels
+7. **Optional: PDF export** — Run `../nextreme-pdf/scripts/generate_pdf.py` for a print-ready PDF
+8. **Verify the output — vision self-check loop (≤3 rounds)**: render (SVG/PNG/HTML preview), look at the actual pixels, fix, re-render. Check: clipped text, overlapping nodes, edges through boxes/labels, missing legend, dark-mode breakage, label-to-shape clearance. Never deliver the first render of a complex diagram — the loop is the quality gate, not optimism.
+9. **Pre-delivery gates (all must pass)**: `viewBox` present and tight; every label inside its shape bounds; no edge crosses a node or label; legend present; dark-mode tokens intact; stable IDs; relations labeled with intent (never bare "uses"/"calls" — say what crosses: "POST /login", "reads rows", "publishes OrderPlaced"); every Container/Component carries its technology annotation.
+
+## Review mode — critiquing or updating an existing diagram
+
+When handed a diagram plus "is this good?" or "add X": critique grouped by severity (wrong topology, missing legend/tech, unreadable layout, style drift), then update **every affected level** (C4 Context change ripples to Container). State what changed as Before/Delta/After facts — added, removed, changed, moved, rerouted. Never redraw from scratch when an update suffices.
 
 ---
 
@@ -676,14 +683,15 @@ The script tries Playwright first (best quality), then WeasyPrint, then pdfkit.
 - `references/diagram-types.md` — All supported diagram types with JSON spec examples
 - `references/builtin-layouts.md` — Full layout patterns for the built-in generator
 - `scripts/render_diagram.py` — CLI wrapper script
-- Scripts from the parent project: `<project_root>/scripts/generate_pdf.py` — HTML→PDF
+- Scripts from this repo: `../nextreme-pdf/scripts/generate_pdf.py` — HTML→PDF
 
 ---
 
 ## Design Principles
 
 - **Semantic shapes encode meaning** — Don't use rectangles for everything. A hexagon says "agent," a double-border says "LLM," a cylinder says "storage." Readers understand the diagram faster when shapes carry meaning.
-- **Arrow styles encode protocol** — Solid = sync request, dashed = async event, bold = stream. Consistent arrow semantics make the "wiring" of the system readable at a glance.
+- **Arrow styles encode protocol** — Solid = sync request, dashed = async event, bold = stream. Consistent arrow semantics make the "wiring" of the system readable at a glance. Relation labels state intent with payload ("publishes OrderPlaced"), never a bare verb.
+- **C4 discipline** — Context + Container suffice for most teams; Component only on request. Technology mandatory on every Container/Component.
 - **Group related elements** — Use boundary boxes (VPC, subnet, region, cluster) with dashed strokes and light fills to group related services. Label the boundary, not just the services inside.
 - **Include a legend** — Technical diagrams always include a small legend (bottom-right) explaining the shape and arrow conventions used.
 - **Dark mode by default** — Generate diagrams with `@media (prefers-color-scheme: dark)` support so they look good in both light and dark contexts.

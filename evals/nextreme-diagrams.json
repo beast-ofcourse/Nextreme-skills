@@ -1,0 +1,50 @@
+{
+  "skill_name": "nextreme-diagrams",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Diagram our checkout flow: React SPA, FastAPI gateway, Postgres, Stripe webhooks. Architecture diagram for onboarding docs.",
+      "expected_output": "Standalone diagram with boundary boxes, intent-labeled relations (POST /pay, webhook order.paid), tech annotations, legend, tight viewBox; pre-delivery gates pass",
+      "files": [],
+      "expectations": [
+        "Every relation label states intent plus payload, never bare uses/calls",
+        "Every container carries its technology annotation",
+        "Legend present; no edge crosses a node or label",
+        "viewBox tight to content with grid placement"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Draw a RAG pipeline diagram: user query, embedder, vector DB, LLM, response.",
+      "expected_output": "Agent-workflow diagram with semantic shapes (double-border LLM, hexagon agent if present, cylinder vector store), sync/async arrow discipline, Catppuccin tokens, dark-mode support",
+      "files": [],
+      "expectations": [
+        "LLM is double-border, vector store is cylinder — shapes carry meaning",
+        "Sync vs async edges use solid vs dashed consistently",
+        "No invented components beyond the brief (Unknown marked, not drawn as fact)"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Is this C4 container diagram any good? (diagram attached) Update it: split the monolith API into gateway + billing service.",
+      "expected_output": "Severity-grouped critique first, then updated diagram touching every affected level, with Before/Delta/After facts (added gateway, added billing, moved routes, rerouted webhooks)",
+      "files": [],
+      "expectations": [
+        "Critique grouped by severity before any redraw",
+        "Update touches all affected levels, not a from-scratch redraw",
+        "Delta stated as added/removed/changed/moved/rerouted facts"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Sequence diagram for login: client, API gateway, auth service, user DB.",
+      "expected_output": "Lifelines with activation bars, sync/async arrow discipline, message labels with payloads (POST /login, JWT token), arrow markers defined, no overlapping labels",
+      "files": [],
+      "expectations": [
+        "Activation bars present where participants are active",
+        "Messages labeled with intent plus payload",
+        "Vision self-check performed: no clipped text or overlaps"
+      ]
+    }
+  ]
+}
