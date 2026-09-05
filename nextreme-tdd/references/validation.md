@@ -7,6 +7,7 @@
 RED is honest when the failure is **missing symbol** or **wrong value** for the pinned behavior:
 
 - Honest: `NameError: name 'calculate_tax' is not defined`, `FAIL: got 10.01 want 10.02`, `expected 42 received 10`
+- Honest (TypeScript/vitest, static import): `Cannot find module './<name>' ... Does the file exist?` (missing module), `does not provide an export named '<symbol>'` (missing export) — both are collection errors naming the behavior gap
 - Dishonest (fix wiring, not counting as RED): `SyntaxError`, `ImportError` from wrong path, `ReferenceError: caluclate_tax` (typo in test), `ModuleNotFoundError` from bad relative import
 
 Check: run the RED test alone and read the diff — is it about the behavior value? If not, fix the test and re-run.

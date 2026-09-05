@@ -39,8 +39,23 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 def run_command(cwd: Path, command: list[str]) -> tuple[int, str, str]:
-    """Run a command in a directory and return exit code, stdout, stderr."""
-    result = subprocess.run(command, cwd=cwd, capture_output=True, text=True)
+    """Run a command in a directory and return exit code, stdout, stderr.
+
+    Missing executables (e.g. `npx` shim invisible to CreateProcess on Windows)
+    return 127 with the error as output — never raise. A verifier that tracebacks
+    instead of reporting is a broken gate.
+    """
+    try:
+        result = subprocess.run(command, cwd=cwd, capture_output=True, text=True)
+    except OSError as exc:
+        if sys.platform == "win32" and isinstance(exc, FileNotFoundError):
+            # .cmd shims (npx, jest) are invisible to CreateProcess — retry via shell.
+            try:
+                result = subprocess.run(["cmd", "/c"] + command, cwd=cwd, capture_output=True, text=True)
+                return result.returncode, result.stdout, result.stderr
+            except OSError as exc2:
+                return 127, "", f"command not runnable {command[0]!r}: {exc2}"
+        return 127, "", f"command not runnable {command[0]!r}: {exc}"
     return result.returncode, result.stdout, result.stderr
 
 def git_diff_stat(cwd: Path, since: str | None) -> str:
