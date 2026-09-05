@@ -1,6 +1,6 @@
 # Proof — banner.svg (Obsidian Signal rebrand)
 
-Branch: `next-best-improvement/nextreme-tdd` (same branch — banner was user-requested addition after tdd rebrand; explicit note per blast-radius rule)
+Branch: `next-best-improvement/nextreme-tdd` (historical name — banner was added on that branch; TDD skill since removed)
 
 ## Why
 
@@ -15,7 +15,7 @@ New banner is **Obsidian Signal** — dark obsidian zinc backbone + electric ora
  1 file changed, 41 insertions(+), 103 deletions(-)  # Obsidian -> Minimalist (68 lines, 5 layered groups)
 ```
 
-Full diff on this branch (tdd + banner): 20 files, 1680 insertions, 58 deletions (see `proof/nextreme-tdd.md` for tdd portion).
+Full diff on this branch (banner portion only; TDD portion removed with skill): 1 file, banner.svg changes (see git history for full branch stat).
 
 ## Before / After
 

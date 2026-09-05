@@ -47,7 +47,6 @@ Discover skills live from the repo (each `*/SKILL.md`); the set below is a snaps
 - `nextreme-pdf` — taste-driven, unbound PDF documents (report, proposal, resume, portfolio, magazine) with HTML+Tailwind → Playwright/Paged.js and page-as-canvas QC.
 - `nextreme-svg` — extreme SVG — icons, logos, illustrations, diagrams, charts, patterns, animations, text art; spec-correct, five-zone lighting, layered, 4-format.
 - `readme-architect` — repo-grounded professional README authoring.
-- `nextreme-tdd` — extreme red-green-refactor TDD (behavior-pinned, order-enforced, 3 harnesses + 4 templates).
 - `git-guardrails` — blocks destructive/irreversible git.
 - `nextreme-router` — this skill; routes intent to the right skill.
 - `nextreme` — composes a full workflow across skills per task.
