@@ -93,6 +93,25 @@ def check_no_prod_before_red(diff_stat: str) -> list[str]:
             break
     return errors
 
+def bare_assert_lines_py(content: str) -> list[int]:
+    """Line numbers of Python asserts with no comparison inside (Name, Call, BinOp...).
+
+    `assert result == 42` walks a Compare node and passes. `assert result`,
+    `assert compute()`, `assert 1 + 1` contain no Compare and prove nothing — flag them.
+    Unparseable files return [] (syntax is the suite's job, not this check's).
+    """
+    import ast as ast_lib
+    try:
+        tree = ast_lib.parse(content)
+    except SyntaxError:
+        return []
+    flagged: list[int] = []
+    for node in ast_lib.walk(tree):
+        if isinstance(node, ast_lib.Assert):
+            if not any(isinstance(child, ast_lib.Compare) for child in ast_lib.walk(node.test)):
+                flagged.append(getattr(node, "lineno", 0))
+    return flagged
+
 def check_truthiness(test_files: list[Path]) -> list[str]:
     """Check test files for truthiness-only assertions and any usage."""
     errors: list[str] = []
@@ -107,7 +126,10 @@ def check_truthiness(test_files: list[Path]) -> list[str]:
         for pattern, message in TRUTHINESS_PATTERNS:
             if re.search(pattern, content):
                 errors.append(f"{test_file}: truthiness pattern `{pattern}` — {message}")
-        if BARE_ASSERT_PATTERN.search(content):
+        if test_file.suffix == ".py":
+            for lineno in bare_assert_lines_py(content):
+                errors.append(f"{test_file}:{lineno}: bare `assert` without comparison — assert the value")
+        elif BARE_ASSERT_PATTERN.search(content):
             errors.append(f"{test_file}: bare `assert <name>` without comparison — assert the value")
         if re.search(r"\bany\b", content.lower()) and "verify:tdd allow-any" not in content:
             # Heuristic: `any` in TS/Python tests is often slop; allow escape hatch
