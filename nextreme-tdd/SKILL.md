@@ -9,7 +9,7 @@ description: >
   or debugging an already-red suite. Trigger whenever the user says TDD, test-driven, red green refactor,
   write test before code, failing test first, characterization test, do this test-first, or starts coding a
   feature with no test in sight — even vague "make it testable" or "add tests for this behavior" without
-  naming TDD. Also trigger for "pin the behavior" or "red green refactor".
+   naming TDD. Also trigger for "pin the behavior", "red green refactor", or "test at the seam".
   Do NOT trigger for debugging an already-failing suite, pure refactors with green cover, or CI/lint-only tasks.
 license: MIT
 compatibility: python>=3.9
@@ -67,7 +67,7 @@ Keep code human-readable, small, and obvious. No AI slop.
 * **Leave it cleaner, not bigger** — boy-scout only on touched code.
 * **State assumptions, don't guess silently** — if the spec is ambiguous, say what you assumed and why, in a comment or PR note.
 
-**Auto-rejected AI slop:** placeholder `TODO` without a ticket, generic scaffolding, empty `try/catch`, `lorem`-ish names, duplicated boilerplate, over-engineered factories/managers, unvalidated `as` casts at boundaries, silent assumptions about ambiguous specs, inconsistent style within one file, **and TDD-level slop:** a test that never failed, an assertion on truthiness (`expect(x).toBeTruthy()`), five behaviors in one test, a fixture that hides the behavior, `any` in the test, production code committed before RED log, a refactor without a green suite re-run.
+**Auto-rejected AI slop:** placeholder `TODO` without a ticket, generic scaffolding, empty `try/catch`, `lorem`-ish names, duplicated boilerplate, over-engineered factories/managers, unvalidated `as` casts at boundaries, silent assumptions about ambiguous specs, inconsistent style within one file, **and TDD-level slop:** a test that never failed, an assertion on truthiness (`expect(x).toBeTruthy()`), a tautological assertion that recomputes the expected value (`expect(add(a, b)).toBe(a + b)`), a test at an unconfirmed seam (mocks internals, tests privates, verifies via side channel), five behaviors in one test, a fixture that hides the behavior, `any` in the test, production code committed before RED log, a weakened test between RED and GREEN (deleted assertion, added `.skip`, loosened matcher), a refactor without a green suite re-run.
 
 ---
 
@@ -119,7 +119,7 @@ Completion criterion: detector exits 0 with one framework + one GREEN command + 
 
 ### 3. Pin — Name The One Behavior
 
-Pin exactly one behavior for this cycle. Use the leading word **behavior** — every decision in this skill is "which behavior, what case of that behavior, what asserts that behavior." Write the behavior contract: inputs, outputs, invariants, and the edge palette this behavior earns (see reference).
+Pin exactly one behavior for this cycle. Use the leading word **behavior** — every decision in this skill is "which behavior, what case of that behavior, what asserts that behavior." Write the behavior contract: inputs, outputs, invariants, and the edge palette this behavior earns (see reference). Confirm the **seam** (the public boundary the test observes — see `references/test-patterns.md`) with the user before RED; in fast mode state the assumed seam in one line.
 
 - One behavior = one test file or one `describe`/`Test` block, not five.
 - Name it truthfully: `calculate_tax_rounds_half_up`, not `test1`.
@@ -153,7 +153,7 @@ Completion criterion: one test exists, it fails, you pasted the failure (unknown
 
 ### 5. GREEN — The Smallest Passing Change
 
-Write the minimal production code to turn that one test green. No extra branches, no speculative generalization — only what the failing assertion demands. Run the **full suite**, not just the new test.
+Write the minimal production code to turn that one test green. No extra branches, no speculative generalization — only what the failing assertion demands. The test file is frozen from here: if red persists, fix the implementation, never weaken the test (see `references/validation.md` §8). Watch for hardcoded values that pass one test and fail the next (`if input == '1h30m' return 5400`) — catch them now via triangulation, not three tests later. Run the **full suite**, not just the new test.
 
 ```bash
 pytest -q
@@ -200,7 +200,7 @@ Always:
 2. **The minimal implementation** — the production diff that satisfied it.
 3. **The proof** — RED log, GREEN log, `verify_tdd.py` output, and the one-line behavior sentence.
 
-Do not deliver a refactor as a "feature." Do not batch three behaviors into one cycle — one behavior per cycle, tracer bullets, not cannonballs.
+Commit every green cycle — small green commits are the save points later cycles reset to. Do not deliver a refactor as a "feature." Do not batch three behaviors into one cycle — one behavior per cycle, tracer bullets, not cannonballs.
 
 ---
 
@@ -227,6 +227,8 @@ All templates are behavior-pinned (one behavior per file/`describe`), assertion-
 | RED is `ModuleNotFoundError` / `Cannot find module` | Import typo, not behavior gap | Fix the import; the test must fail on *behavior* (unknown symbol or value diff), not wiring. See `references/validation.md` |
 | RED is a typo (`SyntaxError`, `ReferenceError: foo is not defined` misspelling) | Typo in test, not behavior gap | Fix typo, re-run; honest RED is missing impl or wrong value |
 | `verify_tdd.py` fails `truthiness assertion` | `toBeTruthy` / `assert x` without value | Assert the actual value: `assert result == 42` / `expect(result).toEqual(42)` |
+| Assertion recomputes expected value (`expect(add(a, b)).toBe(a + b)`) | Tautology — passes by construction | Take expected from independent source: literal, worked example, spec. See `references/test-patterns.md` |
+| RED → GREEN diff weakens the test (deleted assertion, `.skip`, loosened matcher) | Reward hacking — editing spec to match broken code | Revert test change; fix implementation. Only a human amends the test, explicitly. See `references/validation.md` §8 |
 | `verify_tdd.py` fails `batch behaviors` | Five cases in one test / one file covers three behaviors | Split: one behavior per test/case table; see `references/test-patterns.md` edge palette |
 | `verify_tdd.py` fails `any in test` | `any` / `as` without validation in test | Narrow: use the real type; at boundaries add the parse + `verify_*` pattern |
 | Test passes on first run (no RED) | Behavior already implemented or test is vacuous | Do not delete production code to fake RED — write a characterization test that captures the existing observable behavior (it will be GREEN), then begin RED for the *next* new behavior; only tighten assertion if the test is vacuous — a test you never saw fail proves nothing |
@@ -239,7 +241,8 @@ All templates are behavior-pinned (one behavior per file/`describe`), assertion-
 
 - `references/test-patterns.md` — behavior contract template, edge palette (happy / edge / error / invariant), example vs property guidance, naming truthfully.
 - `references/framework-matrix.md` — manifest → framework map, install, scaffold destinations, and RED/GREEN commands.
-- `references/validation.md` — strict checklist: honest RED, no prod before RED, suite green, no `any`/truthiness, one behavior per test, batch detection.
+- `references/validation.md` — strict checklist: honest RED, no prod before RED, suite green, no `any`/truthiness, one behavior per test, batch detection, test-freeze.
+- `references/activation.md` — hooks that make the loop fire unasked: prompt-eval reminder, post-change suite run, stop gate.
 - `scripts/detect_framework.py` — repo → framework + test dir + command (manifest scan, `--json`, `--framework` override).
 - `scripts/scaffold_test.py` — behavior + case → templated test file (framework-aware destination + `__behavior__` placeholder that fails honestly).
 - `scripts/verify_tdd.py` — order + quality gate: RED proof, no-prod-before-RED, suite green, assertion fidelity, batch guard.

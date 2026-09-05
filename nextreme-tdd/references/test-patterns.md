@@ -17,6 +17,12 @@ Not in this cycle: <what you park>
 
 One sentence + inputs/outputs/invariants. If you need "and" to describe the behavior, it's two behaviors — split.
 
+## Seams — Where Tests Live
+
+A **seam** is the public boundary the test observes behavior through: the function signature, the route handler, the module API — never internals. Tests live at seams, never against privates, mocks of collaborators, or side channels (querying the DB instead of calling the interface). The tell of a seam violation: the test breaks on a refactor that changed no behavior.
+
+Agree the seam with the user before RED — write it down ("seam: `POST /checkout` response contract") and confirm. No test at an unconfirmed seam. In fast mode, state the assumed seam in one line and move on — never silently.
+
 ## Leading Word: behavior
 
 Repeat **behavior** as the token for every decision: which behavior, what case of that behavior, what asserts that behavior. Don't coin synonyms (`scenario`, `feature-under-test`). The repetition focuses the run.
@@ -67,6 +73,15 @@ Assert **value**, not existence:
 - Rust: `assert_eq!(result, 42)`
 
 At untyped boundaries (`JSON.parse`, API response), narrow `unknown` explicitly — parse + validate, then assert the narrowed type. A silent `as` is the same violation as `any`.
+
+## Tautological Assertions — Expected Values Come From Outside
+
+An assertion that recomputes the expected value the way the code does can never disagree with the code — it passes by construction and proves nothing:
+
+- Bad: `expect(add(a, b)).toBe(a + b)`, snapshot generated from the implementation, constant asserted equal to itself.
+- Good: expected value from an independent source — a known-good literal (`assert total == 10.02`), a hand-worked example, the spec.
+
+Triangulate: each new test should fail against the *current* implementation — pick the case forcing the most useful generalization (`'45m' → 2700` forces missing-hours handling; `'1h31m' → 5460` is just more arithmetic). A test that passes on first sight against fresh code is either characterization (mark it) or vacuous (tighten it).
 
 ## Characterization Tests (Order Inverted)
 

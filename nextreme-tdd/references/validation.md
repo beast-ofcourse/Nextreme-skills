@@ -57,6 +57,13 @@ Verifier heuristic: counts top-level `describe`/`Test*`/`def test_*` distinct na
 - Diff from GREEN → REFACTOR is net cleaner (less duplication, clearer names) and adds no new branches/cases.
 - If a refactor felt like it needed a new test, that new test is the *next* behavior cycle — park it.
 
+## 8. Test Frozen After RED (No Reward Hacking)
+
+Once RED is approved, the test file is frozen — GREEN fixes go in the implementation only. The agent never makes red turn green by weakening the test: no deleted assertions, no added `.skip`/commented cases, no loosened matcher (`toEqual` → `toBeDefined`), no edited expected value. If the test itself was wrong, the human amends it explicitly — never the agent mid-task.
+
+- Check: `git diff` on test files from RED → GREEN shows only additions needed for honesty (imports, wiring) — never weakened assertions.
+- Skipped-count surprise in the GREEN log (`3 skipped` where RED had `0 skipped`) fails this check.
+
 ## Manual Fallback (No Execution)
 
 If you cannot run `verify_tdd.py`:

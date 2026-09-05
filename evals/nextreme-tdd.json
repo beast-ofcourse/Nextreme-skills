@@ -48,6 +48,30 @@
         "No new branches/cases introduced in refactor phase",
         "Third duplicate helper extracted, two is coincidence — not over-abstracted"
       ]
+    },
+    {
+      "id": 5,
+      "prompt": "TDD this: add function add(a, b). Write the failing test first.",
+      "expected_output": "Tautological assertion rejected (expect(add(a,b)).toBe(a+b) never lands); test asserts worked literals (add(2,3)==5); triangulation noted for next case; verify_tdd.py --strict passes",
+      "files": [],
+      "expectations": [
+        "No tautological assertion: expected values are literals from outside the implementation",
+        "Behavior contract pinned before code with seam stated",
+        "RED log shows honest behavior gap, not typo",
+        "Test file unchanged between RED approval and GREEN except wiring"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "TDD this: checkout endpoint applies discount codes. Start now.",
+      "expected_output": "Seam agreed before RED (e.g. POST /checkout response contract, not internal pricing helpers); test observes seam only; no mocks of internal collaborators; one behavior per cycle",
+      "files": [],
+      "expectations": [
+        "Seam written down and confirmed (or assumed explicitly in one line) before any test",
+        "Test exercises public boundary, survives internal refactor by construction",
+        "No implementation-coupled assertions (privates, internal mocks, side-channel DB reads)",
+        "verify_tdd.py --strict exits 0 with RED log plus GREEN log"
+      ]
     }
   ]
 }
