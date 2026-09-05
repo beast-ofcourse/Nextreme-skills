@@ -273,7 +273,7 @@ def collect_test_files(cwd: Path) -> list[Path]:
                 if resolved.suffix == ".rs" and "src" in resolved.parts:
                     try:
                         txt = resolved.read_text(encoding="utf-8", errors="ignore")
-                        if "#[test]" not in txt and "#[cfg(test)]" not in txt and "tests/" not in str(resolved).replace("\\", "/"):
+                        if "#[test]" not in txt and "#[cfg(test)]" not in txt:
                             # No inline test marker — not a test file, skip for batch/truthiness checks
                             # but keep for suite trigger? We'll keep a marker file to trigger cargo test anyway
                             # Instead, mark as non-test for filtering but ensure cargo still runs if any Rust file exists
@@ -316,8 +316,6 @@ def verify_suite_green(cwd: Path, framework: str | None, test_files: list[Path])
             return []
         if code != 0:
             return [f"suite not green for {framework}: {combined[:800]}"]
-        if "failed" in combined or "fail" in combined and "0 failed" not in combined:
-            pass
         return []
     return []
 
@@ -378,7 +376,11 @@ def main() -> None:
                 if "syntaxerror" in red_content.lower() and "assert" not in red_content.lower():
                     warnings.append("RED log looks like a SyntaxError typo, not a behavior gap — fix wiring and re-run RED")
                 if "modulenotfounderror" in red_content.lower() or "cannot find module" in red_content.lower():
-                    warnings.append("RED log is a missing-module import error — fix the import path before counting as RED")
+                    warnings.append(
+                        "RED log is a missing-module import error — if the missing module is the seam "
+                        "target's own package (from-scratch cycle; the template normalizes it), confirm the "
+                        "failure line is the behavior gap, otherwise fix the import path before counting as RED"
+                    )
 
     # Phase: green + refactor → truthiness, batch, suite green
     if args.phase in (None, "green", "refactor"):
